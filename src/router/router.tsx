@@ -1,13 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import RequireAuth from "src/features/RequireAuth";
 
+import { Path } from "./path";
+
 import AppLayout from "src/layouts/AppLayout";
 import AuthLayout from "src/layouts/AuthLayout";
-import { ErrorPage, LoginPage, UsersListPage } from "src/pages";
+import { ErrorPage, LoginPage, RegisterPage, UsersListPage } from "src/pages";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: Path.HOME,
     element: <AppLayout />,
     errorElement: <ErrorPage />,
     children: [
@@ -15,7 +17,7 @@ export const router = createBrowserRouter([
         element: <RequireAuth />,
         children: [
           {
-            path: "users",
+            path: Path.USERS,
             element: <UsersListPage />,
           },
         ],
@@ -26,8 +28,12 @@ export const router = createBrowserRouter([
     element: <AuthLayout />,
     children: [
       {
-        path: "login",
+        path: Path.LOGIN,
         element: <LoginPage />,
+      },
+      {
+        path: Path.REGISTER,
+        element: <RegisterPage />,
       },
     ],
   },
