@@ -1,7 +1,7 @@
-import { Path } from "src/router/path";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
+import { Path } from "src/router/path";
 import { useAppDispatch } from "src/hooks";
 import { loginRequest } from "../slice";
 import { loginSchema, LoginSchemaType } from "./validation";
@@ -30,8 +30,6 @@ function Login() {
     },
     resolver: yupResolver(loginSchema),
   });
-
-  console.log(errors);
 
   const onSubmit: SubmitHandler<LoginSchemaType> = (data) => {
     dispatch(loginRequest(data));
@@ -101,7 +99,7 @@ function Login() {
         >
           Sign In
         </Button>
-        <Grid container>
+        <Grid container justifyContent="flex-end">
           <Grid item>
             <Link to={Path.REGISTER} variant="body2">
               {"Don't have an account? Sign Up"}
