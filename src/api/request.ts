@@ -1,6 +1,6 @@
 import axios from "axios";
-import { env } from "src/constants";
+import { Env } from "src/constants";
 
 export const request = axios.create({
-  baseURL: env.API_URL,
+  baseURL: Env.API_URL,
 });

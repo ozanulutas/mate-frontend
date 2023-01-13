@@ -1,4 +1,4 @@
-import Register from "src/features/Register";
+import Register from "src/features/Auth/Register";
 
 function RegisterPage() {
   return <Register />;

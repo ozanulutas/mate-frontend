@@ -1,4 +1,4 @@
-import Login from "src/features/Login";
+import Login from "src/features/Auth/Login";
 
 function LoginPage() {
   return <Login />;
