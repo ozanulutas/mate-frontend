@@ -1,11 +1,15 @@
-import { Container, CssBaseline } from "@mui/material";
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
+
+import { Container, CssBaseline } from "@mui/material";
 
 function AuthLayout() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Outlet />
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <Outlet />
+      </Suspense>
     </Container>
   );
 }

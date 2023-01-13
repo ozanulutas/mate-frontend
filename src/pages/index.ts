@@ -1,6 +1,8 @@
+import { lazy } from "react";
+
 export { default as UsersListPage } from "./UsersListPage";
 
-export { default as LoginPage } from "./LoginPage";
-export { default as RegisterPage } from "./RegisterPage";
+export const LoginPage = lazy(() => import("./LoginPage"));
+export const RegisterPage = lazy(() => import("./RegisterPage"));
 
 export { default as ErrorPage } from "./ErrorPage";
