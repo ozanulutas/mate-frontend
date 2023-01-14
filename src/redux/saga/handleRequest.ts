@@ -1,5 +1,5 @@
 import { call, put } from "redux-saga/effects";
-import { AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
 import { ActionCreatorWithOptionalPayload } from "@reduxjs/toolkit";
 
 export function* handleRequest<
@@ -14,13 +14,14 @@ export function* handleRequest<
   ...args: Parameters<Func>
 ) {
   try {
-    const data: ReturnType<Func> = yield call(requestFunc, ...args);
+    const { data }: AxiosResponse = yield call(requestFunc, ...args);
     yield put(handlers.success(data));
 
     return data;
   } catch (error) {
-    yield put(handlers.error(error));
+    const err = error as AxiosError;
+    yield put(handlers.error(err.response?.data));
 
-    return error;
+    return err.response?.data;
   }
 }
