@@ -3,19 +3,18 @@ import { AxiosResponse } from "axios";
 import { ActionCreatorWithOptionalPayload } from "@reduxjs/toolkit";
 
 export function* handleRequest<
-  RequestFuncArgs extends any[],
-  RequestFuncReturn extends Promise<AxiosResponse>,
+  Func extends (...args: any[]) => Promise<AxiosResponse>,
   Handler extends ActionCreatorWithOptionalPayload<any>
 >(
   handlers: {
     success: Handler;
     error: Handler;
   },
-  requestFunc: (...args: RequestFuncArgs) => RequestFuncReturn,
-  ...args: RequestFuncArgs
+  requestFunc: Func,
+  ...args: Parameters<Func>
 ) {
   try {
-    const data: RequestFuncReturn = yield call(requestFunc, ...args);
+    const data: ReturnType<Func> = yield call(requestFunc, ...args);
     yield put(handlers.success(data));
 
     return data;
