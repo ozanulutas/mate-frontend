@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { AuthState, LoginRequestPayload } from "./Auth.d";
 import { Status } from "src/constants";
-import { AuthState, LoginRequestPayload } from "./Auth";
 
 const initialState: AuthState = {
+  access_token: "",
+  user: {},
   login: {
     status: Status.INIT,
+    result: {},
   },
 };
 
@@ -15,12 +18,21 @@ export const authSlice = createSlice({
   reducers: {
     loginRequest: (state, action: PayloadAction<LoginRequestPayload>) => {
       state.login.status = Status.LOADING;
+      state.login.result = initialState.login.result;
     },
-    loginSuccess: (state) => {
+    loginSuccess: (
+      state,
+      action: PayloadAction<Pick<AuthState, "access_token" | "user">>
+    ) => {
       state.login.status = Status.LOADED;
+
+      state.user = action.payload.user;
+      state.access_token = action.payload.access_token;
     },
-    loginError: (state) => {
+    // @TODO: type PayloadAction
+    loginError: (state, action: PayloadAction<any>) => {
       state.login.status = Status.ERROR;
+      state.login.result = action.payload;
     },
   },
 });

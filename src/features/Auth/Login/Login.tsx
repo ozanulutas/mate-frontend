@@ -25,8 +25,8 @@ function Login() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: "ozan@mail.com",
+      password: "123",
     },
     resolver: yupResolver(loginSchema),
   });
