@@ -1,6 +1,7 @@
 import { call, put } from "redux-saga/effects";
 import { AxiosError, AxiosResponse } from "axios";
 import { ActionCreatorWithOptionalPayload } from "@reduxjs/toolkit";
+import { openToast } from "src/features/Toast/slice";
 
 export function* handleRequest<
   Func extends (...args: any[]) => Promise<AxiosResponse>,
@@ -19,9 +20,12 @@ export function* handleRequest<
 
     return data;
   } catch (error) {
-    const err = error as AxiosError;
-    yield put(handlers.error(err.response?.data));
+    const errorData: any = (error as AxiosError).response?.data;
+    const { toast, notification, actionCode, ...rest } = errorData;
 
-    return err.response?.data;
+    yield put(openToast(toast));
+    yield put(handlers.error(rest));
+
+    return errorData;
   }
 }
