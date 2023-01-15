@@ -7,6 +7,10 @@ export interface AuthState {
     status: Status;
     result: Record<string, any>; // @TODO: type result
   };
+  register: {
+    status: Status;
+    result: Record<string, any>; // @TODO: type result
+  };
 }
 
 export type LoginRequestPayload = {
@@ -14,7 +18,8 @@ export type LoginRequestPayload = {
   password: string;
 };
 
-export type LoginErrorPayload = {
+export type RegisterRequestPayload = {
   email: string;
+  username: string;
   password: string;
 };

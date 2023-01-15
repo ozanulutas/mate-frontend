@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 import { Path } from "src/router/path";
-import { useAppDispatch } from "src/hooks";
+import { useAppDispatch, useAppSelector } from "src/hooks";
 import { registerSchema, RegisterSchemaType } from "./validation";
 
 import {
@@ -15,9 +15,13 @@ import {
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link } from "src/components";
+import { registerRequest } from "../slice";
+import { selectRegisterStatus } from "../selectors";
+import { Status } from "src/constants";
 
 function Register() {
   const dispatch = useAppDispatch();
+  const registerStatus = useAppSelector(selectRegisterStatus);
 
   const {
     control,
@@ -33,7 +37,7 @@ function Register() {
   });
 
   const onSubmit: SubmitHandler<RegisterSchemaType> = (data) => {
-    console.log(data);
+    dispatch(registerRequest(data));
   };
 
   return (
@@ -109,6 +113,7 @@ function Register() {
           type="submit"
           fullWidth
           variant="contained"
+          disabled={registerStatus === Status.LOADING}
           sx={{ mt: 3, mb: 2 }}
         >
           Sign Up

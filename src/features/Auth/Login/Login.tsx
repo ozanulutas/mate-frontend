@@ -2,8 +2,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 import { Path } from "src/router/path";
-import { useAppDispatch } from "src/hooks";
+import { Status } from "src/constants";
+import { useAppDispatch, useAppSelector } from "src/hooks";
 import { loginRequest } from "../slice";
+import { selectLoginStatus } from "../selectors";
 import { loginSchema, LoginSchemaType } from "./validation";
 
 import {
@@ -19,6 +21,7 @@ import { Link } from "src/components";
 
 function Login() {
   const dispatch = useAppDispatch();
+  const loginStatus = useAppSelector(selectLoginStatus);
   const {
     control,
     handleSubmit,
@@ -95,6 +98,7 @@ function Login() {
           type="submit"
           fullWidth
           variant="contained"
+          disabled={loginStatus === Status.LOADING}
           sx={{ mt: 3, mb: 2 }}
         >
           Sign In

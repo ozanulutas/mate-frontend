@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { Container, CssBaseline } from "@mui/material";
 
 function AuthLayout() {
+  // @TODO: if user is authenticated redirect
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
