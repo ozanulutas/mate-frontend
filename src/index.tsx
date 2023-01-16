@@ -1,7 +1,10 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+
 import reportWebVitals from "./reportWebVitals";
+import App from "./App";
+import { setYupLocale } from "./utils/yup/set-yup-locale";
+
+setYupLocale();
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

@@ -23,8 +23,6 @@ function* loginRequestSaga(action: ReturnType<typeof loginRequest>) {
   );
 }
 
-// @TODO: merge login and register logic?
-// @TODO: merge success and request logic?
 function* loginSuccessSaga(action: ReturnType<typeof loginSuccess>) {
   yield localStorage.setItem(
     LocalStorageKey.TOKEN,
@@ -48,7 +46,7 @@ function* registerSuccessSaga(action: ReturnType<typeof registerSuccess>) {
     LocalStorageKey.TOKEN,
     action.payload.access_token
   );
-  // https://github.com/remix-run/react-router/issues/9422
+  // @TODO: redirect to profile page
   router.navigate(Path.USERS, { replace: true });
 }
 
