@@ -41,8 +41,8 @@ export default function AppBar() {
                   justifyContent: { xs: "center", sm: "unset" },
                 }}
               >
-                <Link to={Path.USERS}>
-                  <IconButton size="large" aria-label="search">
+                <Link to={Path.USERS} color="inherit">
+                  <IconButton size="large" aria-label="search" color="inherit">
                     <SearchIcon />
                   </IconButton>
                 </Link>

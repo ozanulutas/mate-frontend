@@ -2,6 +2,7 @@ import {
   LoginRequestPayload,
   RegisterRequestPayload,
 } from "src/features/Auth/Auth.d";
+import { SearchCategoryRequestPayload } from "src/features/Search/Search.d";
 import { endpoints } from "./endpoints";
 import { request } from "./request";
 
@@ -10,3 +11,10 @@ export const loginApi = (data: LoginRequestPayload) =>
 
 export const registerApi = (data: RegisterRequestPayload) =>
   request.post(endpoints.auth.register, data);
+
+export const categorySearchApi = ({ name }: SearchCategoryRequestPayload) =>
+  request.get(endpoints.category.search, {
+    params: {
+      name,
+    },
+  });

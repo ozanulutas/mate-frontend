@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
   {
     path: Path.HOME,
     element: <AppLayout />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         element: <RequireAuth />,
@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
   },
   {
     element: <AuthLayout />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         path: Path.LOGIN,

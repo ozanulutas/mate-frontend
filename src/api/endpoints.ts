@@ -3,4 +3,7 @@ export const endpoints = {
     login: "/auth/login",
     register: "/auth/register",
   },
+  category: {
+    search: "/categories/search",
+  },
 };
