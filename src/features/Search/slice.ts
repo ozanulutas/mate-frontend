@@ -11,7 +11,7 @@ const initialState: SearchState = {
   categories: {
     status: Status.INIT,
     data: [],
-    result: {},
+    reason: {},
   },
 };
 
@@ -24,7 +24,7 @@ export const searchSlice = createSlice({
       action: PayloadAction<SearchCategoryRequestPayload>
     ) => {
       state.categories.status = Status.LOADING;
-      state.categories.result = initialState.categories.result;
+      state.categories.reason = initialState.categories.reason;
     },
     searchCategorySuccess: (state, action: PayloadAction<Category[]>) => {
       state.categories.status = Status.LOADED;
@@ -33,7 +33,7 @@ export const searchSlice = createSlice({
     // @TODO: type
     searchCategoryError: (state, action: PayloadAction<any>) => {
       state.categories.status = Status.ERROR;
-      state.categories.result = action.payload;
+      state.categories.reason = action.payload;
     },
   },
 });

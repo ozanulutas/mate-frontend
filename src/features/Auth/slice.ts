@@ -12,11 +12,11 @@ const initialState: AuthState = {
   user: {},
   login: {
     status: Status.INIT,
-    result: {},
+    reason: {},
   },
   register: {
     status: Status.INIT,
-    result: {},
+    reason: {},
   },
 };
 
@@ -26,7 +26,7 @@ export const authSlice = createSlice({
   reducers: {
     loginRequest: (state, action: PayloadAction<LoginRequestPayload>) => {
       state.login.status = Status.LOADING;
-      state.login.result = initialState.login.result;
+      state.login.reason = initialState.login.reason;
     },
     loginSuccess: (
       state,
@@ -40,11 +40,11 @@ export const authSlice = createSlice({
     // @TODO: type PayloadAction
     loginError: (state, action: PayloadAction<any>) => {
       state.login.status = Status.ERROR;
-      state.login.result = action.payload;
+      state.login.reason = action.payload;
     },
     registerRequest: (state, action: PayloadAction<RegisterRequestPayload>) => {
       state.register.status = Status.LOADING;
-      state.register.result = initialState.register.result;
+      state.register.reason = initialState.register.reason;
     },
     registerSuccess: (
       state,
@@ -58,7 +58,7 @@ export const authSlice = createSlice({
     // @TODO: type PayloadAction
     registerError: (state, action: PayloadAction<any>) => {
       state.register.status = Status.ERROR;
-      state.register.result = action.payload;
+      state.register.reason = action.payload;
     },
   },
 });

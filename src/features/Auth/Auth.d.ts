@@ -5,11 +5,11 @@ export interface AuthState {
   user: Record<string, any>; // @TODO: type user
   login: {
     status: Status;
-    result: Record<string, any>; // @TODO: type result
+    reason: Record<string, any>; // @TODO: type reason
   };
   register: {
     status: Status;
-    result: Record<string, any>; // @TODO: type result
+    reason: Record<string, any>; // @TODO: type reason
   };
 }
 

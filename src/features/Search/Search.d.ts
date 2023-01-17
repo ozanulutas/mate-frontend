@@ -9,7 +9,7 @@ export interface SearchState {
   categories: {
     status: Status;
     data: Category[];
-    result: Record<string, any>;
+    reason: Record<string, any>;
   };
 }
 
