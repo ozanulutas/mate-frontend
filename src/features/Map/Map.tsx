@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import { Map as OlMap, View, Feature } from "ol";
+import { Map as OlMap, View, Feature, Collection, Overlay } from "ol";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import { OSM, XYZ, Vector as VectorSource } from "ol/source";
 import { Point } from "ol/geom";
@@ -12,6 +12,7 @@ import BaseEvent from "ol/events/Event";
 
 function Map() {
   const mapRef = useRef<HTMLDivElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // https://openlayers.org/en/latest/examples/modify-icon.html
@@ -40,6 +41,7 @@ function Map() {
       hitDetection: vectorLayer,
       source: vectorSource,
     });
+
     const overlaySource = modify.getOverlay().getSource();
 
     const olMap = new OlMap({
@@ -54,7 +56,6 @@ function Map() {
     });
 
     iconFeature.setStyle(iconStyle);
-
     olMap.addInteraction(modify);
 
     modify.on(["modifystart", "modifyend"], function (evt) {
@@ -64,6 +65,7 @@ function Map() {
       mapRef.current!.style.cursor =
         evt.type === "modifystart" ? "grabbing" : "pointer";
     });
+
     overlaySource.on(
       ["addfeature", "removefeature"],
       function (evt: BaseEvent | Event) {
@@ -72,13 +74,64 @@ function Map() {
       }
     );
 
-    var markerslayer = olMap.getLayers(); //get marker layer
-    console.log(markerslayer.getArray()[1]);
+    // // add marker
+    // vectorSource.addFeature(createMarker(10, 10, 1));
+    // vectorLayer.setStyle(iconStyle);
+    // // endof add marker
+
+    // // add interaction to marker
+    // const dragInteraction = new Modify({
+    //   features: new Collection([iconFeature]),
+    // });
+    // olMap.addInteraction(dragInteraction);
+    // iconFeature.on("change", () => {
+    //   console.log(
+    //     "Feature Moved To:" + iconFeature.getGeometry()?.getCoordinates()
+    //   );
+    // });
+    // // endof add interaction to marker
+
+    // // popup
+    // const popupOverlay = new Overlay({
+    //   element: popupRef.current as HTMLElement,
+    //   autoPan: {
+    //     animation: {
+    //       duration: 250,
+    //     },
+    //   },
+    // });
+    // olMap.addOverlay(popupOverlay);
+    // olMap.on("pointermove", function (e) {
+    //   const pixel = olMap.getEventPixel(e.originalEvent);
+    //   const hit = olMap.hasFeatureAtPixel(pixel);
+    //   if (hit) {
+    //     //How to get all features you hover on.
+    //     //const featureArray = olMap.getFeaturesAtPixel(pixel);
+
+    //     popupOverlay.getElement()!.hidden = false;
+    //     popupOverlay.setPosition(e.coordinate);
+    //   } else {
+    //     popupOverlay.getElement()!.hidden = true;
+    //   }
+    // });
+    // // endof popup
 
     return () => olMap.setTarget(undefined);
   }, []);
 
-  return <div ref={mapRef} style={{ width: "100%", height: 500 }}></div>;
+  const createMarker = (lng = 0, lat = 0, id = 0) => {
+    return new Feature({
+      geometry: new Point(fromLonLat([lng, lat])),
+      id: id,
+    });
+  };
+
+  return (
+    <>
+      <div ref={popupRef}>Hello There</div>
+      <div ref={mapRef} style={{ width: "100%", height: 500 }}></div>;
+    </>
+  );
 }
 
 export default Map;
