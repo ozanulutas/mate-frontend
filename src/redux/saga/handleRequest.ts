@@ -16,7 +16,7 @@ export function* handleRequest<
 ) {
   try {
     const { data }: AxiosResponse = yield call(requestFunc, ...args);
-    const { toast, notification, actionCode } = data.result;
+    const { toast, notification, actionCode } = data?.result ?? {};
 
     yield put(handlers.success(data.data));
 
@@ -27,7 +27,7 @@ export function* handleRequest<
     return data;
   } catch (error) {
     const errorData: any = (error as AxiosError).response?.data;
-    const { toast, notification, actionCode, ...rest } = errorData;
+    const { toast, notification, actionCode, ...rest } = errorData ?? {};
 
     yield put(handlers.error(rest));
 

@@ -47,7 +47,7 @@ function Map() {
     const olMap = new OlMap({
       target: mapRef.current as HTMLElement,
       view: new View({
-        center: [0, 0],
+        center: fromLonLat([0, 0]),
         zoom: 2,
       }),
       layers: [tileLayer, vectorLayer],
@@ -58,21 +58,34 @@ function Map() {
     iconFeature.setStyle(iconStyle);
     olMap.addInteraction(modify);
 
-    modify.on(["modifystart", "modifyend"], function (evt) {
-      console.log(evt);
-      console.log(iconFeature.getGeometry()?.getCoordinates());
+    modify.on(["modifystart", "modifyend"], function (e) {
+      if (e.type === "modifyend") {
+        console.log(fromLonLat(iconFeature.getGeometry()?.getCoordinates()!));
+        console.log(iconFeature.getGeometry()?.getCoordinates());
+      }
 
       mapRef.current!.style.cursor =
-        evt.type === "modifystart" ? "grabbing" : "pointer";
+        e.type === "modifystart" ? "grabbing" : "pointer";
     });
 
     overlaySource.on(
       ["addfeature", "removefeature"],
-      function (evt: BaseEvent | Event) {
-        mapRef.current!.style.cursor =
-          evt.type === "addfeature" ? "pointer" : "";
+      function (e: BaseEvent | Event) {
+        mapRef.current!.style.cursor = e.type === "addfeature" ? "pointer" : "";
       }
     );
+
+    olMap.on("singleclick", (e) => {
+      // console.log(e.type);
+
+      iconFeature.getGeometry()?.setCoordinates(e.coordinate);
+      console.log(fromLonLat(iconFeature.getGeometry()?.getCoordinates()!));
+      console.log(iconFeature.getGeometry()?.getCoordinates());
+    });
+
+    // iconFeature.on("change", (e) => {
+    //   console.log(e.type);
+    // });
 
     // // add marker
     // vectorSource.addFeature(createMarker(10, 10, 1));
@@ -129,7 +142,7 @@ function Map() {
   return (
     <>
       <div ref={popupRef}>Hello There</div>
-      <div ref={mapRef} style={{ width: "100%", height: 500 }}></div>;
+      <div ref={mapRef} style={{ width: "100%", height: 500 }}></div>
     </>
   );
 }
