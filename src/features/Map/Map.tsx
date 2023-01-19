@@ -17,7 +17,7 @@ function Map() {
   useEffect(() => {
     // https://openlayers.org/en/latest/examples/modify-icon.html
     const iconFeature = new Feature({
-      geometry: new Point(fromLonLat([0, 0])),
+      geometry: new Point([0, 0]),
     });
     const iconStyle = new Style({
       image: new Icon({
@@ -47,7 +47,7 @@ function Map() {
     const olMap = new OlMap({
       target: mapRef.current as HTMLElement,
       view: new View({
-        center: fromLonLat([0, 0]),
+        center: [0, 0],
         zoom: 2,
       }),
       layers: [tileLayer, vectorLayer],
@@ -56,11 +56,11 @@ function Map() {
     });
 
     iconFeature.setStyle(iconStyle);
+    iconFeature.setId("me");
     olMap.addInteraction(modify);
 
     modify.on(["modifystart", "modifyend"], function (e) {
       if (e.type === "modifyend") {
-        console.log(fromLonLat(iconFeature.getGeometry()?.getCoordinates()!));
         console.log(iconFeature.getGeometry()?.getCoordinates());
       }
 
@@ -76,11 +76,7 @@ function Map() {
     );
 
     olMap.on("singleclick", (e) => {
-      // console.log(e.type);
-
       iconFeature.getGeometry()?.setCoordinates(e.coordinate);
-      console.log(fromLonLat(iconFeature.getGeometry()?.getCoordinates()!));
-      console.log(iconFeature.getGeometry()?.getCoordinates());
     });
 
     // iconFeature.on("change", (e) => {
@@ -88,8 +84,14 @@ function Map() {
     // });
 
     // // add marker
-    // vectorSource.addFeature(createMarker(10, 10, 1));
-    // vectorLayer.setStyle(iconStyle);
+    const vectorLayer2 = new VectorLayer({
+      source: new VectorSource(),
+    });
+    olMap.addLayer(vectorLayer2);
+    vectorLayer2
+      .getSource()
+      ?.addFeature(createMarker(6376876.214813311, -376435.31719746534, 1));
+    vectorLayer2.setStyle(iconStyle);
     // // endof add marker
 
     // // add interaction to marker
@@ -105,28 +107,34 @@ function Map() {
     // // endof add interaction to marker
 
     // // popup
-    // const popupOverlay = new Overlay({
-    //   element: popupRef.current as HTMLElement,
-    //   autoPan: {
-    //     animation: {
-    //       duration: 250,
-    //     },
-    //   },
-    // });
-    // olMap.addOverlay(popupOverlay);
-    // olMap.on("pointermove", function (e) {
-    //   const pixel = olMap.getEventPixel(e.originalEvent);
-    //   const hit = olMap.hasFeatureAtPixel(pixel);
-    //   if (hit) {
-    //     //How to get all features you hover on.
-    //     //const featureArray = olMap.getFeaturesAtPixel(pixel);
+    // https://openlayers.org/en/latest/examples/icon.html
+    const popupOverlay = new Overlay({
+      element: popupRef.current as HTMLElement,
+      autoPan: {
+        animation: {
+          duration: 250,
+        },
+      },
+    });
+    olMap.addOverlay(popupOverlay);
+    olMap.on("pointermove", function (e) {
+      const pixel = olMap.getEventPixel(e.originalEvent);
+      const hit = olMap.hasFeatureAtPixel(pixel);
 
-    //     popupOverlay.getElement()!.hidden = false;
-    //     popupOverlay.setPosition(e.coordinate);
-    //   } else {
-    //     popupOverlay.getElement()!.hidden = true;
-    //   }
-    // });
+      if (hit) {
+        if (olMap.getFeaturesAtPixel(pixel)[0].getId() === "me") {
+          // console.log(olMap.getFeaturesAtPixel(pixel)[0].getId());
+          return;
+        }
+        //How to get all features you hover on.
+        //const featureArray = olMap.getFeaturesAtPixel(pixel);
+
+        popupOverlay.getElement()!.hidden = false;
+        popupOverlay.setPosition(e.coordinate);
+      } else {
+        popupOverlay.getElement()!.hidden = true;
+      }
+    });
     // // endof popup
 
     return () => olMap.setTarget(undefined);
@@ -134,8 +142,8 @@ function Map() {
 
   const createMarker = (lng = 0, lat = 0, id = 0) => {
     return new Feature({
-      geometry: new Point(fromLonLat([lng, lat])),
-      id: id,
+      geometry: new Point([lng, lat]),
+      id,
     });
   };
 
