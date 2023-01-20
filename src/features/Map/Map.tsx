@@ -6,9 +6,10 @@ import { OSM, XYZ, Vector as VectorSource } from "ol/source";
 import { Point } from "ol/geom";
 import { fromLonLat, get } from "ol/proj";
 import { Modify } from "ol/interaction.js";
-import { Style, Icon } from "ol/style";
+import { Style, Icon, Circle, Fill } from "ol/style";
 import { FullScreen } from "ol/control";
 import BaseEvent from "ol/events/Event";
+import { Coordinate } from "ol/coordinate";
 
 function Map() {
   const mapRef = useRef<HTMLDivElement>(null);
@@ -17,7 +18,7 @@ function Map() {
   useEffect(() => {
     // https://openlayers.org/en/latest/examples/modify-icon.html
     const iconFeature = new Feature({
-      geometry: new Point([0, 0]),
+      geometry: new Point(fromLonLat([27.510416, 40.964406])),
     });
     const iconStyle = new Style({
       image: new Icon({
@@ -37,9 +38,14 @@ function Map() {
       zIndex: 0,
     });
 
+    const modifyStyle = new Style({
+      image: undefined,
+    });
+
     const modify = new Modify({
       hitDetection: vectorLayer,
       source: vectorSource,
+      style: modifyStyle,
     });
 
     const overlaySource = modify.getOverlay().getSource();
@@ -61,7 +67,8 @@ function Map() {
 
     modify.on(["modifystart", "modifyend"], function (e) {
       if (e.type === "modifyend") {
-        console.log(iconFeature.getGeometry()?.getCoordinates());
+        const [x, y]: any = iconFeature.getGeometry()?.getCoordinates();
+        console.log([x, y]);
       }
 
       mapRef.current!.style.cursor =
@@ -122,8 +129,8 @@ function Map() {
       const hit = olMap.hasFeatureAtPixel(pixel);
 
       if (hit) {
+        console.log(olMap.getFeaturesAtPixel(pixel)[0].getId());
         if (olMap.getFeaturesAtPixel(pixel)[0].getId() === "me") {
-          // console.log(olMap.getFeaturesAtPixel(pixel)[0].getId());
           return;
         }
         //How to get all features you hover on.
