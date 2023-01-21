@@ -1,21 +1,25 @@
 import { useEffect, useRef, useState } from "react";
-import { Map, View } from "ol";
+import { Map as OlMap, View } from "ol";
 import { Coordinate } from "ol/coordinate";
 
 import MapContext from "./MapContext";
 
 type OpenLayersMapProps = {
   children: React.ReactNode;
-  zoom: number;
-  center: Coordinate;
+  zoom?: number;
+  center?: Coordinate;
 };
 
-function OpenLayersMap({ children, center, zoom }: OpenLayersMapProps) {
+function OpenLayersMap({
+  children,
+  center = [0, 0],
+  zoom = 2,
+}: OpenLayersMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<Map>();
+  const [map, setMap] = useState<OlMap>();
 
   useEffect(() => {
-    const olMap = new Map({
+    const olMap = new OlMap({
       target: mapRef.current as HTMLDivElement,
       view: new View({
         center: [0, 0],
@@ -33,19 +37,11 @@ function OpenLayersMap({ children, center, zoom }: OpenLayersMapProps) {
   }, []);
 
   useEffect(() => {
-    if (!map) {
-      return;
-    }
-
-    map.getView().setZoom(zoom);
+    map?.getView().setZoom(zoom);
   }, [zoom]);
 
   useEffect(() => {
-    if (!map) {
-      return;
-    }
-
-    map.getView().setCenter(center);
+    map?.getView().setCenter(center);
   }, [center]);
 
   return (
