@@ -1,4 +1,5 @@
-import { useAppDispatch, useAppSelector } from "src/hooks";
+import { useDispatch, useSelector } from "react-redux";
+
 import { selectToast } from "./selectors";
 import { closeToast } from "./slice";
 import { AlertSeverity } from "./constants";
@@ -6,8 +7,8 @@ import { AlertSeverity } from "./constants";
 import { Alert, Snackbar } from "@mui/material";
 
 function Toast() {
-  const dispatch = useAppDispatch();
-  const toast = useAppSelector(selectToast);
+  const dispatch = useDispatch();
+  const toast = useSelector(selectToast);
 
   const { isOpen, text, type } = toast;
 

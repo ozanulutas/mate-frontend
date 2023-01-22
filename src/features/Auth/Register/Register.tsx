@@ -1,8 +1,8 @@
+import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 import { Path } from "src/router/path";
-import { useAppDispatch, useAppSelector } from "src/hooks";
 import { registerSchema, RegisterSchemaType } from "./validation";
 
 import {
@@ -20,8 +20,8 @@ import { selectRegisterStatus } from "../selectors";
 import { Status } from "src/constants";
 
 function Register() {
-  const dispatch = useAppDispatch();
-  const registerStatus = useAppSelector(selectRegisterStatus);
+  const dispatch = useDispatch();
+  const registerStatus = useSelector(selectRegisterStatus);
 
   const {
     control,

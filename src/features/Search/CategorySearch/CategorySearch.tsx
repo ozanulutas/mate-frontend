@@ -1,12 +1,14 @@
-import { Autocomplete, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "src/hooks";
+import { useDispatch, useSelector } from "react-redux";
+
 import { selectCategorySearchData } from "../selectors";
 import { searchCategoryRequest } from "../slice";
 
+import { Autocomplete, TextField } from "@mui/material";
+
 function CategorySearch() {
-  const dispatch = useAppDispatch();
-  const categorySearchData = useAppSelector(selectCategorySearchData);
+  const dispatch = useDispatch();
+  const categorySearchData = useSelector(selectCategorySearchData);
   const [inputValue, setInputValue] = useState("");
 
   const handleScroll = (event: React.SyntheticEvent) => {

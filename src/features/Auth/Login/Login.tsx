@@ -1,9 +1,9 @@
+import { useDispatch, useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 import { Path } from "src/router/path";
 import { Status } from "src/constants";
-import { useAppDispatch, useAppSelector } from "src/hooks";
 import { loginRequest } from "../slice";
 import { selectLoginStatus } from "../selectors";
 import { loginSchema, LoginSchemaType } from "./validation";
@@ -20,8 +20,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link } from "src/components";
 
 function Login() {
-  const dispatch = useAppDispatch();
-  const loginStatus = useAppSelector(selectLoginStatus);
+  const dispatch = useDispatch();
+  const loginStatus = useSelector(selectLoginStatus);
   const {
     control,
     handleSubmit,
