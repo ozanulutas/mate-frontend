@@ -31,7 +31,10 @@ export default function AppBar() {
       <Slide appear={false} direction="down" in={!trigger}>
         <MuiAppBar>
           <Container>
-            <Toolbar sx={{ px: 0, justifyContent: "space-between" }}>
+            <Toolbar
+              disableGutters
+              sx={{ px: 0, justifyContent: "space-between" }}
+            >
               <Typography
                 variant="h6"
                 component="div"

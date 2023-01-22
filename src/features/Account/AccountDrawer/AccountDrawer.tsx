@@ -1,46 +1,65 @@
 import { Drawer } from "src/features/AppDrawer/constants";
 
+import { Path } from "src/router/path";
+
+import { deepOrange } from "@mui/material/colors";
 import AppDrawer from "src/features/AppDrawer";
 import {
+  Avatar,
   Divider,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Toolbar,
+  Typography,
 } from "@mui/material";
-import MailIcon from "@mui/icons-material/Mail";
+import {
+  ManageAccounts as ManageAccountsIcon,
+  Logout as LogoutIcon,
+  Person as PersonIcon,
+} from "@mui/icons-material";
 import { Link } from "src/components";
 
 function AccountDrawer() {
   return (
     <AppDrawer drawerKey={Drawer.ACCOUNT}>
+      <Toolbar sx={{ gap: 2 }} disableGutters component={ListItem}>
+        <Avatar sx={{ bgcolor: deepOrange[500] }}>O</Avatar>
+        <Typography variant="h6" component="h2">
+          Account
+        </Typography>
+      </Toolbar>
+      <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <MailIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to={Path.ACCOUNT}>
+            <ListItemIcon>
+              <ManageAccountsIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Settings"} />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Profile"} />
+          </ListItemButton>
+        </ListItem>
       </List>
       <Divider />
       <List>
-        {["Settings", "Profile", "Account", "Logout"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <Link to="/account">
-              <ListItemButton>
-                <ListItemIcon>
-                  <MailIcon />
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </Link>
-          </ListItem>
-        ))}
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Logout"} />
+          </ListItemButton>
+        </ListItem>
       </List>
     </AppDrawer>
   );
