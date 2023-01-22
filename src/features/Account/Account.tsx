@@ -7,6 +7,7 @@ import {
   Security as SecurityIcon,
   LocationOn as LocationOnIcon,
   Category as CategoryIcon,
+  Search as SearchIcon,
 } from "@mui/icons-material";
 import {
   IconButton,
@@ -27,6 +28,7 @@ const GeneralSetCategorySettingstings = lazy(
 const Tab = {
   GENERAL_SETTINGS: "general-settings",
   SECURITY_SETTINGS: "security-settings",
+  SEARCH_SETTINGS: "search-settings",
   LOCATIONS: "locations",
   CATEGORIES: "categories",
 };
@@ -69,6 +71,16 @@ function Account() {
                 <SecurityIcon />
               </ListItemIcon>
               <ListItemText primary={"Security Settings"} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton
+              onClick={() => setSearchParams({ tab: Tab.SEARCH_SETTINGS })}
+            >
+              <ListItemIcon>
+                <SearchIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Search Settings"} />
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
