@@ -28,7 +28,7 @@ function AccountDrawer() {
       <Toolbar sx={{ gap: 2 }} disableGutters component={ListItem}>
         <Avatar sx={{ bgcolor: deepOrange[500] }}>O</Avatar>
         <Typography variant="h6" component="h2">
-          Account
+          Ozanus Ulutaşus
         </Typography>
       </Toolbar>
       <Divider />
@@ -38,7 +38,7 @@ function AccountDrawer() {
             <ListItemIcon>
               <ManageAccountsIcon />
             </ListItemIcon>
-            <ListItemText primary={"Settings"} />
+            <ListItemText primary={"Account"} />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>

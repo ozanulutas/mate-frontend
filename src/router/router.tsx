@@ -7,11 +7,16 @@ import AppLayout from "src/layouts/AppLayout";
 import AuthLayout from "src/layouts/AuthLayout";
 import {
   AccountPage,
+  CategorySettingsPage,
   ErrorPage,
+  GeneralSettingsPage,
+  LocationSettingsPage,
   LoginPage,
   RegisterPage,
+  SecuritySettingsPage,
   UsersListPage,
 } from "src/pages";
+import GoBackLayout from "src/layouts/GoBackLayout";
 
 // @TODO: Layout routerları birleştirilip tek bir errorElement kullanılabilir?
 // export const router = createBrowserRouter([
@@ -58,8 +63,29 @@ export const router = createBrowserRouter([
         element: <RequireAuth />,
         children: [
           {
-            path: Path.ACCOUNT,
-            element: <AccountPage />,
+            element: <GoBackLayout />,
+            children: [
+              {
+                path: Path.ACCOUNT,
+                element: <AccountPage />,
+              },
+              {
+                path: Path.GENERAL_SETTINGS,
+                element: <GeneralSettingsPage />,
+              },
+              {
+                path: Path.SECURITY_SETTINGS,
+                element: <SecuritySettingsPage />,
+              },
+              {
+                path: Path.LOCATIONS,
+                element: <LocationSettingsPage />,
+              },
+              {
+                path: Path.CATEGORIES,
+                element: <CategorySettingsPage />,
+              },
+            ],
           },
           {
             path: Path.USERS,
