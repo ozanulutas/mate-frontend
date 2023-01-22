@@ -64,13 +64,15 @@ export default function AppBar() {
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  color="inherit"
-                >
-                  <AccountCircleIcon />
-                </IconButton>
+                <Link to={Path.ACCOUNT} color="inherit">
+                  <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    color="inherit"
+                  >
+                    <AccountCircleIcon />
+                  </IconButton>
+                </Link>
               </Box>
             </Toolbar>
           </Container>

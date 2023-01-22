@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 
 import { Box, Container } from "@mui/material";
@@ -9,7 +10,9 @@ function AppLayout() {
       <AppBar />
       <Container>
         <Box sx={{ my: 2 }}>
-          <Outlet />
+          <Suspense fallback={<h1>Loading...</h1>}>
+            <Outlet />
+          </Suspense>
         </Box>
       </Container>
     </>
