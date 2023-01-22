@@ -3,6 +3,8 @@ import { Outlet } from "react-router-dom";
 
 import { Box, Container } from "@mui/material";
 import { AppBar } from "src/components";
+import AppDrawer from "src/features/AppDrawer";
+import { Drawer } from "src/features/AppDrawer/constants";
 
 function AppLayout() {
   return (
@@ -15,6 +17,7 @@ function AppLayout() {
           </Suspense>
         </Box>
       </Container>
+      <AppDrawer drawerKey={Drawer.ACCOUNT} />
     </>
   );
 }

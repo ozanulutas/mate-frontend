@@ -1,7 +1,18 @@
+import { useDispatch } from "react-redux";
+import { Drawer } from "../AppDrawer/constants";
+import { toggleDrawer } from "../AppDrawer/slice";
+
 function Account() {
+  const dispatch = useDispatch();
+
   return (
     <>
-      Logout <br /> Profile <br /> Account <br /> Settings
+      <button onClick={() => dispatch(toggleDrawer(Drawer.ACCOUNT))}>
+        Settings
+      </button>
+      <br /> Profile
+      <br /> Account
+      <br /> Logout
     </>
   );
 }
