@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+
 import {
   AppBar as MuiAppBar,
   Badge,
@@ -17,8 +19,11 @@ import {
 } from "@mui/icons-material";
 import Link from "../Link";
 import { Path } from "src/router/path";
+import { toggleDrawer } from "src/features/AppDrawer/slice";
+import { Drawer } from "src/features/AppDrawer/constants";
 
 export default function AppBar() {
+  const dispatch = useDispatch();
   const trigger = useScrollTrigger();
 
   return (
@@ -64,15 +69,14 @@ export default function AppBar() {
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
-                <Link to={Path.ACCOUNT} color="inherit">
-                  <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    color="inherit"
-                  >
-                    <AccountCircleIcon />
-                  </IconButton>
-                </Link>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  color="inherit"
+                  onClick={() => dispatch(toggleDrawer(Drawer.ACCOUNT))}
+                >
+                  <AccountCircleIcon />
+                </IconButton>
               </Box>
             </Toolbar>
           </Container>

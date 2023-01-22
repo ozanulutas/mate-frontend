@@ -4,21 +4,11 @@ import { selectDrawerKey } from "./selectors";
 import { Drawer } from "./constants";
 import { toggleDrawer } from "./slice";
 
-import {
-  Box,
-  Divider,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  SwipeableDrawer,
-} from "@mui/material";
-import MailIcon from "@mui/icons-material/Mail";
+import { Box, SwipeableDrawer } from "@mui/material";
 
 type AppDrawerProps = {
   drawerKey: keyof typeof Drawer;
-  children?: React.ReactNode;
+  children: React.ReactNode;
 };
 
 function AppDrawer({ drawerKey, children }: AppDrawerProps) {
@@ -53,31 +43,7 @@ function AppDrawer({ drawerKey, children }: AppDrawerProps) {
         onClick={toggle}
         onKeyDown={toggle}
       >
-        <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <MailIcon />
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <MailIcon />
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        {children}
       </Box>
     </SwipeableDrawer>
   );
