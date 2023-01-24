@@ -45,7 +45,7 @@ function AppModal({
 
   const handlePositiveClick = () => {
     onPositiveClick?.();
-    handleClose();
+    // handleClose();
   };
 
   const handleNegativeClick = () => {

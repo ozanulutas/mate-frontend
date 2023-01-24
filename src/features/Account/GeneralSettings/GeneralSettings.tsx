@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
-import { deepOrange } from "@mui/material/colors";
 import { Avatar, Box, TextField } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 

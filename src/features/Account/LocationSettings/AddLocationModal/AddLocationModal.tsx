@@ -2,8 +2,13 @@ import { Modal } from "src/features/AppModal/constants";
 
 import AppModal from "src/features/AppModal";
 import AddLocationMap from "./AddLocationMap";
+import AddLocationForm from "./AddLocationForm";
 
 function AddLocationModal() {
+  const handleFormSubmit = (data: any) => {
+    console.log("heyy", data);
+  };
+
   return (
     <AppModal
       modalKey={Modal.ADD_LOCATION_MODAL}
@@ -11,8 +16,10 @@ function AddLocationModal() {
       title="Use Google's location service?"
       positiveText="Agree"
       negativeText="DisAgree"
+      onPositiveClick={handleFormSubmit}
     >
       <AddLocationMap />
+      <AddLocationForm submit={handleFormSubmit} />
     </AppModal>
   );
 }
