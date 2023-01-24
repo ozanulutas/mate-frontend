@@ -4,17 +4,13 @@ import { Coordinate } from "ol/coordinate";
 
 import MapContext from "./MapContext";
 
-type OpenLayersMapProps = {
+type MapProps = {
   children: React.ReactNode;
   zoom?: number;
   center?: Coordinate;
 };
 
-function OpenLayersMap({
-  children,
-  center = [0, 0],
-  zoom = 2,
-}: OpenLayersMapProps) {
+function Map({ children, center = [0, 0], zoom = 2 }: MapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<OlMap>();
 
@@ -53,4 +49,4 @@ function OpenLayersMap({
   );
 }
 
-export default OpenLayersMap;
+export default Map;
