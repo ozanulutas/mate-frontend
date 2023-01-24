@@ -27,7 +27,7 @@ function AccountDrawer() {
     <AppDrawer drawerKey={Drawer.ACCOUNT}>
       <Toolbar sx={{ gap: 2 }} disableGutters component={ListItem}>
         <Avatar sx={{ bgcolor: deepOrange[500] }}>O</Avatar>
-        <Typography variant="h6" component="h2">
+        <Typography variant="subtitle1" component="h2">
           Ozanus Ulutaşus
         </Typography>
       </Toolbar>

@@ -19,7 +19,16 @@ function UsersMap() {
   });
 
   return (
-    <Map>
+    <Map
+      events={[
+        {
+          type: "singleclick",
+          handler(e) {
+            iconFeature.getGeometry()?.setCoordinates(e.coordinate);
+          },
+        },
+      ]}
+    >
       <Layers>
         <TileLayer />
         <VectorLayer
