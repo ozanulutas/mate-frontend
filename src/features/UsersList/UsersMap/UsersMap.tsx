@@ -11,6 +11,7 @@ import { createMarker, vectorSource } from "src/features/Map/utils";
 import Interactions from "src/features/Map/Interactions";
 import Overlays from "src/features/Map/Overlays";
 import PopupOverlay from "src/features/Map/Overlays/PopupOverlay";
+import ZoomControl from "src/features/Map/Controls/ZoomControl";
 
 function UsersMap() {
   const iconFeature = createMarker({ coordinates: [0, 0], id: "me" });
@@ -43,6 +44,7 @@ function UsersMap() {
       </Overlays>
       <Controls>
         <FullScreenControl />
+        <ZoomControl />
       </Controls>
     </Map>
   );

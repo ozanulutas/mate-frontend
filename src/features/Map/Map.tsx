@@ -4,6 +4,7 @@ import { Coordinate } from "ol/coordinate";
 import BaseEvent from "ol/events/Event";
 
 import MapContext from "./MapContext";
+import { Zoom } from "ol/control";
 
 type MapProps = {
   children: React.ReactNode;
