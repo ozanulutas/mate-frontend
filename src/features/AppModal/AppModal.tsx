@@ -15,10 +15,25 @@ import {
 
 type AppModalProps = {
   modalKey: keyof typeof Modal;
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  text?: React.ReactNode;
+  title?: React.ReactNode;
+  positiveText?: string;
+  negativeText?: string;
+  onPositiveClick?: Function;
+  onNegativeClick?: Function;
 };
 
-function AppModal({ modalKey, children }: AppModalProps) {
+function AppModal({
+  children,
+  modalKey,
+  text,
+  title,
+  positiveText,
+  negativeText,
+  onPositiveClick,
+  onNegativeClick,
+}: AppModalProps) {
   const dispatch = useDispatch();
   const activeModalKey = useSelector(selectModalKeys);
 
@@ -28,6 +43,16 @@ function AppModal({ modalKey, children }: AppModalProps) {
     dispatch(toggleModal(modalKey));
   };
 
+  const handlePositiveClick = () => {
+    onPositiveClick?.();
+    handleClose();
+  };
+
+  const handleNegativeClick = () => {
+    onNegativeClick?.();
+    handleClose();
+  };
+
   return (
     <Dialog
       open={isOpen}
@@ -35,21 +60,25 @@ function AppModal({ modalKey, children }: AppModalProps) {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        {"Use Google's location service?"}
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Let Google help apps determine location. This means sending anonymous
-          location data to Google, even when no apps are running.
+          {text}
         </DialogContentText>
+        {children}
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Disagree</Button>
-        <Button onClick={handleClose} autoFocus>
-          Agree
-        </Button>
-      </DialogActions>
+      {(positiveText || negativeText) && (
+        <DialogActions>
+          {negativeText && (
+            <Button onClick={handleNegativeClick}>{negativeText}</Button>
+          )}
+          {positiveText && (
+            <Button onClick={handlePositiveClick} autoFocus>
+              {positiveText}
+            </Button>
+          )}
+        </DialogActions>
+      )}
     </Dialog>
   );
 }

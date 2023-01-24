@@ -16,7 +16,7 @@ export const modalSlice = createSlice({
       const isModalOpen = state.keys.some((key) => key === modalKey);
 
       state.keys = isModalOpen
-        ? state.keys.filter((key) => key === modalKey)
+        ? state.keys.filter((key) => key !== modalKey)
         : [...state.keys, modalKey];
     },
   },

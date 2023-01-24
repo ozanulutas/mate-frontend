@@ -1,3 +1,3 @@
 export enum Modal {
-  MAP_MODAL = "MAP_MODAL",
+  ADD_LOCATION_MODAL = "ADD_LOCATION_MODAL",
 }
