@@ -1,16 +1,17 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addLocationSchema, AddLocationSchemaType } from "./validation";
 
 import { Box, TextField } from "@mui/material";
+import { selectLocationSettingsMarkerPosition } from "src/features/Account/selectors";
 
 type AddLocationFormProps = {
-  submit: any;
+  formId: string;
 };
 
-function AddLocationForm({ submit }: AddLocationFormProps) {
+const AddLocationForm = ({ formId }: AddLocationFormProps) => {
   const dispatch = useDispatch();
 
   const {
@@ -25,11 +26,16 @@ function AddLocationForm({ submit }: AddLocationFormProps) {
   });
 
   const onSubmit: SubmitHandler<AddLocationSchemaType> = (data) => {
-    submit(data);
+    console.log(data);
   };
 
   return (
-    <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)}>
+    <Box
+      component="form"
+      noValidate
+      onSubmit={handleSubmit(onSubmit)}
+      id={formId}
+    >
       <Controller
         name="name"
         control={control}
@@ -48,6 +54,6 @@ function AddLocationForm({ submit }: AddLocationFormProps) {
       />
     </Box>
   );
-}
+};
 
 export default AddLocationForm;

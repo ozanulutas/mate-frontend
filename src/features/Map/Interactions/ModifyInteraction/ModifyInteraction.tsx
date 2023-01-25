@@ -43,12 +43,6 @@ const ModifyInteraction = ({ features }: ModifyInteractionProps) => {
 
     map?.addInteraction(modify);
 
-    // iconFeature.on("change", () => {
-    //   console.log(
-    //     "Feature Moved To:" + iconFeature.getGeometry()?.getCoordinates()
-    //   );
-    // });
-
     return () => {
       map?.removeInteraction(modify);
     };

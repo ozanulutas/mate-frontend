@@ -4,11 +4,9 @@ import AppModal from "src/features/AppModal";
 import AddLocationMap from "./AddLocationMap";
 import AddLocationForm from "./AddLocationForm";
 
-function AddLocationModal() {
-  const handleFormSubmit = (data: any) => {
-    console.log("heyy", data);
-  };
+const FORM_ID = "add-location-form";
 
+function AddLocationModal() {
   return (
     <AppModal
       modalKey={Modal.ADD_LOCATION_MODAL}
@@ -16,10 +14,10 @@ function AddLocationModal() {
       title="Use Google's location service?"
       positiveText="Agree"
       negativeText="DisAgree"
-      onPositiveClick={handleFormSubmit}
+      formId={FORM_ID}
     >
       <AddLocationMap />
-      <AddLocationForm submit={handleFormSubmit} />
+      <AddLocationForm formId={FORM_ID} />
     </AppModal>
   );
 }

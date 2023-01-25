@@ -22,6 +22,7 @@ type AppModalProps = {
   negativeText?: string;
   onPositiveClick?: Function;
   onNegativeClick?: Function;
+  formId?: string;
 };
 
 function AppModal({
@@ -33,6 +34,7 @@ function AppModal({
   negativeText,
   onPositiveClick,
   onNegativeClick,
+  formId,
 }: AppModalProps) {
   const dispatch = useDispatch();
   const activeModalKey = useSelector(selectModalKeys);
@@ -73,7 +75,14 @@ function AppModal({
             <Button onClick={handleNegativeClick}>{negativeText}</Button>
           )}
           {positiveText && (
-            <Button onClick={handlePositiveClick} autoFocus>
+            <Button
+              onClick={handlePositiveClick}
+              autoFocus
+              {...(formId && {
+                form: formId,
+                type: "submit",
+              })}
+            >
               {positiveText}
             </Button>
           )}
