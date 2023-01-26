@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectDrawerKey } from "./selectors";
-import { Drawer } from "./constants";
+import { DrawerKey } from "./constants";
 import { toggleDrawer } from "./slice";
 
 import { Box, SwipeableDrawer } from "@mui/material";
 
-type AppDrawerProps = {
-  drawerKey: keyof typeof Drawer;
+type DrawerProps = {
+  drawerKey: keyof typeof DrawerKey;
   children: React.ReactNode;
 };
 
-function AppDrawer({ drawerKey, children }: AppDrawerProps) {
+function Drawer({ drawerKey, children }: DrawerProps) {
   const dispatch = useDispatch();
   const activeDrawerKey = useSelector(selectDrawerKey);
 
@@ -49,4 +49,4 @@ function AppDrawer({ drawerKey, children }: AppDrawerProps) {
   );
 }
 
-export default AppDrawer;
+export default Drawer;

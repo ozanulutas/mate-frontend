@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { DrawerState } from "./AppDrawer.d";
+import { DrawerState } from "./Drawer.d";
 
 const initialState: DrawerState = {
   key: "",

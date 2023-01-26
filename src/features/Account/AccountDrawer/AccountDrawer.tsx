@@ -1,9 +1,9 @@
-import { Drawer } from "src/features/AppDrawer/constants";
+import { DrawerKey } from "src/features/Drawer/constants";
 
 import { Path } from "src/router/path";
 
 import { deepOrange } from "@mui/material/colors";
-import AppDrawer from "src/features/AppDrawer";
+import Drawer from "src/features/Drawer";
 import {
   Avatar,
   Divider,
@@ -24,7 +24,7 @@ import { Link } from "src/components";
 
 function AccountDrawer() {
   return (
-    <AppDrawer drawerKey={Drawer.ACCOUNT}>
+    <Drawer drawerKey={DrawerKey.ACCOUNT}>
       <Toolbar sx={{ gap: 2 }} disableGutters component={ListItem}>
         <Avatar sx={{ bgcolor: deepOrange[500] }}>O</Avatar>
         <Typography variant="subtitle1" component="h2">
@@ -61,7 +61,7 @@ function AccountDrawer() {
           </ListItemButton>
         </ListItem>
       </List>
-    </AppDrawer>
+    </Drawer>
   );
 }
 

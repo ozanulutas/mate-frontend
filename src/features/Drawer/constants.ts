@@ -1,3 +1,3 @@
-export enum Drawer {
+export enum DrawerKey {
   ACCOUNT = "ACCOUNT",
 }

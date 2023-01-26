@@ -1,5 +1,9 @@
 import { useDispatch } from "react-redux";
 
+import { Path } from "src/router/path";
+import { toggleDrawer } from "src/features/Drawer/slice";
+import { DrawerKey } from "src/features/Drawer/constants";
+
 import {
   AppBar as MuiAppBar,
   Badge,
@@ -17,10 +21,7 @@ import {
   AccountCircle as AccountCircleIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
-import Link from "../Link";
-import { Path } from "src/router/path";
-import { toggleDrawer } from "src/features/AppDrawer/slice";
-import { Drawer } from "src/features/AppDrawer/constants";
+import Link from "src/components/Link";
 
 export default function AppBar() {
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ export default function AppBar() {
                   size="large"
                   aria-label="account of current user"
                   color="inherit"
-                  onClick={() => dispatch(toggleDrawer(Drawer.ACCOUNT))}
+                  onClick={() => dispatch(toggleDrawer(DrawerKey.ACCOUNT))}
                 >
                   <AccountCircleIcon />
                 </IconButton>
