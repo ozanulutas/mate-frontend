@@ -11,6 +11,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 
 type ModalProps = {
@@ -39,6 +41,9 @@ function Modal({
   const dispatch = useDispatch();
   const activeModalKey = useSelector(selectModalKeys);
 
+  const theme = useTheme();
+  const isFullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   const isOpen = activeModalKey.some((key) => key === modalKey);
 
   const handleClose = () => {
@@ -59,14 +64,15 @@ function Modal({
     <Dialog
       open={isOpen}
       onClose={handleClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
+      fullWidth
+      maxWidth="md"
+      fullScreen={isFullScreen}
+      aria-labelledby="dialog-title"
+      aria-describedby="dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
+      <DialogTitle id="dialog-title">{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {text}
-        </DialogContentText>
+        <DialogContentText id="dialog-description">{text}</DialogContentText>
         {children}
       </DialogContent>
       {(positiveText || negativeText) && (
