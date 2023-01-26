@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 import { Marker } from "src/features/Account/LocationSettings/LocationSettings.d";

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { Error } from "src/api/api.d";
 import {
   Category,
   SearchCategoryRequestPayload,
@@ -30,8 +31,7 @@ export const searchSlice = createSlice({
       state.categories.status = Status.LOADED;
       state.categories.data = action.payload;
     },
-    // @TODO: type
-    searchCategoryError: (state, action: PayloadAction<any>) => {
+    searchCategoryError: (state, action: PayloadAction<Error>) => {
       state.categories.status = Status.ERROR;
       state.categories.reason = action.payload;
     },

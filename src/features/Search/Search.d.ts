@@ -1,4 +1,5 @@
 import { Status } from "src/constants";
+import { Error } from "src/api/api.d";
 
 export interface Category {
   id: number;
@@ -9,7 +10,7 @@ export interface SearchState {
   categories: {
     status: Status;
     data: Category[];
-    reason: Record<string, any>;
+    reason: Error;
   };
 }
 

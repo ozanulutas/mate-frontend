@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { Error } from "src/api/api.d";
 import {
   AuthState,
   LoginRequestPayload,
@@ -37,8 +38,7 @@ export const authSlice = createSlice({
       state.user = action.payload.user;
       state.access_token = action.payload.access_token;
     },
-    // @TODO: type PayloadAction
-    loginError: (state, action: PayloadAction<any>) => {
+    loginError: (state, action: PayloadAction<Error>) => {
       state.login.status = Status.ERROR;
       state.login.reason = action.payload;
     },
@@ -55,8 +55,7 @@ export const authSlice = createSlice({
       state.user = action.payload.user;
       state.access_token = action.payload.access_token;
     },
-    // @TODO: type PayloadAction
-    registerError: (state, action: PayloadAction<any>) => {
+    registerError: (state, action: PayloadAction<Error>) => {
       state.register.status = Status.ERROR;
       state.register.reason = action.payload;
     },

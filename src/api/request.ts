@@ -1,4 +1,4 @@
-import axios, { AxiosRequestHeaders, AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestHeaders } from "axios";
 import { Env, LocalStorageKey } from "src/constants";
 
 export const request = axios.create({
@@ -7,9 +7,9 @@ export const request = axios.create({
 
 request.interceptors.request.use(
   (config) => {
-    (config.headers as any).Authorization = `Bearer ${localStorage.getItem(
-      LocalStorageKey.TOKEN
-    )}`;
+    (
+      config.headers as AxiosRequestHeaders
+    ).Authorization = `Bearer ${localStorage.getItem(LocalStorageKey.TOKEN)}`;
 
     return config;
   },

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Status } from "src/constants";
 
+import { Error } from "src/api/api.d";
+import { Status } from "src/constants";
 import { AccountState, AddLocationRequestPayload } from "./Account.d";
 
 const initialState: AccountState = {
@@ -27,8 +28,7 @@ export const accountSlice = createSlice({
     addLocationSuccess: (state) => {
       state.locationSettings.addLocation.status = Status.LOADED;
     },
-    // @TODO: type PayloadAction
-    addLocationError: (state, action: PayloadAction<any>) => {
+    addLocationError: (state, action: PayloadAction<Error>) => {
       state.locationSettings.addLocation.status = Status.ERROR;
       state.locationSettings.addLocation.reason = action.payload;
     },

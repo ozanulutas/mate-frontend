@@ -10,7 +10,7 @@ type vectorSourceParams = {
 
 type createMarkerParams = {
   coordinates: Coordinate;
-  id?: any;
+  id?: number | string;
 };
 
 export const vectorSource = ({ features }: vectorSourceParams) =>
