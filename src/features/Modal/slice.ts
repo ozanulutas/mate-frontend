@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ModalState } from "./AppModal.d";
-import { Modal } from "./constants";
+import { ModalState } from "./Modal.d";
+import { ModalKey } from "./constants";
 
 const initialState: ModalState = {
   keys: [],
@@ -11,7 +11,7 @@ export const modalSlice = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    toggleModal: (state, action: PayloadAction<keyof typeof Modal>) => {
+    toggleModal: (state, action: PayloadAction<keyof typeof ModalKey>) => {
       const modalKey = action.payload;
       const isModalOpen = state.keys.some((key) => key === modalKey);
 

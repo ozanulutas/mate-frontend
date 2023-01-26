@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 
-import { toggleModal } from "src/features/AppModal/slice";
-import { Modal } from "src/features/AppModal/constants";
+import { toggleModal } from "src/features/Modal/slice";
+import { ModalKey } from "src/features/Modal/constants";
 
 import {
   LocationOn as LocationOnIcon,
@@ -25,7 +25,7 @@ function LocationSettings() {
     <>
       <IconButton
         aria-label="add"
-        onClick={() => dispatch(toggleModal(Modal.ADD_LOCATION_MODAL))}
+        onClick={() => dispatch(toggleModal(ModalKey.ADD_LOCATION))}
       >
         <AddIcon fontSize="inherit" />
       </IconButton>

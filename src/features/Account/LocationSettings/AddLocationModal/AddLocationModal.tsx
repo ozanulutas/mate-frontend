@@ -1,7 +1,7 @@
 import { Marker } from "src/features/Account/LocationSettings/LocationSettings.d";
-import { Modal } from "src/features/AppModal/constants";
+import { ModalKey } from "src/features/Modal/constants";
 
-import AppModal from "src/features/AppModal";
+import Modal from "src/features/Modal";
 import AddLocationMap from "./AddLocationMap";
 import AddLocationForm from "./AddLocationForm";
 import { useRef } from "react";
@@ -12,8 +12,8 @@ function AddLocationModal() {
   const markerRef = useRef(null as unknown as Marker);
 
   return (
-    <AppModal
-      modalKey={Modal.ADD_LOCATION_MODAL}
+    <Modal
+      modalKey={ModalKey.ADD_LOCATION}
       title="Add New Location"
       text="Put the marker to the location you want to add."
       positiveText="Save"
@@ -22,7 +22,7 @@ function AddLocationModal() {
     >
       <AddLocationMap markerRef={markerRef} />
       <AddLocationForm formId={FORM_ID} markerRef={markerRef} />
-    </AppModal>
+    </Modal>
   );
 }
 

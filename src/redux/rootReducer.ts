@@ -3,7 +3,7 @@ import accountReducer from "src/features/Account/slice";
 import searchReducer from "src/features/Search/slice";
 import toastReducer from "src/features/Toast/slice";
 import drawerReducer from "src/features/AppDrawer/slice";
-import modalReducer from "src/features/AppModal/slice";
+import modalReducer from "src/features/Modal/slice";
 
 export const rootReducer = {
   auth: authReducer,

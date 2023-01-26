@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectModalKeys } from "./selectors";
-import { Modal } from "./constants";
+import { ModalKey } from "./constants";
 import { toggleModal } from "./slice";
 
 import {
@@ -13,8 +13,8 @@ import {
   DialogTitle,
 } from "@mui/material";
 
-type AppModalProps = {
-  modalKey: keyof typeof Modal;
+type ModalProps = {
+  modalKey: keyof typeof ModalKey;
   children?: React.ReactNode;
   text?: React.ReactNode;
   title?: React.ReactNode;
@@ -25,7 +25,7 @@ type AppModalProps = {
   formId?: string;
 };
 
-function AppModal({
+function Modal({
   children,
   modalKey,
   text,
@@ -35,7 +35,7 @@ function AppModal({
   onPositiveClick,
   onNegativeClick,
   formId,
-}: AppModalProps) {
+}: ModalProps) {
   const dispatch = useDispatch();
   const activeModalKey = useSelector(selectModalKeys);
 
@@ -92,4 +92,4 @@ function AppModal({
   );
 }
 
-export default AppModal;
+export default Modal;
