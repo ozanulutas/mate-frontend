@@ -47,7 +47,7 @@ function Account() {
   return (
     <List>
       {navItems.map(({ to, text, icon }) => (
-        <ListItem disablePadding>
+        <ListItem key={to} disablePadding>
           <ListItemButton component={Link} to={to}>
             <ListItemIcon>{icon}</ListItemIcon>
             <ListItemText primary={text} />

@@ -1,3 +1,4 @@
+import { AddLocationRequestPayload } from "src/features/Account/Account.d";
 import {
   LoginRequestPayload,
   RegisterRequestPayload,
@@ -18,3 +19,6 @@ export const categorySearchApi = ({ name }: SearchCategoryRequestPayload) =>
       name,
     },
   });
+
+export const addLocationApi = (data: AddLocationRequestPayload) =>
+  request.post(endpoints.location.add, data);

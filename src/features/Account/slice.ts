@@ -1,10 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Status } from "src/constants";
 
-import { AccountState } from "./Account.d";
+import { AccountState, AddLocationRequestPayload } from "./Account.d";
 
 const initialState: AccountState = {
   locationSettings: {
-    marker: null,
+    addLocation: {
+      status: Status.INIT,
+      reason: {},
+    },
   },
 };
 
@@ -12,14 +16,25 @@ export const accountSlice = createSlice({
   name: "account",
   initialState,
   reducers: {
-    setMarker: (
+    addLocationRequest: (
       state,
-      action: PayloadAction<AccountState["locationSettings"]["marker"]>
+      action: PayloadAction<AddLocationRequestPayload>
     ) => {
-      state.locationSettings.marker = action.payload;
+      state.locationSettings.addLocation.status = Status.LOADING;
+      state.locationSettings.addLocation.reason =
+        initialState.locationSettings.addLocation.reason;
+    },
+    addLocationSuccess: (state) => {
+      state.locationSettings.addLocation.status = Status.LOADED;
+    },
+    // @TODO: type PayloadAction
+    addLocationError: (state, action: PayloadAction<any>) => {
+      state.locationSettings.addLocation.status = Status.ERROR;
+      state.locationSettings.addLocation.reason = action.payload;
     },
   },
 });
 
-export const { setMarker } = accountSlice.actions;
+export const { addLocationRequest, addLocationError, addLocationSuccess } =
+  accountSlice.actions;
 export default accountSlice.reducer;

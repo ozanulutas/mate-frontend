@@ -1,23 +1,27 @@
+import { Marker } from "src/features/Account/LocationSettings/LocationSettings.d";
 import { Modal } from "src/features/AppModal/constants";
 
 import AppModal from "src/features/AppModal";
 import AddLocationMap from "./AddLocationMap";
 import AddLocationForm from "./AddLocationForm";
+import { useRef } from "react";
 
 const FORM_ID = "add-location-form";
 
 function AddLocationModal() {
+  const markerRef = useRef(null as unknown as Marker);
+
   return (
     <AppModal
       modalKey={Modal.ADD_LOCATION_MODAL}
-      text="Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running."
-      title="Use Google's location service?"
-      positiveText="Agree"
-      negativeText="DisAgree"
+      title="Add New Location"
+      text="Put the marker to the location you want to add."
+      positiveText="Save"
+      negativeText="Cancel"
       formId={FORM_ID}
     >
-      <AddLocationMap />
-      <AddLocationForm formId={FORM_ID} />
+      <AddLocationMap markerRef={markerRef} />
+      <AddLocationForm formId={FORM_ID} markerRef={markerRef} />
     </AppModal>
   );
 }

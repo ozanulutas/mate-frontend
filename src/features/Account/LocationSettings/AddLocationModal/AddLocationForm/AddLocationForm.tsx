@@ -1,17 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
+import { Marker } from "src/features/Account/LocationSettings/LocationSettings.d";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addLocationSchema, AddLocationSchemaType } from "./validation";
 
 import { Box, TextField } from "@mui/material";
-import { selectLocationSettingsMarkerPosition } from "src/features/Account/selectors";
+import { addLocationRequest } from "src/features/Account/slice";
 
 type AddLocationFormProps = {
+  markerRef: React.MutableRefObject<Marker>;
   formId: string;
 };
 
-const AddLocationForm = ({ formId }: AddLocationFormProps) => {
+const AddLocationForm = ({ formId, markerRef }: AddLocationFormProps) => {
   const dispatch = useDispatch();
 
   const {
@@ -26,7 +28,13 @@ const AddLocationForm = ({ formId }: AddLocationFormProps) => {
   });
 
   const onSubmit: SubmitHandler<AddLocationSchemaType> = (data) => {
-    console.log(data);
+    dispatch(
+      addLocationRequest({
+        name: data.name,
+        latLon:
+          markerRef.current?.getGeometry()?.getCoordinates().toString() ?? "",
+      })
+    );
   };
 
   return (
@@ -45,7 +53,7 @@ const AddLocationForm = ({ formId }: AddLocationFormProps) => {
             margin="normal"
             required
             fullWidth
-            label="Address Name"
+            label="Location Name"
             autoFocus
             error={!!errors.name?.message}
             helperText={errors.name?.message}

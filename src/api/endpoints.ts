@@ -6,4 +6,7 @@ export const endpoints = {
   category: {
     search: "/categories/search",
   },
+  location: {
+    add: "/locations",
+  },
 };
