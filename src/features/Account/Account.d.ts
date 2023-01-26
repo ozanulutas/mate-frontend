@@ -1,9 +1,20 @@
 import { Error } from "src/api/api.d";
 import { Status } from "src/constants";
 
+interface Location {
+  id: number;
+  name: string;
+  latLon: string;
+}
+
 export interface AccountState {
   locationSettings: {
     addLocation: {
+      status: Status;
+      reason: Error;
+    };
+    locations: {
+      data: Location[];
       status: Status;
       reason: Error;
     };

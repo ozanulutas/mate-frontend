@@ -8,5 +8,6 @@ export const endpoints = {
   },
   location: {
     add: "/locations",
+    getAll: "/locations",
   },
 };

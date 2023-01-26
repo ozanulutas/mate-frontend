@@ -10,6 +10,11 @@ const initialState: AccountState = {
       status: Status.INIT,
       reason: {},
     },
+    locations: {
+      data: [],
+      reason: {},
+      status: Status.INIT,
+    },
   },
 };
 
@@ -32,9 +37,33 @@ export const accountSlice = createSlice({
       state.locationSettings.addLocation.status = Status.ERROR;
       state.locationSettings.addLocation.reason = action.payload;
     },
+    getLocationsRequest: (state) => {
+      state.locationSettings.locations.status = Status.LOADING;
+      state.locationSettings.locations.reason =
+        initialState.locationSettings.locations.reason;
+    },
+    getLocationsSuccess: (
+      state,
+      action: PayloadAction<
+        AccountState["locationSettings"]["locations"]["data"]
+      >
+    ) => {
+      state.locationSettings.locations.status = Status.LOADED;
+      state.locationSettings.locations.data = action.payload;
+    },
+    getLocationsError: (state, action: PayloadAction<Error>) => {
+      state.locationSettings.locations.status = Status.ERROR;
+      state.locationSettings.locations.reason = action.payload;
+    },
   },
 });
 
-export const { addLocationRequest, addLocationError, addLocationSuccess } =
-  accountSlice.actions;
+export const {
+  addLocationRequest,
+  addLocationError,
+  addLocationSuccess,
+  getLocationsError,
+  getLocationsRequest,
+  getLocationsSuccess,
+} = accountSlice.actions;
 export default accountSlice.reducer;

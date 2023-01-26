@@ -1,25 +1,21 @@
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
+import { getLocationsRequest } from "../slice";
 import { toggleModal } from "src/features/Modal/slice";
 import { ModalKey } from "src/features/Modal/constants";
 
-import {
-  LocationOn as LocationOnIcon,
-  Add as AddIcon,
-} from "@mui/icons-material";
-import {
-  Avatar,
-  Divider,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@mui/material";
+import { Add as AddIcon } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 import AddLocationModal from "./AddLocationModal";
+import Locations from "./Locations";
 
 function LocationSettings() {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getLocationsRequest());
+  }, [dispatch]);
 
   return (
     <>
@@ -29,28 +25,7 @@ function LocationSettings() {
       >
         <AddIcon fontSize="inherit" />
       </IconButton>
-      <List>
-        <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <Avatar>
-              <LocationOnIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary="Brunch this weekend?"
-            secondary="Ali Connors"
-          />
-        </ListItem>
-        <Divider variant="inset" component="li" />
-        <ListItem alignItems="flex-start">
-          <ListItemAvatar>
-            <Avatar>
-              <LocationOnIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Oui Oui" secondary="Sandra Adams" />
-        </ListItem>
-      </List>
+      <Locations />
       <AddLocationModal />
     </>
   );

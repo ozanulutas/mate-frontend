@@ -1,11 +1,14 @@
 import { call, takeLatest } from "redux-saga/effects";
 
-import { loginApi, addLocationApi } from "src/api/services";
+import { addLocationApi, getLocationsApi } from "src/api/services";
 import { handleRequest } from "src/redux/saga/handleRequest";
 import {
   addLocationRequest,
   addLocationError,
   addLocationSuccess,
+  getLocationsSuccess,
+  getLocationsError,
+  getLocationsRequest,
 } from "./slice";
 
 function* addLocationRequestSaga(
@@ -19,8 +22,17 @@ function* addLocationRequestSaga(
   );
 }
 
+function* getLocationsRequestSaga() {
+  yield call(
+    handleRequest,
+    { success: getLocationsSuccess, error: getLocationsError },
+    getLocationsApi
+  );
+}
+
 function* authSaga() {
   yield takeLatest(addLocationRequest.type, addLocationRequestSaga);
+  yield takeLatest(getLocationsRequest.type, getLocationsRequestSaga);
 }
 
 export default authSaga;

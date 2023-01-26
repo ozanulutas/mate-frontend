@@ -22,3 +22,5 @@ export const categorySearchApi = ({ name }: SearchCategoryRequestPayload) =>
 
 export const addLocationApi = (data: AddLocationRequestPayload) =>
   request.post(endpoints.location.add, data);
+
+export const getLocationsApi = () => request.get(endpoints.location.getAll);
