@@ -25,7 +25,10 @@ function Locations() {
                 <LocationOnIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={location.name} secondary={location.latLon} />
+            <ListItemText
+              primary={location.name}
+              secondary={location.coordinates}
+            />
           </ListItem>
           <Divider variant="inset" component="li" />
         </Fragment>

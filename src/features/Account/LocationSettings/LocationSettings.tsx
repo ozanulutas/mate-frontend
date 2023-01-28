@@ -19,6 +19,7 @@ function LocationSettings() {
 
   return (
     <>
+      {/* TODO: style add button */}
       <IconButton
         aria-label="add"
         onClick={() => dispatch(toggleModal(ModalKey.ADD_LOCATION))}

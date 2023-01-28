@@ -7,6 +7,7 @@ import { addLocationSchema, AddLocationSchemaType } from "./validation";
 
 import { Box, TextField } from "@mui/material";
 import { addLocationRequest } from "src/features/Account/slice";
+import { toLonLat } from "ol/proj";
 
 type AddLocationFormProps = {
   markerRef: React.MutableRefObject<Marker>;
@@ -31,8 +32,9 @@ const AddLocationForm = ({ formId, markerRef }: AddLocationFormProps) => {
     dispatch(
       addLocationRequest({
         name: data.name,
-        latLon:
-          markerRef.current?.getGeometry()?.getCoordinates().toString() ?? "",
+        coordinates: toLonLat(
+          markerRef.current?.getGeometry()?.getCoordinates() ?? []
+        ),
       })
     );
   };

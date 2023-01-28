@@ -4,7 +4,7 @@ import { Status } from "src/constants";
 interface Location {
   id: number;
   name: string;
-  latLon: string;
+  coordinates: any; // @TODO: type
 }
 
 export interface AccountState {
@@ -23,5 +23,5 @@ export interface AccountState {
 
 export type AddLocationRequestPayload = {
   name: string;
-  latLon: string;
+  coordinates: any;
 };

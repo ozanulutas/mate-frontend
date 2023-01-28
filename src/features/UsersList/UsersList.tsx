@@ -1,12 +1,23 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+import LocationSelect from "../Search/LocationSelect";
+import { getLocationsRequest } from "../Account/slice";
+
 import CategorySearch from "src/features/Search/CategorySearch";
-import Map from "src/features/OlMap";
 import UsersMap from "./UsersMap";
 
 function UsersList() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getLocationsRequest());
+  }, [dispatch]);
+
   return (
     <>
       <CategorySearch />
-      {/* <Map /> */}
+      <LocationSelect />
       <UsersMap />
     </>
   );
