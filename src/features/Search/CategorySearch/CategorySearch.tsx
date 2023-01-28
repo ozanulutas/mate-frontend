@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ControllerRenderProps } from "react-hook-form";
 
 import { selectCategorySearchData } from "../selectors";
 import { searchCategoryRequest } from "../slice";
 
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, SxProps, TextField } from "@mui/material";
 
-function CategorySearch() {
+type CategorySearchProps = {
+  sx?: SxProps;
+  field: ControllerRenderProps<any, any>;
+  error?: string;
+};
+
+function CategorySearch({ sx, field, error }: CategorySearchProps) {
   const dispatch = useDispatch();
   const categorySearchData = useSelector(selectCategorySearchData);
   const [inputValue, setInputValue] = useState("");
@@ -21,6 +28,13 @@ function CategorySearch() {
     }
   };
 
+  const onChange = (
+    e: React.SyntheticEvent<Element, Event>,
+    val: unknown[]
+  ) => {
+    field.onChange(val);
+  };
+
   useEffect(() => {
     if (inputValue === "") {
       return;
@@ -31,13 +45,15 @@ function CategorySearch() {
 
   return (
     <Autocomplete
+      {...field}
+      sx={sx}
       multiple
       limitTags={3}
       loading
       inputValue={inputValue}
       options={categorySearchData}
       getOptionLabel={(option) => option?.name}
-      onChange={(e, val) => console.log(val)}
+      onChange={onChange}
       onInputChange={(e, val) => setInputValue(val)}
       ListboxProps={{
         onScroll: handleScroll,
@@ -50,6 +66,8 @@ function CategorySearch() {
           {...params}
           label="Categories"
           placeholder="Search Categories"
+          error={!!error}
+          helperText={error}
         />
       )}
     />
