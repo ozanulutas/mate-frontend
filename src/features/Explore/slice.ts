@@ -8,6 +8,7 @@ import {
   ExploreState,
 } from "./Explore.d";
 import { Status } from "src/constants";
+import { View } from "./constants";
 
 const initialState: ExploreState = {
   categories: {
@@ -20,6 +21,7 @@ const initialState: ExploreState = {
     data: [],
     reason: {},
   },
+  view: View.MAP,
 };
 
 export const searchSlice = createSlice({
@@ -41,6 +43,7 @@ export const searchSlice = createSlice({
       state.categories.status = Status.ERROR;
       state.categories.reason = action.payload;
     },
+
     getUsersRequest: (state, action: PayloadAction<GetUsersRequestPayload>) => {
       state.users.status = Status.LOADING;
       state.users.reason = initialState.users.reason;
@@ -53,6 +56,10 @@ export const searchSlice = createSlice({
       state.users.status = Status.ERROR;
       state.users.reason = action.payload;
     },
+
+    setView: (state, action: PayloadAction<keyof typeof View>) => {
+      state.view = action.payload;
+    },
   },
 });
 
@@ -60,8 +67,11 @@ export const {
   getCategoriesRequest,
   getCategoriesSuccess,
   getCategoriesError,
+
   getUsersError,
   getUsersRequest,
   getUsersSuccess,
+
+  setView,
 } = searchSlice.actions;
 export default searchSlice.reducer;

@@ -4,16 +4,16 @@ import { Icon, Style } from "ol/style";
 
 import { selectUsers } from "src/features/Explore/selectors";
 
-import Map from "src/features/Map";
-import TileLayer from "src/features/Map/Layers/TileLayer";
-import Layers from "src/features/Map/Layers";
-import Controls from "src/features/Map/Controls";
-import FullScreenControl from "src/features/Map/Controls/FullScreenControl";
-import VectorLayer from "src/features/Map/Layers/VectorLayer";
-import { vectorSource } from "src/features/Map/utils";
-import Overlays from "src/features/Map/Overlays";
-import PopupOverlay from "src/features/Map/Overlays/PopupOverlay";
-import ZoomControl from "src/features/Map/Controls/ZoomControl";
+import Map from "src/components/Map";
+import TileLayer from "src/components/Map/Layers/TileLayer";
+import Layers from "src/components/Map/Layers";
+import Controls from "src/components/Map/Controls";
+import FullScreenControl from "src/components/Map/Controls/FullScreenControl";
+import VectorLayer from "src/components/Map/Layers/VectorLayer";
+import { vectorSource } from "src/components/Map/utils";
+import Overlays from "src/components/Map/Overlays";
+import PopupOverlay from "src/components/Map/Overlays/PopupOverlay";
+import ZoomControl from "src/components/Map/Controls/ZoomControl";
 
 function UsersMap() {
   const users = useSelector(selectUsers);

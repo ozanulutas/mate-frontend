@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ControllerRenderProps } from "react-hook-form";
 
-import { selectCategorySearchData } from "src/features/Explore/selectors";
+import { selectCategories } from "src/features/Explore/selectors";
 import { getCategoriesRequest } from "src/features/Explore/slice";
 
 import { Autocomplete, SxProps, TextField } from "@mui/material";
@@ -15,8 +15,8 @@ type CategorySearchProps = {
 
 function CategorySearch({ sx, field, error }: CategorySearchProps) {
   const dispatch = useDispatch();
-  const categorySearchData = useSelector(selectCategorySearchData);
   const [inputValue, setInputValue] = useState("");
+  const categories = useSelector(selectCategories);
 
   const handleScroll = (event: React.SyntheticEvent) => {
     const listboxNode = event.currentTarget;
@@ -51,8 +51,8 @@ function CategorySearch({ sx, field, error }: CategorySearchProps) {
       limitTags={3}
       loading
       inputValue={inputValue}
-      options={categorySearchData}
       getOptionLabel={(option) => option?.name}
+      options={categories}
       onChange={onChange}
       onInputChange={(e, val) => setInputValue(val)}
       ListboxProps={{

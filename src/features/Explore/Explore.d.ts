@@ -1,5 +1,6 @@
 import { Status } from "src/constants";
 import { Error } from "src/api/api.d";
+import { View } from "./constants";
 
 export interface Category {
   id: number;
@@ -27,6 +28,7 @@ export interface ExploreState {
     data: User[];
     reason: Error;
   };
+  view: keyof typeof View;
 }
 
 export type GetCategoriesRequestPayload = {

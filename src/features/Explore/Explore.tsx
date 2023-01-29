@@ -1,12 +1,12 @@
-import { Stack } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { getLocationsRequest } from "src/features/Account/slice";
 
+import { Stack } from "@mui/material";
 import Search from "./Search";
-import UsersMap from "./Users/UsersMap";
 import ViewToggle from "./ViewToggle";
+import Users from "./Users";
 
 function Explore() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function Explore() {
     <Stack spacing={2}>
       <Search />
       <ViewToggle />
-      <UsersMap />
+      <Users />
     </Stack>
   );
 }
