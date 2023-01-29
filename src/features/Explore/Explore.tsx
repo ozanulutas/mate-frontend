@@ -4,11 +4,11 @@ import { useDispatch } from "react-redux";
 
 import { getLocationsRequest } from "src/features/Account/slice";
 
-import Search from "src/features/Search";
-import UsersMap from "./UsersMap";
+import Search from "./Search";
+import UsersMap from "./Users/UsersMap";
 import ViewToggle from "./ViewToggle";
 
-function UsersList() {
+function Explore() {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,4 +24,4 @@ function UsersList() {
   );
 }
 
-export default UsersList;
+export default Explore;

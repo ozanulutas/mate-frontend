@@ -1,6 +1,8 @@
 import GeoJSON from "ol/format/GeoJSON";
+import { useSelector } from "react-redux";
+import { Icon, Style } from "ol/style";
 
-import { selectUsers } from "src/features/Search/selectors";
+import { selectUsers } from "src/features/Explore/selectors";
 
 import Map from "src/features/Map";
 import TileLayer from "src/features/Map/Layers/TileLayer";
@@ -12,8 +14,6 @@ import { vectorSource } from "src/features/Map/utils";
 import Overlays from "src/features/Map/Overlays";
 import PopupOverlay from "src/features/Map/Overlays/PopupOverlay";
 import ZoomControl from "src/features/Map/Controls/ZoomControl";
-import { useSelector } from "react-redux";
-import { Icon, Style } from "ol/style";
 
 function UsersMap() {
   const users = useSelector(selectUsers);

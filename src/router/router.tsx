@@ -14,7 +14,7 @@ import {
   LoginPage,
   RegisterPage,
   SecuritySettingsPage,
-  UsersListPage,
+  ExplorePage,
 } from "src/pages";
 import GoBackLayout from "src/layouts/GoBackLayout";
 
@@ -88,8 +88,8 @@ export const router = createBrowserRouter([
             ],
           },
           {
-            path: Path.USERS,
-            element: <UsersListPage />,
+            path: Path.EXPLORE,
+            element: <ExplorePage />,
           },
         ],
       },

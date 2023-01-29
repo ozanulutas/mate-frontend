@@ -29,7 +29,7 @@ function* loginSuccessSaga(action: ReturnType<typeof loginSuccess>) {
     action.payload.access_token
   );
   // https://github.com/remix-run/react-router/issues/9422
-  router.navigate(Path.USERS, { replace: true });
+  router.navigate(Path.EXPLORE, { replace: true });
 }
 
 function* registerRequestSaga(action: ReturnType<typeof registerRequest>) {
@@ -47,7 +47,7 @@ function* registerSuccessSaga(action: ReturnType<typeof registerSuccess>) {
     action.payload.access_token
   );
   // @TODO: redirect to profile page
-  router.navigate(Path.USERS, { replace: true });
+  router.navigate(Path.EXPLORE, { replace: true });
 }
 
 function* authSaga() {

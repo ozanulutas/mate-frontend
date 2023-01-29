@@ -16,7 +16,7 @@ export interface User {
   };
 }
 
-export interface SearchState {
+export interface ExploreState {
   categories: {
     status: Status;
     data: Category[];

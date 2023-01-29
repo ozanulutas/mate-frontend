@@ -33,9 +33,9 @@ function* getUsersRequestSaga(action: ReturnType<typeof getUsersRequest>) {
   );
 }
 
-function* authSaga() {
+function* exploreSaga() {
   yield takeLatest(searchCategoryRequest.type, searchCategoryRequestSaga);
   yield takeLatest(getUsersRequest.type, getUsersRequestSaga);
 }
 
-export default authSaga;
+export default exploreSaga;

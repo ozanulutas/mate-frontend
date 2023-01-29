@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ControllerRenderProps } from "react-hook-form";
 
-import { selectCategorySearchData } from "../selectors";
-import { searchCategoryRequest } from "../slice";
+import { selectCategorySearchData } from "src/features/Explore/selectors";
+import { searchCategoryRequest } from "src/features/Explore/slice";
 
 import { Autocomplete, SxProps, TextField } from "@mui/material";
 

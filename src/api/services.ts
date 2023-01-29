@@ -6,7 +6,7 @@ import {
 import {
   GetUsersRequestPayload,
   SearchCategoryRequestPayload,
-} from "src/features/Search/Search.d";
+} from "src/features/Explore/Explore.d";
 import { endpoints } from "./endpoints";
 import { request } from "./request";
 

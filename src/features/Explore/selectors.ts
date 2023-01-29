@@ -2,19 +2,19 @@ import { createSelector } from "@reduxjs/toolkit";
 
 import { RootState } from "src/redux/store";
 
-export const selectSearch = (state: RootState) => state.search;
+export const selectExplore = (state: RootState) => state.explore;
 
 export const selectCategorySearchStatus = createSelector(
-  selectSearch,
+  selectExplore,
   (search) => search.categories.status
 );
 
 export const selectCategorySearchData = createSelector(
-  selectSearch,
+  selectExplore,
   (search) => search.categories.data
 );
 
 export const selectUsers = createSelector(
-  selectSearch,
+  selectExplore,
   (search) => search.users.data
 );

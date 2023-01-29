@@ -9,9 +9,8 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  Slider,
+  SxProps,
 } from "@mui/material";
-import { Box, SxProps } from "@mui/system";
 
 type LocationSelectProps = {
   distanceSlider: React.ReactNode;

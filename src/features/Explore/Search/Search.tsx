@@ -2,14 +2,16 @@ import { useDispatch } from "react-redux";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { searchSchema, SearchSchemaType } from "./validation";
+import {
+  searchSchema,
+  SearchSchemaType,
+} from "src/features/Explore/validation";
+import { getUsersRequest } from "src/features/Explore/slice";
 
 import { Search as SearchIcon } from "@mui/icons-material";
+import { Box, Fab, Stack } from "@mui/material";
 import LocationSelect from "./LocationSelect";
 import CategorySearch from "./CategorySearch";
-import { Box, Fab } from "@mui/material";
-import { Stack } from "@mui/system";
-import { getUsersRequest } from "./slice";
 import DistanceSlider from "./DistanceSlider";
 
 function Search() {

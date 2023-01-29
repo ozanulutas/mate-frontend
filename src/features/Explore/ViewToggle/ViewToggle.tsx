@@ -1,9 +1,9 @@
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { useState } from "react";
 
 import { View } from "./constants";
 
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { Map as MapIcon, List as ListIcon } from "@mui/icons-material";
-import { useState } from "react";
 
 function ViewToggle() {
   const [view, setView] = useState(View.MAP);

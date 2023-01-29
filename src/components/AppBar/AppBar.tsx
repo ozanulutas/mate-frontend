@@ -51,7 +51,7 @@ export default function AppBar() {
                   justifyContent: { xs: "center", sm: "unset" },
                 }}
               >
-                <Link to={Path.USERS} color="inherit">
+                <Link to={Path.EXPLORE} color="inherit">
                   <IconButton size="large" aria-label="search" color="inherit">
                     <ExploreIcon />
                   </IconButton>

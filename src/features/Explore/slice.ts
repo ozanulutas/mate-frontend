@@ -5,11 +5,11 @@ import {
   Category,
   GetUsersRequestPayload,
   SearchCategoryRequestPayload,
-  SearchState,
-} from "./Search.d";
+  ExploreState,
+} from "./Explore.d";
 import { Status } from "src/constants";
 
-const initialState: SearchState = {
+const initialState: ExploreState = {
   categories: {
     status: Status.INIT,
     data: [],
@@ -23,7 +23,7 @@ const initialState: SearchState = {
 };
 
 export const searchSlice = createSlice({
-  name: "search",
+  name: "explore",
   initialState,
   reducers: {
     // @TODO: refactor searchCategory -> categories
