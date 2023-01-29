@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ControllerRenderProps } from "react-hook-form";
 
 import { selectCategorySearchData } from "src/features/Explore/selectors";
-import { searchCategoryRequest } from "src/features/Explore/slice";
+import { getCategoriesRequest } from "src/features/Explore/slice";
 
 import { Autocomplete, SxProps, TextField } from "@mui/material";
 
@@ -40,7 +40,7 @@ function CategorySearch({ sx, field, error }: CategorySearchProps) {
       return;
     }
 
-    dispatch(searchCategoryRequest({ name: inputValue }));
+    dispatch(getCategoriesRequest({ name: inputValue }));
   }, [dispatch, inputValue]);
 
   return (

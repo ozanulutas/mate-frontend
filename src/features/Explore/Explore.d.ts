@@ -29,7 +29,7 @@ export interface ExploreState {
   };
 }
 
-export type SearchCategoryRequestPayload = {
+export type GetCategoriesRequestPayload = {
   name: string;
 };
 

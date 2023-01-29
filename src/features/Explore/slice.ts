@@ -4,7 +4,7 @@ import { Error } from "src/api/api.d";
 import {
   Category,
   GetUsersRequestPayload,
-  SearchCategoryRequestPayload,
+  GetCategoriesRequestPayload,
   ExploreState,
 } from "./Explore.d";
 import { Status } from "src/constants";
@@ -26,19 +26,18 @@ export const searchSlice = createSlice({
   name: "explore",
   initialState,
   reducers: {
-    // @TODO: refactor searchCategory -> categories
-    searchCategoryRequest: (
+    getCategoriesRequest: (
       state,
-      action: PayloadAction<SearchCategoryRequestPayload>
+      action: PayloadAction<GetCategoriesRequestPayload>
     ) => {
       state.categories.status = Status.LOADING;
       state.categories.reason = initialState.categories.reason;
     },
-    searchCategorySuccess: (state, action: PayloadAction<Category[]>) => {
+    getCategoriesSuccess: (state, action: PayloadAction<Category[]>) => {
       state.categories.status = Status.LOADED;
       state.categories.data = action.payload;
     },
-    searchCategoryError: (state, action: PayloadAction<Error>) => {
+    getCategoriesError: (state, action: PayloadAction<Error>) => {
       state.categories.status = Status.ERROR;
       state.categories.reason = action.payload;
     },
@@ -58,9 +57,9 @@ export const searchSlice = createSlice({
 });
 
 export const {
-  searchCategoryRequest,
-  searchCategorySuccess,
-  searchCategoryError,
+  getCategoriesRequest,
+  getCategoriesSuccess,
+  getCategoriesError,
   getUsersError,
   getUsersRequest,
   getUsersSuccess,
