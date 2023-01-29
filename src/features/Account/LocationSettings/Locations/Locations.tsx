@@ -27,7 +27,7 @@ function Locations() {
             </ListItemAvatar>
             <ListItemText
               primary={location.name}
-              secondary={location.coordinates}
+              secondary={location.geojson.coordinates}
             />
           </ListItem>
           <Divider variant="inset" component="li" />

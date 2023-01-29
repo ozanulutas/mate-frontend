@@ -1,11 +1,14 @@
 import { call, delay, takeLatest } from "redux-saga/effects";
 
-import { categorySearchApi } from "src/api/services";
+import { categorySearchApi, getUsersApi } from "src/api/services";
 import { handleRequest } from "src/redux/saga/handleRequest";
 import {
   searchCategoryRequest,
   searchCategorySuccess,
   searchCategoryError,
+  getUsersSuccess,
+  getUsersError,
+  getUsersRequest,
 } from "./slice";
 
 function* searchCategoryRequestSaga(
@@ -21,8 +24,18 @@ function* searchCategoryRequestSaga(
   );
 }
 
+function* getUsersRequestSaga(action: ReturnType<typeof getUsersRequest>) {
+  yield call(
+    handleRequest,
+    { success: getUsersSuccess, error: getUsersError },
+    getUsersApi,
+    action.payload
+  );
+}
+
 function* authSaga() {
   yield takeLatest(searchCategoryRequest.type, searchCategoryRequestSaga);
+  yield takeLatest(getUsersRequest.type, getUsersRequestSaga);
 }
 
 export default authSaga;

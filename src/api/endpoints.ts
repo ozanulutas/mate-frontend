@@ -6,8 +6,9 @@ export const endpoints = {
   category: {
     search: "/categories/search",
   },
-  location: {
-    add: "/locations",
-    getAll: "/locations",
+  user: {
+    addLocation: "/users/me/locations",
+    getLocations: "/users/me/locations",
+    search: "/users/search",
   },
 };

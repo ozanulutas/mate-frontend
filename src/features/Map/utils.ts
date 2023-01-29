@@ -1,11 +1,14 @@
 import { Collection, Feature } from "ol";
 import { Coordinate } from "ol/coordinate";
+import FeatureFormat from "ol/format/Feature";
 import { Geometry, Point } from "ol/geom";
 import { Vector as VectorSource } from "ol/source";
 import { Icon, Style } from "ol/style";
 
 type vectorSourceParams = {
-  features: Feature<Geometry>[] | Collection<Feature<Geometry>> | undefined;
+  features?: Feature<Geometry>[] | Collection<Feature<Geometry>> | undefined;
+  url?: string;
+  format?: any; //FeatureFormat;
 };
 
 type createMarkerParams = {
@@ -13,8 +16,8 @@ type createMarkerParams = {
   id?: number | string;
 };
 
-export const vectorSource = ({ features }: vectorSourceParams) =>
-  new VectorSource({ features });
+export const vectorSource = ({ features, url, format }: vectorSourceParams) =>
+  new VectorSource({ features, url, format });
 
 export const createMarker = ({ coordinates, id }: createMarkerParams) => {
   const iconStyle = new Style({

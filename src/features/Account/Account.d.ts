@@ -4,7 +4,10 @@ import { Status } from "src/constants";
 interface Location {
   id: number;
   name: string;
-  coordinates: any; // @TODO: type
+  geojson: {
+    type: "Point";
+    coordinates: [number, number];
+  };
 }
 
 export interface AccountState {

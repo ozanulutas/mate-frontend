@@ -6,14 +6,36 @@ export interface Category {
   name: string;
 }
 
+export interface User {
+  id: number;
+  username: string;
+  categories: string[];
+  geojson: {
+    type: "Point";
+    coordinates: [number, number];
+  };
+}
+
 export interface SearchState {
   categories: {
     status: Status;
     data: Category[];
     reason: Error;
   };
+  users: {
+    status: Status;
+    data: User[];
+    reason: Error;
+  };
 }
 
 export type SearchCategoryRequestPayload = {
   name: string;
+};
+
+export type GetUsersRequestPayload = {
+  lon: number;
+  lat: number;
+  categories: number[];
+  distance: number;
 };

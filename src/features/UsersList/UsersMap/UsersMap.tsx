@@ -1,44 +1,51 @@
-import { fromLonLat } from "ol/proj";
+import GeoJSON from "ol/format/GeoJSON";
+
+import { selectUsers } from "src/features/Search/selectors";
 
 import Map from "src/features/Map";
-import ModifyInteraction from "src/features/Map/Interactions/ModifyInteraction/ModifyInteraction";
 import TileLayer from "src/features/Map/Layers/TileLayer";
 import Layers from "src/features/Map/Layers";
 import Controls from "src/features/Map/Controls";
 import FullScreenControl from "src/features/Map/Controls/FullScreenControl";
 import VectorLayer from "src/features/Map/Layers/VectorLayer";
-import { createMarker, vectorSource } from "src/features/Map/utils";
-import Interactions from "src/features/Map/Interactions";
+import { vectorSource } from "src/features/Map/utils";
 import Overlays from "src/features/Map/Overlays";
 import PopupOverlay from "src/features/Map/Overlays/PopupOverlay";
 import ZoomControl from "src/features/Map/Controls/ZoomControl";
+import { useSelector } from "react-redux";
+import { Icon, Style } from "ol/style";
 
 function UsersMap() {
-  const iconFeature = createMarker({ coordinates: [0, 0], id: "me" });
-  const iconFeature2 = createMarker({
-    coordinates: fromLonLat([27.51029, 40.964498]),
-  });
+  const users = useSelector(selectUsers);
+
+  const features = {
+    type: "FeatureCollection",
+    features: users.map(({ geojson }) => ({
+      type: "Feature",
+      geometry: geojson,
+    })),
+  };
 
   return (
-    <Map
-      events={[
-        {
-          type: "singleclick",
-          handler(e) {
-            iconFeature.getGeometry()?.setCoordinates(e.coordinate);
-          },
-        },
-      ]}
-    >
+    <Map>
       <Layers>
         <TileLayer />
         <VectorLayer
-          source={vectorSource({ features: [iconFeature, iconFeature2] })}
+          source={vectorSource({
+            features: new GeoJSON().readFeatures(features, {
+              featureProjection: "EPSG:3857",
+            }),
+          })}
+          style={
+            new Style({
+              image: new Icon({
+                src: "https://docs.maptiler.com/openlayers/default-marker/marker-icon.png",
+                anchor: [0.5, 1],
+              }),
+            })
+          }
         />
       </Layers>
-      <Interactions>
-        <ModifyInteraction features={[iconFeature]} />
-      </Interactions>
       <Overlays>
         <PopupOverlay />
       </Overlays>

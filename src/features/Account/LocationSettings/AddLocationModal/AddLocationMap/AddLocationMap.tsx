@@ -45,7 +45,6 @@ const AddLocationMap = ({ markerRef }: AddLocationMapProps) => {
       <Interactions>
         <ModifyInteraction features={[iconFeature]} />
       </Interactions>
-
       <Controls>
         <FullScreenControl />
         <ZoomControl />

@@ -13,3 +13,8 @@ export const selectCategorySearchData = createSelector(
   selectSearch,
   (search) => search.categories.data
 );
+
+export const selectUsers = createSelector(
+  selectSearch,
+  (search) => search.users.data
+);

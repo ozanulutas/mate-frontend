@@ -20,6 +20,7 @@ import {
   Notifications as NotificationsIcon,
   AccountCircle as AccountCircleIcon,
   Search as SearchIcon,
+  Explore as ExploreIcon,
 } from "@mui/icons-material";
 import Link from "src/components/Link";
 
@@ -52,7 +53,7 @@ export default function AppBar() {
               >
                 <Link to={Path.USERS} color="inherit">
                   <IconButton size="large" aria-label="search" color="inherit">
-                    <SearchIcon />
+                    <ExploreIcon />
                   </IconButton>
                 </Link>
                 <IconButton

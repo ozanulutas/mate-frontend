@@ -3,7 +3,10 @@ import {
   LoginRequestPayload,
   RegisterRequestPayload,
 } from "src/features/Auth/Auth.d";
-import { SearchCategoryRequestPayload } from "src/features/Search/Search.d";
+import {
+  GetUsersRequestPayload,
+  SearchCategoryRequestPayload,
+} from "src/features/Search/Search.d";
 import { endpoints } from "./endpoints";
 import { request } from "./request";
 
@@ -20,7 +23,10 @@ export const categorySearchApi = ({ name }: SearchCategoryRequestPayload) =>
     },
   });
 
-export const addLocationApi = (data: AddLocationRequestPayload) =>
-  request.post(endpoints.location.add, data);
+export const getUsersApi = (data: GetUsersRequestPayload) =>
+  request.get(endpoints.user.search, { params: data });
 
-export const getLocationsApi = () => request.get(endpoints.location.getAll);
+export const addLocationApi = (data: AddLocationRequestPayload) =>
+  request.post(endpoints.user.addLocation, data);
+
+export const getLocationsApi = () => request.get(endpoints.user.getLocations);

@@ -14,33 +14,33 @@ import {
 import { Box, SxProps } from "@mui/system";
 
 type LocationSelectProps = {
+  distanceSlider: React.ReactNode;
   sx?: SxProps;
   field: ControllerRenderProps<any, any>;
   error?: string;
 };
 
-const LocationSelect = ({ sx, field, error }: LocationSelectProps) => {
+const LocationSelect = ({
+  distanceSlider,
+  sx,
+  field,
+  error,
+}: LocationSelectProps) => {
   const locations = useSelector(selectLocations);
 
   return (
     <FormControl error={!!error} sx={sx}>
       <InputLabel id="location-select-label">Location</InputLabel>
       <Select {...field} labelId="location-select-label" label="Location">
-        <Box sx={{ mx: 4, my: 5 }}>
-          <Slider
-            aria-label="Temperature"
-            defaultValue={30}
-            // getAriaValueText={valuetext}
-            valueLabelDisplay="auto"
-            step={10}
-            marks
-            min={10}
-            max={110}
-          />
-        </Box>
+        {distanceSlider}
         <MenuItem value={0}>Current Location</MenuItem>
         {locations.map((location) => (
-          <MenuItem value={location.id}>{location.name}</MenuItem>
+          <MenuItem
+            key={location.id}
+            value={JSON.stringify(location.geojson.coordinates)}
+          >
+            {location.name}
+          </MenuItem>
         ))}
       </Select>
       <FormHelperText>{error}</FormHelperText>
