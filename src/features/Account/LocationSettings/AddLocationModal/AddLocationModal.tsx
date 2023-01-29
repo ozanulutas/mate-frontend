@@ -1,7 +1,7 @@
 import { Marker } from "src/features/Account/LocationSettings/LocationSettings.d";
-import { ModalKey } from "src/features/Modal/constants";
+import { ModalKey } from "src/components/Modal/constants";
 
-import Modal from "src/features/Modal";
+import Modal from "src/components/Modal";
 import AddLocationMap from "./AddLocationMap";
 import AddLocationForm from "./AddLocationForm";
 import { useRef } from "react";

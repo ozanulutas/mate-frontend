@@ -2,8 +2,8 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
 import { getLocationsRequest } from "../slice";
-import { toggleModal } from "src/features/Modal/slice";
-import { ModalKey } from "src/features/Modal/constants";
+import { toggleModal } from "src/components/Modal/slice";
+import { ModalKey } from "src/components/Modal/constants";
 
 import { Add as AddIcon } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
