@@ -1,7 +1,7 @@
 import { call, put } from "redux-saga/effects";
 import { AxiosError, AxiosResponse } from "axios";
 import { ActionCreatorWithOptionalPayload } from "@reduxjs/toolkit";
-import { openToast } from "src/features/Toast/slice";
+import { openToast } from "src/components/Toast/slice";
 
 export function* handleRequest<
   Func extends (...args: any[]) => Promise<AxiosResponse>,
