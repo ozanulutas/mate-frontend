@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 
 import { Path } from "src/router/path";
-import { toggleDrawer } from "src/features/Drawer/slice";
-import { DrawerKey } from "src/features/Drawer/constants";
+import { toggleDrawer } from "src/components/Drawer/slice";
+import { DrawerKey } from "src/components/Drawer/constants";
 
 import {
   AppBar as MuiAppBar,
@@ -19,7 +19,6 @@ import {
   Mail as MailIcon,
   Notifications as NotificationsIcon,
   AccountCircle as AccountCircleIcon,
-  Search as SearchIcon,
   Explore as ExploreIcon,
 } from "@mui/icons-material";
 import Link from "src/components/Link";

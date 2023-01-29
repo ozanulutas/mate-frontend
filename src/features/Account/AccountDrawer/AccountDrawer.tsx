@@ -1,9 +1,9 @@
-import { DrawerKey } from "src/features/Drawer/constants";
+import { DrawerKey } from "src/components/Drawer/constants";
 
 import { Path } from "src/router/path";
 
 import { deepOrange } from "@mui/material/colors";
-import Drawer from "src/features/Drawer";
+import Drawer from "src/components/Drawer";
 import {
   Avatar,
   Divider,
