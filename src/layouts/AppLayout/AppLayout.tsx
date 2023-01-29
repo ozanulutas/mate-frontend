@@ -9,12 +9,10 @@ function AppLayout() {
   return (
     <>
       <AppBar />
-      <Container>
-        <Box sx={{ my: 2 }}>
-          <Suspense fallback={<h1>Loading...</h1>}>
-            <Outlet />
-          </Suspense>
-        </Box>
+      <Container sx={{ my: 2 }}>
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Outlet />
+        </Suspense>
       </Container>
       <AccountDrawer />
     </>

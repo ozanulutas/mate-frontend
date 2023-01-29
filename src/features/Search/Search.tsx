@@ -48,7 +48,6 @@ function Search() {
       direction={{ xs: "column", sm: "row" }}
       alignItems={{ sm: "flex-start" }}
       spacing={2}
-      sx={{ mb: 2 }}
     >
       <Controller
         name="categories"

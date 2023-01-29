@@ -1,3 +1,4 @@
+import { Stack } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
@@ -15,11 +16,11 @@ function UsersList() {
   }, [dispatch]);
 
   return (
-    <>
+    <Stack spacing={2}>
       <Search />
       <ViewToggle />
       <UsersMap />
-    </>
+    </Stack>
   );
 }
 

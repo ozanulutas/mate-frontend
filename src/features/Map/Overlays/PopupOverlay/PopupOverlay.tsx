@@ -5,6 +5,7 @@ import MapContext from "../../MapContext";
 
 function PopupOverlay() {
   const popupRef = useRef<HTMLDivElement>(null);
+  const popupInfo = useRef("");
   const { map } = useContext(MapContext);
 
   useEffect(() => {
@@ -18,22 +19,31 @@ function PopupOverlay() {
       },
     });
 
-    map?.on("pointermove", function (e) {
+    let prevId: any = "";
+    map?.on("pointermove", (e) => {
       const pixel = map?.getEventPixel(e.originalEvent);
       const hit = map?.hasFeatureAtPixel(pixel);
 
-      if (hit) {
-        if (map?.getFeaturesAtPixel(pixel)[0].getId() === "me") {
-          return;
-        }
-        //How to get all features you hover on.
-        //const featureArray = map?.getFeaturesAtPixel(pixel);
-
-        popupOverlay.getElement()!.hidden = false;
-        popupOverlay.setPosition(e.coordinate);
-      } else {
+      if (!hit) {
         popupOverlay.getElement()!.hidden = true;
+        prevId = "";
+        return;
       }
+
+      const [feature] = map?.getFeaturesAtPixel(pixel);
+      const featureId = feature?.getId();
+
+      if (featureId === "me") {
+        return;
+      }
+
+      if (prevId !== featureId) {
+        popupRef.current!.innerHTML = feature?.getProperties().username;
+        popupRef.current!.hidden = false;
+        prevId = feature.getId();
+      }
+
+      popupOverlay.setPosition(e.coordinate);
     });
 
     map?.addOverlay(popupOverlay);
@@ -43,7 +53,7 @@ function PopupOverlay() {
     };
   }, [map]);
 
-  return <div ref={popupRef}>Hello There</div>;
+  return <div ref={popupRef}>Hello</div>;
 }
 
 export default PopupOverlay;
