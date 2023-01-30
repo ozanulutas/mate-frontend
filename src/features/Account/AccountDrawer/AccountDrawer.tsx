@@ -22,6 +22,7 @@ import {
 } from "@mui/icons-material";
 import { Link } from "src/components";
 
+// @TODO: move this compoenet somewhere else maybe to applayout?
 function AccountDrawer() {
   return (
     <Drawer drawerKey={DrawerKey.ACCOUNT}>
@@ -34,30 +35,28 @@ function AccountDrawer() {
       <Divider />
       <List>
         <ListItem disablePadding>
+          <ListItemButton component={Link} to={Path.PROFILE}>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary="Profile" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
           <ListItemButton component={Link} to={Path.ACCOUNT}>
             <ListItemIcon>
               <ManageAccountsIcon />
             </ListItemIcon>
-            <ListItemText primary={"Account"} />
+            <ListItemText primary="Account" />
           </ListItemButton>
         </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText primary={"Profile"} />
-          </ListItemButton>
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
+        <Divider component="li" />
         <ListItem disablePadding>
           <ListItemButton>
             <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>
-            <ListItemText primary={"Logout"} />
+            <ListItemText primary="Logout" />
           </ListItemButton>
         </ListItem>
       </List>

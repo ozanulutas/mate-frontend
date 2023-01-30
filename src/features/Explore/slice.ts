@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { Error } from "src/api/api.d";
 import {
-  Category,
   GetUsersRequestPayload,
   GetCategoriesRequestPayload,
   ExploreState,
@@ -21,10 +20,11 @@ const initialState: ExploreState = {
     data: [],
     reason: {},
   },
+  selectedCategories: [],
   view: View.MAP,
 };
 
-export const searchSlice = createSlice({
+export const exploreSlice = createSlice({
   name: "explore",
   initialState,
   reducers: {
@@ -35,13 +35,22 @@ export const searchSlice = createSlice({
       state.categories.status = Status.LOADING;
       state.categories.reason = initialState.categories.reason;
     },
-    getCategoriesSuccess: (state, action: PayloadAction<Category[]>) => {
+    getCategoriesSuccess: (
+      state,
+      action: PayloadAction<ExploreState["categories"]["data"]>
+    ) => {
       state.categories.status = Status.LOADED;
       state.categories.data = action.payload;
     },
     getCategoriesError: (state, action: PayloadAction<Error>) => {
       state.categories.status = Status.ERROR;
       state.categories.reason = action.payload;
+    },
+    setSelectedCategories: (
+      state,
+      action: PayloadAction<ExploreState["selectedCategories"]>
+    ) => {
+      state.selectedCategories = action.payload;
     },
 
     getUsersRequest: (state, action: PayloadAction<GetUsersRequestPayload>) => {
@@ -67,11 +76,12 @@ export const {
   getCategoriesRequest,
   getCategoriesSuccess,
   getCategoriesError,
+  setSelectedCategories,
 
   getUsersError,
   getUsersRequest,
   getUsersSuccess,
 
   setView,
-} = searchSlice.actions;
-export default searchSlice.reducer;
+} = exploreSlice.actions;
+export default exploreSlice.reducer;

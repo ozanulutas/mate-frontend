@@ -2,16 +2,19 @@ import { Status } from "src/constants";
 import { Error } from "src/api/api.d";
 import { View } from "./constants";
 
+// @TODO: move Category to shared types
 export interface Category {
   id: number;
   name: string;
 }
 
+// @TODO: move User to shared types
 export interface User {
   id: number;
   username: string;
-  categories: string[];
+  categories: Category[];
   geojson: {
+    // @TODO: move geojson to shared types
     type: "Point";
     coordinates: [number, number];
   };
@@ -28,6 +31,7 @@ export interface ExploreState {
     data: User[];
     reason: Error;
   };
+  selectedCategories: Category["id"][];
   view: keyof typeof View;
 }
 

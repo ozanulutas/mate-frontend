@@ -9,6 +9,11 @@ export const selectCategories = createSelector(
   (explore) => explore.categories.data
 );
 
+export const selectSelectedCategories = createSelector(
+  selectExplore,
+  (explore) => explore.selectedCategories
+);
+
 export const selectUsers = createSelector(
   selectExplore,
   (explore) => explore.users.data

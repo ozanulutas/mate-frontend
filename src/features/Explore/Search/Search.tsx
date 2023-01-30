@@ -6,10 +6,13 @@ import {
   searchSchema,
   SearchSchemaType,
 } from "src/features/Explore/validation";
-import { getUsersRequest } from "src/features/Explore/slice";
+import {
+  getUsersRequest,
+  setSelectedCategories,
+} from "src/features/Explore/slice";
 
 import { Search as SearchIcon } from "@mui/icons-material";
-import { Box, Fab, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import LocationSelect from "./LocationSelect";
 import CategorySearch from "./CategorySearch";
 import DistanceSlider from "./DistanceSlider";
@@ -32,15 +35,17 @@ function Search() {
     coordinates,
   }) => {
     const [lon, lat] = JSON.parse(coordinates);
+    const selectedCategories = categories.map((category) => category.id);
 
     dispatch(
       getUsersRequest({
         lon,
         lat,
-        categories: categories.map((category) => category.id),
+        categories: selectedCategories,
         distance: distance * 1000,
       })
     );
+    dispatch(setSelectedCategories(selectedCategories));
   };
 
   return (
@@ -85,9 +90,15 @@ function Search() {
         )}
       />
 
-      <Fab type="submit" color="primary" aria-label="search">
-        <SearchIcon />
-      </Fab>
+      <Button
+        type="submit"
+        variant="outlined"
+        size="large"
+        startIcon={<SearchIcon />}
+        sx={{ py: { sm: 1.75 } }}
+      >
+        Search
+      </Button>
     </Stack>
   );
 }
