@@ -1,12 +1,16 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Overlay } from "ol";
 
 import MapContext from "../../MapContext";
+import { Avatar, Card, CardHeader } from "@mui/material";
 
 function PopupOverlay() {
-  const popupRef = useRef<HTMLDivElement>(null);
-  const popupInfo = useRef("");
   const { map } = useContext(MapContext);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const [popupInfo, setPopupInfo] = useState<{
+    username: string;
+    categories: any[];
+  }>();
 
   useEffect(() => {
     // https://openlayers.org/en/latest/examples/icon.html
@@ -19,14 +23,15 @@ function PopupOverlay() {
       },
     });
 
-    let prevId: any = "";
+    let prevFeatureId: any = "";
+
     map?.on("pointermove", (e) => {
       const pixel = map?.getEventPixel(e.originalEvent);
       const hit = map?.hasFeatureAtPixel(pixel);
 
       if (!hit) {
         popupOverlay.getElement()!.hidden = true;
-        prevId = "";
+        prevFeatureId = "";
         return;
       }
 
@@ -37,10 +42,10 @@ function PopupOverlay() {
         return;
       }
 
-      if (prevId !== featureId) {
-        popupRef.current!.innerHTML = feature?.getProperties().username;
+      if (prevFeatureId !== featureId) {
+        setPopupInfo(feature?.getProperties().user);
         popupRef.current!.hidden = false;
-        prevId = feature.getId();
+        prevFeatureId = featureId;
       }
 
       popupOverlay.setPosition(e.coordinate);
@@ -53,7 +58,17 @@ function PopupOverlay() {
     };
   }, [map]);
 
-  return <div ref={popupRef}>Hello</div>;
+  return (
+    <Card ref={popupRef} sx={{ maxWidth: 345 }}>
+      <CardHeader
+        avatar={<Avatar>{popupInfo?.username[0]}</Avatar>}
+        title={popupInfo?.username}
+        subheader={popupInfo?.categories
+          .map((category) => category.name)
+          .join(", ")}
+      />
+    </Card>
+  );
 }
 
 export default PopupOverlay;

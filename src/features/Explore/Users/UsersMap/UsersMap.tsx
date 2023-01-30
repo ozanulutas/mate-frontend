@@ -20,12 +20,15 @@ function UsersMap() {
 
   const features = {
     type: "FeatureCollection",
-    features: users.map(({ geojson, username }, i) => ({
+    features: users.map(({ geojson, username, categories }, i) => ({
       type: "Feature",
       id: i,
       geometry: geojson,
       properties: {
-        username,
+        user: {
+          username,
+          categories,
+        },
       },
     })),
   };
