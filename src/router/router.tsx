@@ -15,6 +15,7 @@ import {
   RegisterPage,
   SecuritySettingsPage,
   ExplorePage,
+  ProfilePage,
 } from "src/pages";
 import GoBackLayout from "src/layouts/GoBackLayout";
 
@@ -63,6 +64,14 @@ export const router = createBrowserRouter([
         element: <RequireAuth />,
         children: [
           {
+            path: Path.EXPLORE,
+            element: <ExplorePage />,
+          },
+          {
+            path: Path.PROFILE,
+            element: <ProfilePage />,
+          },
+          {
             element: <GoBackLayout />,
             children: [
               {
@@ -86,10 +95,6 @@ export const router = createBrowserRouter([
                 element: <CategorySettingsPage />,
               },
             ],
-          },
-          {
-            path: Path.EXPLORE,
-            element: <ExplorePage />,
           },
         ],
       },

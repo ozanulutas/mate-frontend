@@ -1,6 +1,7 @@
 import { lazy } from "react";
 
 export const ExplorePage = lazy(() => import("./ExplorePage"));
+export const ProfilePage = lazy(() => import("./ProfilePage"));
 
 export const AccountPage = lazy(() => import("./AccountPage"));
 export const GeneralSettingsPage = lazy(() => import("./GeneralSettingsPage"));
