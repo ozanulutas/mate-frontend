@@ -13,11 +13,12 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import CategoryChips from "src/components/CategoryChips";
 
 function Profile() {
   const dispatch = useDispatch();
   const { userId = "" } = useParams();
-  const user = useSelector(selectUser);
+  const { username, categories, info, age } = useSelector(selectUser);
 
   useEffect(() => {
     dispatch(getUserRequest(userId));
@@ -33,15 +34,16 @@ function Profile() {
       <CardHeader
         avatar={
           <Avatar src="https://images.unsplash.com/photo-1674809867836-c82107fb4879?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw2MXx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60">
-            {userId}
+            {username?.[0]}
           </Avatar>
         }
-        title="username"
-        subheader="categories"
+        title={username}
+        subheader={<CategoryChips categories={categories} />}
+        subheaderTypographyProps={{ component: "div" }}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          user info
+          {info}
         </Typography>
       </CardContent>
     </Card>

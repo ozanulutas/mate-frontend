@@ -20,6 +20,7 @@ import {
   Notifications as NotificationsIcon,
   AccountCircle as AccountCircleIcon,
   Explore as ExploreIcon,
+  Feed as FeedIcon,
 } from "@mui/icons-material";
 import Link from "src/components/Link";
 
@@ -51,8 +52,13 @@ export default function AppBar() {
                 }}
               >
                 <Link to={Path.EXPLORE} color="inherit">
-                  <IconButton size="large" aria-label="search" color="inherit">
+                  <IconButton size="large" aria-label="explore" color="inherit">
                     <ExploreIcon />
+                  </IconButton>
+                </Link>
+                <Link to={Path.FEED} color="inherit">
+                  <IconButton size="large" aria-label="feed" color="inherit">
+                    <FeedIcon />
                   </IconButton>
                 </Link>
                 <IconButton

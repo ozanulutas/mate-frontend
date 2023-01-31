@@ -18,6 +18,7 @@ import {
   ProfilePage,
 } from "src/pages";
 import GoBackLayout from "src/layouts/GoBackLayout";
+import FeedPage from "src/pages/FeedPage";
 
 // @TODO: Layout routerları birleştirilip tek bir errorElement kullanılabilir?
 // export const router = createBrowserRouter([
@@ -66,6 +67,10 @@ export const router = createBrowserRouter([
           {
             path: Path.EXPLORE,
             element: <ExplorePage />,
+          },
+          {
+            path: Path.FEED,
+            element: <FeedPage />,
           },
           {
             path: Path.PROFILE,

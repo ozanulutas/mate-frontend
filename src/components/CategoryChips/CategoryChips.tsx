@@ -7,7 +7,10 @@ type CategoryChipsProps = {
   matchingCategories?: Category["id"][];
 };
 
-function CategoryChips({ categories, matchingCategories }: CategoryChipsProps) {
+function CategoryChips({
+  categories = [],
+  matchingCategories = [],
+}: CategoryChipsProps) {
   const highlightCategory = (categoryId: number) =>
     matchingCategories?.some((id) => categoryId === id);
 

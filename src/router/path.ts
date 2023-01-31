@@ -1,6 +1,7 @@
 export const Path = {
   HOME: "/",
   EXPLORE: "/explore",
+  FEED: "/feed",
   PROFILE: "/profile/:userId",
 
   ACCOUNT: "/account",
