@@ -10,7 +10,7 @@ import { Status } from "src/constants";
 
 const initialState: AuthState = {
   access_token: "",
-  user: {},
+  user: {} as AuthState["user"],
   login: {
     status: Status.INIT,
     reason: {},

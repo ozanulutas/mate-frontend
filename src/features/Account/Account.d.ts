@@ -1,14 +1,6 @@
 import { Error } from "src/api/api.d";
 import { Status } from "src/constants";
-
-interface Location {
-  id: number;
-  name: string;
-  geojson: {
-    type: "Point";
-    coordinates: [number, number];
-  };
-}
+import { Location } from "src/types";
 
 export interface AccountState {
   locationSettings: {

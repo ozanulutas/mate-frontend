@@ -1,4 +1,4 @@
-import { Category } from "src/features/Explore/Explore.d";
+import { Category } from "src/types";
 
 import { Stack, Chip } from "@mui/material";
 
