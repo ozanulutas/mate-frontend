@@ -7,48 +7,47 @@ import {
 
 import {
   Avatar,
-  Chip,
   Divider,
   List,
   ListItem,
   ListItemAvatar,
+  ListItemButton,
   ListItemText,
 } from "@mui/material";
 import { Fragment } from "react";
-import { Stack } from "@mui/system";
+import { Link } from "src/components";
+import { Path } from "src/router/path";
+import { replacePathParams } from "src/utils/replace-path-params";
+import CategoryChips from "src/components/CategoryChips";
 
 function UsersList() {
   const users = useSelector(selectUsers);
   const selectedCategories = useSelector(selectSelectedCategories);
 
-  const highlightCategory = (categoryId: number) =>
-    selectedCategories.some((id) => categoryId === id);
-
   return (
     <List>
       {users.map(({ id, categories, username }, i, arr) => (
         <Fragment key={id}>
-          <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-              <Avatar>{username[0]}</Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={username}
-              secondary={
-                <Stack direction="row" spacing={0.5}>
-                  {categories.map((category) => (
-                    <Chip
-                      label={category.name}
-                      color={
-                        highlightCategory(category.id) ? "primary" : "default"
-                      }
-                      size="small"
-                    />
-                  ))}
-                </Stack>
-              }
-              secondaryTypographyProps={{ component: "div" }}
-            />
+          <ListItem alignItems="flex-start" disablePadding>
+            <ListItemButton
+              to={replacePathParams(Path.PROFILE, { userId: id })}
+              component={Link}
+              sx={{ py: 2, pr: 4 }}
+            >
+              <ListItemAvatar>
+                <Avatar>{username[0]}</Avatar>
+              </ListItemAvatar>
+              <ListItemText
+                primary={username}
+                secondary={
+                  <CategoryChips
+                    categories={categories}
+                    matchingCategories={selectedCategories}
+                  />
+                }
+                secondaryTypographyProps={{ component: "div" }}
+              />
+            </ListItemButton>
           </ListItem>
           {i !== arr.length - 1 && <Divider variant="inset" component="li" />}
         </Fragment>

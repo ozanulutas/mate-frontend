@@ -57,7 +57,10 @@ export const exploreSlice = createSlice({
       state.users.status = Status.LOADING;
       state.users.reason = initialState.users.reason;
     },
-    getUsersSuccess: (state, action: PayloadAction<any>) => {
+    getUsersSuccess: (
+      state,
+      action: PayloadAction<ExploreState["users"]["data"]>
+    ) => {
       state.users.status = Status.LOADED;
       state.users.data = action.payload;
     },

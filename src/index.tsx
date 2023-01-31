@@ -1,8 +1,8 @@
 import ReactDOM from "react-dom/client";
 
 import reportWebVitals from "./reportWebVitals";
+import { setYupLocale } from "./utils/set-yup-locale";
 import App from "./App";
-import { setYupLocale } from "./utils/yup/set-yup-locale";
 
 setYupLocale();
 

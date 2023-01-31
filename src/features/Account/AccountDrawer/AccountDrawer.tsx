@@ -1,9 +1,10 @@
 import { DrawerKey } from "src/components/Drawer/constants";
 
 import { Path } from "src/router/path";
+import { replacePathParams } from "src/utils/replace-path-params";
 
 import { deepOrange } from "@mui/material/colors";
-import Drawer from "src/components/Drawer";
+import { Fragment } from "react";
 import {
   Avatar,
   Divider,
@@ -20,9 +21,29 @@ import {
   Logout as LogoutIcon,
   Person as PersonIcon,
 } from "@mui/icons-material";
+import Drawer from "src/components/Drawer";
 import { Link } from "src/components";
 
-// @TODO: move this compoenet somewhere else maybe to applayout?
+const drawerItems = [
+  {
+    label: "Profile",
+    icon: <PersonIcon />,
+    path: replacePathParams(Path.PROFILE, { userId: "me" }),
+  },
+  {
+    label: "Account",
+    icon: <ManageAccountsIcon />,
+    path: Path.ACCOUNT,
+    divider: true,
+  },
+  {
+    label: "Logout",
+    icon: <LogoutIcon />,
+    path: Path.LOGIN,
+  },
+];
+
+// @TODO: move this compoenet somewhere else and change the name
 function AccountDrawer() {
   return (
     <Drawer drawerKey={DrawerKey.ACCOUNT}>
@@ -34,31 +55,17 @@ function AccountDrawer() {
       </Toolbar>
       <Divider />
       <List>
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to={Path.PROFILE}>
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText primary="Profile" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to={Path.ACCOUNT}>
-            <ListItemIcon>
-              <ManageAccountsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Account" />
-          </ListItemButton>
-        </ListItem>
-        <Divider component="li" />
-        <ListItem disablePadding>
-          <ListItemButton>
-            <ListItemIcon>
-              <LogoutIcon />
-            </ListItemIcon>
-            <ListItemText primary="Logout" />
-          </ListItemButton>
-        </ListItem>
+        {drawerItems.map((item) => (
+          <Fragment key={item.label}>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to={item.path}>
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.label} />
+              </ListItemButton>
+            </ListItem>
+            {item.divider && <Divider component="li" />}
+          </Fragment>
+        ))}
       </List>
     </Drawer>
   );

@@ -1,5 +1,10 @@
 import { setLocale } from "yup";
-import { FieldNameMap } from "./field-name-map";
+
+export const FormInputNameMap = {
+  username: "User name",
+  password: "Password",
+  email: "E-mail",
+};
 
 export const setYupLocale = () =>
   setLocale({
@@ -9,7 +14,7 @@ export const setYupLocale = () =>
     mixed: {
       required: ({ path }) => {
         return `${
-          (FieldNameMap as Record<string, string>)[path]
+          (FormInputNameMap as Record<string, string>)[path]
         } is a required field`;
       },
     },
