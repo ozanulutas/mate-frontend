@@ -3,6 +3,7 @@ export const Path = {
   EXPLORE: "/explore",
   FEED: "/feed",
   PROFILE: "/profile/:userId",
+  MESSAGES: "/messages",
 
   ACCOUNT: "/account",
   GENERAL_SETTINGS: "/account/general-settings",

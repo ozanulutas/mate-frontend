@@ -16,6 +16,7 @@ import {
   SecuritySettingsPage,
   ExplorePage,
   ProfilePage,
+  MessagesPage,
 } from "src/pages";
 import GoBackLayout from "src/layouts/GoBackLayout";
 import FeedPage from "src/pages/FeedPage";
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
           {
             path: Path.PROFILE,
             element: <ProfilePage />,
+          },
+          {
+            path: Path.MESSAGES,
+            element: <MessagesPage />,
           },
           {
             element: <GoBackLayout />,
