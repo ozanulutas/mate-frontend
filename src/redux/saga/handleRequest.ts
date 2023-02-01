@@ -8,7 +8,7 @@ export function* handleRequest<
   Handler extends ActionCreatorWithOptionalPayload<any>
 >(
   handlers: {
-    success: Handler;
+    success?: Handler;
     error: Handler;
   },
   requestFunc: Func,
@@ -18,7 +18,9 @@ export function* handleRequest<
     const { data }: AxiosResponse = yield call(requestFunc, ...args);
     const { toast, popup, actionCode } = data?.result ?? {};
 
-    yield put(handlers.success(data.data));
+    if (handlers.success) {
+      yield put(handlers.success(data.data));
+    }
 
     if (toast) {
       yield put(openToast(toast));
@@ -26,6 +28,7 @@ export function* handleRequest<
 
     return data;
   } catch (error) {
+    console.error(error);
     const errorData: any = (error as AxiosError).response?.data;
     const { toast, popup, actionCode, ...rest } = errorData ?? {};
 

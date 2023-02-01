@@ -1,6 +1,6 @@
 import { Status } from "src/constants";
 import { Error } from "src/api/api.d";
-import { User } from "src/types";
+import { Post, User } from "src/types";
 
 export interface ProfileState {
   user: {
@@ -8,8 +8,12 @@ export interface ProfileState {
     data: User;
     reason: Error;
   };
+  posts: {
+    status: Status;
+    data: Post[];
+    reason: Error;
+  };
 }
 
-export type GetUserRequestPayload = {
-  userId: User["id"] | string;
-};
+export type GetUserRequestPayload = User["id"] | string;
+export type GetPostsRequestPayload = User["id"] | string;

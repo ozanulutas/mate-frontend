@@ -1,8 +1,6 @@
 export interface GeoJSON {
-  geojson: {
-    type: "Point";
-    coordinates: [number, number];
-  };
+  type: "Point";
+  coordinates: [number, number];
 }
 
 export interface Location {

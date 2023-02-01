@@ -16,10 +16,11 @@ function CategoryChips({
 
   return (
     <Stack direction="row" sx={{ flexWrap: "wrap", gap: 0.5 }}>
-      {categories.map((category) => (
+      {categories.map(({ id, name }) => (
         <Chip
-          label={category.name}
-          color={highlightCategory(category.id) ? "primary" : "default"}
+          key={id}
+          label={name}
+          color={highlightCategory(id) ? "primary" : "default"}
           size="small"
         />
       ))}

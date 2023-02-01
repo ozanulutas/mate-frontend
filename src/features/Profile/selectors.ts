@@ -8,3 +8,8 @@ export const selectUser = createSelector(
   selectProfile,
   (profile) => profile.user.data
 );
+
+export const selectPosts = createSelector(
+  selectProfile,
+  (profile) => profile.posts.data
+);

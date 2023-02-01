@@ -2,6 +2,7 @@ import authReducer from "src/features/Auth/slice";
 import accountReducer from "src/features/Account/slice";
 import profileReducer from "src/features/Profile/slice";
 import exploreReducer from "src/features/Explore/slice";
+import feedReducer from "src/features/Feed/slice";
 
 import toastReducer from "src/components/Toast/slice";
 import drawerReducer from "src/components/Drawer/slice";
@@ -12,6 +13,7 @@ export const rootReducer = {
   account: accountReducer,
   profile: profileReducer,
   explore: exploreReducer,
+  feed: feedReducer,
 
   toast: toastReducer,
   drawer: drawerReducer,

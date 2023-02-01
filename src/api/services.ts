@@ -7,7 +7,11 @@ import {
   GetUsersRequestPayload,
   GetCategoriesRequestPayload,
 } from "src/features/Explore/Explore.d";
-import { GetUserRequestPayload } from "src/features/Profile/Profile.d";
+import { GetCommentsRequestPayload } from "src/features/Feed/Feed.d";
+import {
+  GetPostsRequestPayload,
+  GetUserRequestPayload,
+} from "src/features/Profile/Profile.d";
 import { replacePathParams } from "src/utils/replace-path-params";
 import { Endpoint } from "./endpoint";
 import { request } from "./request";
@@ -31,7 +35,7 @@ export const categorySearchApi = ({ name }: GetCategoriesRequestPayload) =>
 
 // User
 
-export const getUserApi = (userId: GetUserRequestPayload["userId"]) =>
+export const getUserApi = (userId: GetUserRequestPayload) =>
   request.get(replacePathParams(Endpoint.User.GET, { userId }));
 
 export const getUsersApi = (data: GetUsersRequestPayload) =>
@@ -41,3 +45,13 @@ export const addLocationApi = (data: AddLocationRequestPayload) =>
   request.post(Endpoint.User.ADD_LOCATION, data);
 
 export const getLocationsApi = () => request.get(Endpoint.User.GET_LOCATIONS);
+
+export const getFeedApi = () => request.get(Endpoint.User.GET_FEED);
+
+export const getPostsApi = (userId: GetPostsRequestPayload) =>
+  request.get(replacePathParams(Endpoint.User.GET_POSTS, { userId }));
+
+// Post
+
+export const getCommentsApi = (postId: GetCommentsRequestPayload) =>
+  request.get(replacePathParams(Endpoint.Post.GET_COMMENTS, { postId }));

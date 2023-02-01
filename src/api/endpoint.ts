@@ -8,8 +8,13 @@ export const Endpoint = {
   },
   User: {
     GET: "/users/:userId",
+    SEARCH: "/users/search",
     ADD_LOCATION: "/users/me/locations",
     GET_LOCATIONS: "/users/me/locations",
-    SEARCH: "/users/search",
+    GET_FEED: "/users/me/feed",
+    GET_POSTS: "/users/:userId/posts",
+  },
+  Post: {
+    GET_COMMENTS: "/posts/:postId/comments",
   },
 };
