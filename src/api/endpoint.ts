@@ -13,6 +13,8 @@ export const Endpoint = {
     GET_LOCATIONS: "/users/me/locations",
     GET_FEED: "/users/me/feed",
     GET_POSTS: "/users/:userId/posts",
+    GET_CHATS: "/users/me/chats",
+    CREATE_MESSAGE: "/users/me/messages",
   },
   Post: {
     GET_COMMENTS: "/posts/:postId/comments",

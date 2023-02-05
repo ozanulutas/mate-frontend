@@ -18,7 +18,9 @@ function connect() {
 function subscribe(socket: Socket) {
   return eventChannel((emit) => {
     socket.on("evt1", (data) => {
-      emit("action1");
+      console.log("asdasd");
+
+      emit({ type: "ACT" });
     });
 
     socket.on("evt2", (data) => {
@@ -38,14 +40,16 @@ function* read(socket: Socket): Generator<any, any, any> {
 
   while (true) {
     const action = yield take(channel);
+    console.log("action");
+
     yield put(action);
   }
 }
 
 function* write(socket: Socket) {
   while (true) {
-    const { payload } = yield take("action");
-    socket.emit("evt", payload);
+    const { payload } = yield take("MESSAGE");
+    socket.emit("message", payload);
   }
 }
 
@@ -56,12 +60,13 @@ function* handleIO(socket: Socket) {
 
 function* flow(): Generator<any, any, any> {
   while (true) {
-    const { payload } = yield take("login action");
+    const { payload } = yield take("CONNECT_SOCKET");
     const socket = yield call(connect);
 
-    socket.emit("login evt", { username: payload.username });
+    // socket.emit("login evt", { username: payload.username });
 
     const task = yield fork(handleIO, socket);
+
     const action = yield take("logout");
 
     yield cancel(task);

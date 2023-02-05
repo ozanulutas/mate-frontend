@@ -5,6 +5,8 @@ import exploreSaga from "src/features/Explore/saga";
 import accountSaga from "src/features/Account/saga";
 import profileSaga from "src/features/Profile/saga";
 import feedSaga from "src/features/Feed/saga";
+import chatSaga from "src/features/Chat/saga";
+import socketSaga from "./saga/socketSaga";
 
 export function* rootSaga() {
   yield all([
@@ -13,5 +15,7 @@ export function* rootSaga() {
     accountSaga(),
     profileSaga(),
     feedSaga(),
+    chatSaga(),
+    socketSaga(),
   ]);
 }

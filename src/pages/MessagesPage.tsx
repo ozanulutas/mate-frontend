@@ -1,4 +1,4 @@
-import Message from "src/features/Message";
+import Message from "src/features/Chat";
 
 function MessagesPage() {
   return <Message />;

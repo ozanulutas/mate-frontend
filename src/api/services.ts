@@ -4,6 +4,10 @@ import {
   RegisterRequestPayload,
 } from "src/features/Auth/Auth.d";
 import {
+  CreateMessageRequestPayload,
+  GetMessagesRequestPayload,
+} from "src/features/Chat/Chat.d";
+import {
   GetUsersRequestPayload,
   GetCategoriesRequestPayload,
 } from "src/features/Explore/Explore.d";
@@ -50,6 +54,16 @@ export const getFeedApi = () => request.get(Endpoint.User.GET_FEED);
 
 export const getPostsApi = (userId: GetPostsRequestPayload) =>
   request.get(replacePathParams(Endpoint.User.GET_POSTS, { userId }));
+
+export const getChatsApi = () => request.get(Endpoint.User.GET_CHATS);
+
+export const getMessagesApi = (peerId: GetMessagesRequestPayload) =>
+  request.get(Endpoint.User.GET_CHATS, {
+    params: { peerId },
+  });
+
+export const createMessageApi = (data: CreateMessageRequestPayload) =>
+  request.post(Endpoint.User.CREATE_MESSAGE, data);
 
 // Post
 

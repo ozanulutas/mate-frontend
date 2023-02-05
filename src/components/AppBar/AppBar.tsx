@@ -10,10 +10,8 @@ import {
   Box,
   Container,
   IconButton,
-  Slide,
   Toolbar,
   Typography,
-  useScrollTrigger,
 } from "@mui/material";
 import {
   Mail as MailIcon,
@@ -26,83 +24,74 @@ import Link from "src/components/Link";
 
 export default function AppBar() {
   const dispatch = useDispatch();
-  const trigger = useScrollTrigger();
 
   return (
-    <>
-      <Slide appear={false} direction="down" in={!trigger}>
-        <MuiAppBar>
-          <Container>
-            <Toolbar
-              disableGutters
-              sx={{ px: 0, justifyContent: "space-between" }}
+    <MuiAppBar position="sticky">
+      <Container>
+        <Toolbar disableGutters sx={{ px: 0, justifyContent: "space-between" }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            MATE
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flex: { xs: 1, sm: "unset" },
+              justifyContent: { xs: "center", sm: "unset" },
+            }}
+          >
+            <IconButton
+              component={Link}
+              to={Path.EXPLORE}
+              size="large"
+              aria-label="explore"
+              color="inherit"
             >
-              <Typography
-                variant="h6"
-                component="div"
-                sx={{ display: { xs: "none", sm: "block" } }}
-              >
-                MATE
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  flex: { xs: 1, sm: "unset" },
-                  justifyContent: { xs: "center", sm: "unset" },
-                }}
-              >
-                <IconButton
-                  component={Link}
-                  to={Path.EXPLORE}
-                  size="large"
-                  aria-label="explore"
-                  color="inherit"
-                >
-                  <ExploreIcon />
-                </IconButton>
-                <IconButton
-                  component={Link}
-                  to={Path.FEED}
-                  size="large"
-                  aria-label="feed"
-                  color="inherit"
-                >
-                  <FeedIcon />
-                </IconButton>
-                <IconButton
-                  component={Link}
-                  to={Path.MESSAGES}
-                  size="large"
-                  aria-label="show 4 new mails"
-                  color="inherit"
-                >
-                  <Badge badgeContent={4} color="error">
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                >
-                  <Badge badgeContent={17} color="error">
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  color="inherit"
-                  onClick={() => dispatch(toggleDrawer(DrawerKey.ACCOUNT))}
-                >
-                  <AccountCircleIcon />
-                </IconButton>
-              </Box>
-            </Toolbar>
-          </Container>
-        </MuiAppBar>
-      </Slide>
-      <Toolbar />
-    </>
+              <ExploreIcon />
+            </IconButton>
+            <IconButton
+              component={Link}
+              to={Path.FEED}
+              size="large"
+              aria-label="feed"
+              color="inherit"
+            >
+              <FeedIcon />
+            </IconButton>
+            <IconButton
+              component={Link}
+              to={Path.MESSAGES}
+              size="large"
+              aria-label="show 4 new mails"
+              color="inherit"
+            >
+              <Badge badgeContent={4} color="error">
+                <MailIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="show 17 new notifications"
+              color="inherit"
+            >
+              <Badge badgeContent={17} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              color="inherit"
+              onClick={() => dispatch(toggleDrawer(DrawerKey.ACCOUNT))}
+            >
+              <AccountCircleIcon />
+            </IconButton>
+          </Box>
+        </Toolbar>
+      </Container>
+    </MuiAppBar>
   );
 }
