@@ -1,16 +1,20 @@
 import { Suspense, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
+
+import { appConfigRequest } from "src/features/AppConfig/slice";
+import { AppBarHeight } from "src/components/AppBar/constants";
 
 import { Container } from "@mui/material";
 import { AppBar } from "src/components";
 import AccountDrawer from "src/features/Account/AccountDrawer";
-import { AppBarHeight } from "src/components/AppBar/constants";
-import { useDispatch } from "react-redux";
 
 function AppLayout() {
   const dispach = useDispatch();
+
   useEffect(() => {
-    // dispach({ type: "CONNECT_SOCKET" });
+    dispach({ type: "CONNECT_SOCKET" });
+    dispach(appConfigRequest());
   }, [dispach]);
 
   return (

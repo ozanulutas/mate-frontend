@@ -19,4 +19,5 @@ export const Endpoint = {
   Post: {
     GET_COMMENTS: "/posts/:postId/comments",
   },
+  INIT: "/init",
 };

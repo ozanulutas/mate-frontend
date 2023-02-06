@@ -1,4 +1,5 @@
 import authReducer from "src/features/Auth/slice";
+import appConfigReducer from "src/features/AppConfig/slice";
 import accountReducer from "src/features/Account/slice";
 import profileReducer from "src/features/Profile/slice";
 import exploreReducer from "src/features/Explore/slice";
@@ -10,6 +11,7 @@ import drawerReducer from "src/components/Drawer/slice";
 import modalReducer from "src/components/Modal/slice";
 
 export const rootReducer = {
+  appConfig: appConfigReducer,
   auth: authReducer,
   account: accountReducer,
   profile: profileReducer,

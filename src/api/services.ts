@@ -69,3 +69,7 @@ export const createMessageApi = (data: CreateMessageRequestPayload) =>
 
 export const getCommentsApi = (postId: GetCommentsRequestPayload) =>
   request.get(replacePathParams(Endpoint.Post.GET_COMMENTS, { postId }));
+
+// Init
+
+export const initApi = () => request.get(Endpoint.INIT);
