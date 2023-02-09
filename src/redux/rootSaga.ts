@@ -7,7 +7,7 @@ import accountSaga from "src/features/Account/saga";
 import profileSaga from "src/features/Profile/saga";
 import feedSaga from "src/features/Feed/saga";
 import chatSaga from "src/features/Chat/saga";
-import socketSaga from "./saga/socketSaga";
+import socketSaga from "src/features/Socket/saga";
 
 export function* rootSaga() {
   yield all([

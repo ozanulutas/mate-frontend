@@ -8,12 +8,13 @@ import { AppBarHeight } from "src/components/AppBar/constants";
 import { Container } from "@mui/material";
 import { AppBar } from "src/components";
 import AccountDrawer from "src/features/Account/AccountDrawer";
+import { connectSocket } from "src/features/Socket/slice";
 
 function AppLayout() {
   const dispach = useDispatch();
 
   useEffect(() => {
-    dispach({ type: "CONNECT_SOCKET" });
+    dispach(connectSocket());
     dispach(appConfigRequest());
   }, [dispach]);
 
