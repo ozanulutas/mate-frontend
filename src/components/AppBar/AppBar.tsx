@@ -14,11 +14,11 @@ import {
   Typography,
 } from "@mui/material";
 import {
-  Mail as MailIcon,
+  Message as MessageIcon,
   Notifications as NotificationsIcon,
   AccountCircle as AccountCircleIcon,
   Explore as ExploreIcon,
-  Feed as FeedIcon,
+  Search as SearchIcon,
 } from "@mui/icons-material";
 import Link from "src/components/Link";
 
@@ -50,7 +50,7 @@ export default function AppBar() {
               aria-label="explore"
               color="inherit"
             >
-              <ExploreIcon />
+              <SearchIcon />
             </IconButton>
             <IconButton
               component={Link}
@@ -59,7 +59,7 @@ export default function AppBar() {
               aria-label="feed"
               color="inherit"
             >
-              <FeedIcon />
+              <ExploreIcon />
             </IconButton>
             <IconButton
               component={Link}
@@ -69,7 +69,7 @@ export default function AppBar() {
               color="inherit"
             >
               <Badge badgeContent={4} color="error">
-                <MailIcon />
+                <MessageIcon />
               </Badge>
             </IconButton>
             <IconButton

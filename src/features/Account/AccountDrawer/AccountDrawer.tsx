@@ -1,9 +1,11 @@
-import { DrawerKey } from "src/components/Drawer/constants";
+import { useDispatch, useSelector } from "react-redux";
 
+import { DrawerKey } from "src/components/Drawer/constants";
 import { Path } from "src/router/path";
 import { replacePathParams } from "src/utils/replace-path-params";
+import { logout } from "src/features/Auth/slice";
+import { selectUser } from "src/features/AppConfig/selectors";
 
-import { deepOrange } from "@mui/material/colors";
 import { Fragment } from "react";
 import {
   Avatar,
@@ -36,21 +38,19 @@ const drawerItems = [
     path: Path.ACCOUNT,
     divider: true,
   },
-  {
-    label: "Logout",
-    icon: <LogoutIcon />,
-    path: Path.LOGIN,
-  },
 ];
 
 // @TODO: move this compoenet somewhere else and change the name
 function AccountDrawer() {
+  const dispatch = useDispatch();
+  const { username } = useSelector(selectUser) ?? {};
+
   return (
     <Drawer drawerKey={DrawerKey.ACCOUNT}>
       <Toolbar sx={{ gap: 2 }} disableGutters component={ListItem}>
-        <Avatar sx={{ bgcolor: deepOrange[500] }}>O</Avatar>
+        <Avatar>{username?.[0]}</Avatar>
         <Typography variant="subtitle1" component="h2">
-          Ozanus Ulutaşus
+          {username}
         </Typography>
       </Toolbar>
       <Divider />
@@ -66,6 +66,14 @@ function AccountDrawer() {
             {item.divider && <Divider component="li" />}
           </Fragment>
         ))}
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => dispatch(logout())}>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Drawer>
   );

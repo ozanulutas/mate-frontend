@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Post as PostInterface } from "src/types";
+import { replacePathParams, strToDate } from "src/utils";
+import { Path } from "src/router/path";
 import { getCommentsRequest } from "src/features/Feed/slice";
+import { selectUserId } from "src/features/AppConfig/selectors";
 
 import { Message as MessageIcon } from "@mui/icons-material";
 import {
@@ -17,17 +20,21 @@ import {
   Badge,
 } from "@mui/material";
 import Comments from "../Comments";
+import { Link } from "src/components";
+import UserActions from "src/components/UserActions";
 
 type PostProps = PostInterface;
 
 // @TODO: make "state cleaner" for comments or open them in modal
-function Post({ id, text, createdAt, _count, user }: PostProps) {
+function Post({ id, text, createdAt, _count, user: writer }: PostProps) {
   const dispatch = useDispatch();
-  const [expanded, setExpanded] = useState(false);
   const prevPostId = useRef<PostInterface["id"]>();
+  const [expanded, setExpanded] = useState(false);
+  const userId = useSelector(selectUserId);
 
-  const { username } = user ?? {};
+  const { username: writerName, id: writerId } = writer ?? {};
   const { comments: commentCount } = _count ?? {};
+  const isMe = userId === writerId;
 
   useEffect(() => {
     if (expanded && commentCount && prevPostId.current !== id) {
@@ -43,9 +50,20 @@ function Post({ id, text, createdAt, _count, user }: PostProps) {
   return (
     <Card sx={{ width: "100%" }} variant="outlined">
       <CardHeader
-        avatar={<Avatar>{username?.[0]}</Avatar>}
-        title={username}
-        subheader={createdAt}
+        avatar={
+          <Avatar
+            {...(!isMe && {
+              component: Link,
+              to: replacePathParams(Path.PROFILE, { userId: writerId }),
+              sx: { textDecoration: "none" },
+            })}
+          >
+            {writerName?.[0]}
+          </Avatar>
+        }
+        title={writerName}
+        subheader={strToDate(createdAt)}
+        action={!isMe && <UserActions />}
       />
       <CardContent sx={{ pb: 0 }}>
         <Typography variant="body2" color="text.secondary">

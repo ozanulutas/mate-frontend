@@ -9,6 +9,7 @@ import {
   loginError,
   loginRequest,
   loginSuccess,
+  logout,
   registerError,
   registerRequest,
   registerSuccess,
@@ -50,11 +51,17 @@ function* registerSuccessSaga(action: ReturnType<typeof registerSuccess>) {
   router.navigate(Path.EXPLORE, { replace: true });
 }
 
+function* logoutSaga() {
+  yield localStorage.removeItem(LocalStorageKey.TOKEN);
+  router.navigate(Path.LOGIN, { replace: true });
+}
+
 function* authSaga() {
   yield takeLatest(loginRequest.type, loginRequestSaga);
   yield takeLatest(loginSuccess.type, loginSuccessSaga);
   yield takeLatest(registerRequest.type, registerRequestSaga);
   yield takeLatest(registerSuccess.type, registerSuccessSaga);
+  yield takeLatest(logout.type, logoutSaga);
 }
 
 export default authSaga;

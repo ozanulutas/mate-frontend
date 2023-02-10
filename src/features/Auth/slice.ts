@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { Error } from "src/api/api.d";
 import {
@@ -51,6 +51,7 @@ export const authSlice = createSlice({
   },
 });
 
+export const logout = createAction("auth/logout");
 export const {
   loginRequest,
   loginSuccess,

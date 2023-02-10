@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import CategoryChips from "src/components/CategoryChips";
 import Posts from "src/features/Feed/Posts";
+import UserActions from "src/components/UserActions";
 
 function Profile() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function Profile() {
           title={username}
           subheader={<CategoryChips categories={categories} />}
           subheaderTypographyProps={{ component: "div" }}
+          action={userId !== "me" && <UserActions />}
         />
         <CardContent>
           <Typography variant="body2" color="text.secondary">
