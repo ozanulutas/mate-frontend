@@ -1,4 +1,4 @@
-import { call, takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 
 import { handleRequest } from "src/redux/saga/handleRequest";
 import {
@@ -16,6 +16,7 @@ import {
   createMessageRequest,
   createMessageError,
   createMessageSuccess,
+  sendMessageToSocket,
 } from "./slice";
 
 function* getChatsRequestSaga() {
@@ -48,10 +49,17 @@ function* createMessageRequestSaga(
   );
 }
 
+function* createMessageSuccessSaga(
+  action: ReturnType<typeof createMessageSuccess>
+) {
+  yield put(sendMessageToSocket(action.payload));
+}
+
 function* chatSaga() {
   yield takeLatest(getChatsRequest.type, getChatsRequestSaga);
   yield takeLatest(getMessagesRequest.type, getMessagesRequestSaga);
   yield takeLatest(createMessageRequest.type, createMessageRequestSaga);
+  yield takeLatest(createMessageSuccess.type, createMessageSuccessSaga);
 }
 
 export default chatSaga;

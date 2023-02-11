@@ -14,7 +14,7 @@ function AppLayout() {
   const dispach = useDispatch();
 
   useEffect(() => {
-    dispach(connectSocket());
+    // dispach(connectSocket());
     dispach(appConfigRequest());
   }, [dispach]);
 

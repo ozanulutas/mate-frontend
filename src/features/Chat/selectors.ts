@@ -13,3 +13,8 @@ export const selectMessages = createSelector(
   selectChat,
   (chat) => chat.messages.data
 );
+
+export const selectMessageStatus = createSelector(
+  selectChat,
+  (chat) => chat.message.status
+);

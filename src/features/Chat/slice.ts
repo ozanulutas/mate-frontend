@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { Error } from "src/api/api";
 import {
@@ -7,6 +7,7 @@ import {
   GetMessagesRequestPayload,
 } from "./Chat.d";
 import { Status } from "src/constants";
+import { User } from "src/types";
 
 const initialState: ChatState = {
   chats: {
@@ -83,8 +84,20 @@ export const chatSlice = createSlice({
       state.message.status = Status.ERROR;
       state.message.reason = action.payload;
     },
+
+    getMessageFromSocket: (
+      state,
+      action: PayloadAction<ChatState["message"]["data"]>
+    ) => {
+      state.messages.data.push(action.payload);
+    },
   },
 });
+
+export const sendMessageToSocket = createAction<ChatState["message"]["data"]>(
+  "chat/sendMessageToSocket"
+);
+export const addUserToSocket = createAction<User["id"]>("chat/addUserToSocket");
 
 export const {
   getChatsError,
@@ -98,5 +111,7 @@ export const {
   createMessageError,
   createMessageRequest,
   createMessageSuccess,
+
+  getMessageFromSocket,
 } = chatSlice.actions;
 export default chatSlice.reducer;
