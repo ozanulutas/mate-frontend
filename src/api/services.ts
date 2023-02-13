@@ -13,8 +13,11 @@ import {
 } from "src/features/Explore/Explore.d";
 import { GetCommentsRequestPayload } from "src/features/Feed/Feed.d";
 import {
+  FollowRequestPayload,
   GetPostsRequestPayload,
   GetUserRequestPayload,
+  RemoveFriendshipRequestPayload,
+  RequestFriendshipRequestPayload,
 } from "src/features/Profile/Profile.d";
 import { replacePathParams } from "src/utils/replace-path-params";
 import { Endpoint } from "./endpoint";
@@ -64,6 +67,23 @@ export const getMessagesApi = (peerId: GetMessagesRequestPayload) =>
 
 export const createMessageApi = (data: CreateMessageRequestPayload) =>
   request.post(Endpoint.User.CREATE_MESSAGE, data);
+
+export const followApi = (followingId: FollowRequestPayload) =>
+  request.post(Endpoint.User.FOLLOW, { followingId });
+
+export const unfollowApi = (followingId: FollowRequestPayload) =>
+  request.delete(Endpoint.User.UNFOLLOW, { data: { followingId } });
+
+export const requestFriendshipApi = (
+  receiverId: RequestFriendshipRequestPayload
+) => request.post(Endpoint.User.REQUEST_FRIENDSHIP, { receiverId });
+
+export const removeFriendshipApi = (
+  receiverId: RemoveFriendshipRequestPayload
+) => request.delete(Endpoint.User.REMOVE_FRIENDSHIP, { data: { receiverId } });
+
+export const getNotificationsApi = () =>
+  request.get(Endpoint.User.GET_NOTIFICATIONS);
 
 // Post
 

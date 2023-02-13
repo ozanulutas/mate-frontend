@@ -1,4 +1,5 @@
 import GeoJSON from "ol/format/GeoJSON";
+import { Category } from "./category";
 
 export interface User {
   id: number;

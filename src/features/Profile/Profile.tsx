@@ -15,12 +15,12 @@ import {
 } from "@mui/material";
 import CategoryChips from "src/components/CategoryChips";
 import Posts from "src/features/Feed/Posts";
-import UserActions from "src/components/UserActions";
+import UserActions from "src/features/Profile/UserActions";
 
 function Profile() {
   const dispatch = useDispatch();
   const { userId = "" } = useParams();
-  const { username, categories, info, age } = useSelector(selectUser);
+  const { username, categories, info, age, _count } = useSelector(selectUser);
   const posts = useSelector(selectPosts);
 
   useEffect(() => {

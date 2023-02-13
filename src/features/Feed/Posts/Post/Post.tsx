@@ -21,7 +21,6 @@ import {
 } from "@mui/material";
 import Comments from "../Comments";
 import { Link } from "src/components";
-import UserActions from "src/components/UserActions";
 
 type PostProps = PostInterface;
 
@@ -63,7 +62,6 @@ function Post({ id, text, createdAt, _count, user: writer }: PostProps) {
         }
         title={writerName}
         subheader={strToDate(createdAt)}
-        action={!isMe && <UserActions />}
       />
       <CardContent sx={{ pb: 0 }}>
         <Typography variant="body2" color="text.secondary">
