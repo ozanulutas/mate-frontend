@@ -18,6 +18,8 @@ import {
   GetUserRequestPayload,
   RemoveFriendshipRequestPayload,
   RequestFriendshipRequestPayload,
+  UnfollowRequestPayload,
+  UpdateFriendshipRequestPayload,
 } from "src/features/Profile/Profile.d";
 import { replacePathParams } from "src/utils/replace-path-params";
 import { Endpoint } from "./endpoint";
@@ -71,12 +73,15 @@ export const createMessageApi = (data: CreateMessageRequestPayload) =>
 export const followApi = (followingId: FollowRequestPayload) =>
   request.post(Endpoint.User.FOLLOW, { followingId });
 
-export const unfollowApi = (followingId: FollowRequestPayload) =>
+export const unfollowApi = (followingId: UnfollowRequestPayload) =>
   request.delete(Endpoint.User.UNFOLLOW, { data: { followingId } });
 
 export const requestFriendshipApi = (
   receiverId: RequestFriendshipRequestPayload
 ) => request.post(Endpoint.User.REQUEST_FRIENDSHIP, { receiverId });
+
+export const updateFriendshipApi = (data: UpdateFriendshipRequestPayload) =>
+  request.patch(Endpoint.User.UPDATE_FRIENDSHIP, data);
 
 export const removeFriendshipApi = (
   receiverId: RemoveFriendshipRequestPayload

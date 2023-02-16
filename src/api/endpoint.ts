@@ -19,6 +19,7 @@ export const Endpoint = {
     UNFOLLOW: "/users/me/followings",
     REQUEST_FRIENDSHIP: "/users/me/friends",
     REMOVE_FRIENDSHIP: "/users/me/friends",
+    UPDATE_FRIENDSHIP: "/users/me/friends",
     GET_NOTIFICATIONS: "/users/me/notifications",
   },
   Post: {
