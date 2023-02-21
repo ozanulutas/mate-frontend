@@ -5,6 +5,7 @@ import profileReducer from "src/features/Profile/slice";
 import exploreReducer from "src/features/Explore/slice";
 import feedReducer from "src/features/Feed/slice";
 import chatReducer from "src/features/Chat/slice";
+import notificationsReducer from "src/features/Notifications/slice";
 
 import toastReducer from "src/components/Toast/slice";
 import drawerReducer from "src/components/Drawer/slice";
@@ -18,6 +19,7 @@ export const rootReducer = {
   explore: exploreReducer,
   feed: feedReducer,
   chat: chatReducer,
+  notifications: notificationsReducer,
 
   toast: toastReducer,
   drawer: drawerReducer,
