@@ -6,7 +6,6 @@ import { DrawerKey } from "src/components/Drawer/constants";
 
 import {
   AppBar as MuiAppBar,
-  Badge,
   Box,
   Container,
   IconButton,
@@ -14,13 +13,13 @@ import {
   Typography,
 } from "@mui/material";
 import {
-  Message as MessageIcon,
-  Notifications as NotificationsIcon,
   AccountCircle as AccountCircleIcon,
   Explore as ExploreIcon,
   Search as SearchIcon,
 } from "@mui/icons-material";
 import Link from "src/components/Link";
+import NotificationsButton from "./NotificationsButton";
+import MessagesButton from "./MessagesButton";
 
 export default function AppBar() {
   const dispatch = useDispatch();
@@ -61,26 +60,8 @@ export default function AppBar() {
             >
               <ExploreIcon />
             </IconButton>
-            <IconButton
-              component={Link}
-              to={Path.MESSAGES}
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MessageIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <MessagesButton />
+            <NotificationsButton />
             <IconButton
               size="large"
               aria-label="account of current user"

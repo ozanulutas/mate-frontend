@@ -1,7 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { Error } from "src/api/api";
-import { NotificationsState } from "./Notifications.d";
+import {
+  GetNotificationCountRequestPayload,
+  NotificationsState,
+} from "./Notifications.d";
 import { Status } from "src/constants";
 
 const initialState: NotificationsState = {
@@ -34,9 +37,14 @@ export const notificationsSlice = createSlice({
   },
 });
 
+export const getNotificationCount =
+  createAction<GetNotificationCountRequestPayload>(
+    "notifications/getNotificationCount"
+  );
+
 export const {
-  getNotificationsError,
   getNotificationsRequest,
+  getNotificationsError,
   getNotificationsSuccess,
 } = notificationsSlice.actions;
 export default notificationsSlice.reducer;

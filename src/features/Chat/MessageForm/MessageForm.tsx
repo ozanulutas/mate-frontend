@@ -1,11 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { messageSchema, MessageSchemaType } from "./validation";
-import { SearchParam } from "../constants";
 import { selectMessageStatus } from "../selectors";
 import { createMessageRequest } from "../slice";
 
@@ -13,10 +11,13 @@ import { Send as SendIcon } from "@mui/icons-material";
 import { Box, TextField, IconButton } from "@mui/material";
 import { Status } from "src/constants";
 
-function MessageForm() {
+type MessageFormProps = {
+  peerId: number;
+};
+
+function MessageForm({ peerId }: MessageFormProps) {
   const dispatch = useDispatch();
   const isShiftKeyDown = useRef(false);
-  const [searchParams] = useSearchParams();
   const messageStatus = useSelector(selectMessageStatus);
   const {
     control,
@@ -29,8 +30,6 @@ function MessageForm() {
     },
     resolver: yupResolver(messageSchema),
   });
-
-  const peerId = searchParams.get(SearchParam.PEER_ID);
 
   useEffect(() => {
     if (messageStatus === Status.LOADED) {
@@ -46,7 +45,7 @@ function MessageForm() {
     dispatch(
       createMessageRequest({
         text: data.message,
-        receiverId: +peerId,
+        receiverId: peerId,
       })
     );
   };
@@ -76,7 +75,15 @@ function MessageForm() {
       component="form"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
-      sx={{ display: "flex", alignItems: "center", gap: 1, mx: 2, mb: 2 }}
+      sx={{
+        position: "sticky",
+        bottom: "1rem",
+        display: "flex",
+        alignItems: "center",
+        gap: 1,
+        mx: 2,
+        backgroundColor: "white",
+      }}
     >
       <Controller
         name="message"
@@ -89,7 +96,6 @@ function MessageForm() {
             required
             fullWidth
             autoFocus
-            disabled={!peerId}
             error={!!errors.message?.message}
             onKeyUp={handleKeyUp}
             onKeyDown={handleKeyDown}

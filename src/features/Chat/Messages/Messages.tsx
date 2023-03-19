@@ -11,26 +11,24 @@ function Messages() {
   const userId = useSelector(selectUserId);
 
   return (
-    <>
-      <List dense>
-        {messages.map(({ id, text, sender, createdAt }) => (
-          <ListItem
-            key={id}
-            sx={{
-              justifyContent: userId === sender.id ? "flex-end" : "flex-start",
-            }}
-          >
-            <Paper variant="outlined" sx={{ px: 1 }}>
-              <ListItemText
-                primary={text}
-                secondary={`${sender.username} - ${strToDate(createdAt)}`}
-                sx={{ maxWidth: "max-content" }}
-              />
-            </Paper>
-          </ListItem>
-        ))}
-      </List>
-    </>
+    <List dense sx={{ flex: 1 }}>
+      {messages.map(({ id, text, sender, createdAt }) => (
+        <ListItem
+          key={id}
+          sx={{
+            justifyContent: userId === sender.id ? "flex-end" : "flex-start",
+          }}
+        >
+          <Paper variant="outlined" sx={{ px: 1 }}>
+            <ListItemText
+              primary={text}
+              secondary={`${sender.username} - ${strToDate(createdAt)}`}
+              sx={{ maxWidth: "max-content" }}
+            />
+          </Paper>
+        </ListItem>
+      ))}
+    </List>
   );
 }
 

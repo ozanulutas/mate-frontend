@@ -3,7 +3,9 @@ export const Path = {
   EXPLORE: "/explore",
   FEED: "/feed",
   PROFILE: "/profile/:userId",
-  MESSAGES: "/messages",
+  CHAT: "/chat/:peerId",
+  CHATS: "/chats",
+  NOTIFICATIONS: "/notifications",
 
   ACCOUNT: "/account",
   GENERAL_SETTINGS: "/account/general-settings",

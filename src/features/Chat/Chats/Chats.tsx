@@ -1,11 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
 
-import { User } from "src/types";
-import { SearchParam } from "../constants";
+import { Path } from "src/router/path";
 import { selectChats } from "../selectors";
-import { getMessagesRequest } from "../slice";
+import { getChatsRequest } from "../slice";
 
 import {
   List,
@@ -16,29 +14,25 @@ import {
   ListItemButton,
   Badge,
 } from "@mui/material";
+import { Link } from "src/components";
+import { replacePathParams } from "src/utils";
 
 function Chats() {
   const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
   const chats = useSelector(selectChats);
-  const peerId = searchParams.get(SearchParam.PEER_ID);
 
   useEffect(() => {
-    if (!peerId) {
-      return;
-    }
-    dispatch(getMessagesRequest(+peerId));
-  }, [dispatch, peerId]);
-
-  const handleClick = (userId: User["id"]) => {
-    setSearchParams({ [SearchParam.PEER_ID]: userId.toString() });
-  };
+    dispatch(getChatsRequest());
+  }, [dispatch]);
 
   return (
     <List dense>
       {chats.map(({ isRead, text, userId, username }) => (
         <ListItem divider disablePadding key={userId}>
-          <ListItemButton onClick={() => handleClick(userId)}>
+          <ListItemButton
+            component={Link}
+            to={replacePathParams(Path.CHAT, { peerId: userId })}
+          >
             <ListItemAvatar>
               <Badge variant="dot" color="primary" invisible={isRead}>
                 <Avatar>{username[0]}</Avatar>

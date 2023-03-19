@@ -16,10 +16,12 @@ import {
   SecuritySettingsPage,
   ExplorePage,
   ProfilePage,
-  MessagesPage,
+  ChatPage,
+  NotificationsPage,
+  ChatsPage,
+  FeedPage,
 } from "src/pages";
 import GoBackLayout from "src/layouts/GoBackLayout";
-import FeedPage from "src/pages/FeedPage";
 
 // @TODO: Layout routerları birleştirilip tek bir errorElement kullanılabilir?
 // export const router = createBrowserRouter([
@@ -78,8 +80,16 @@ export const router = createBrowserRouter([
             element: <ProfilePage />,
           },
           {
-            path: Path.MESSAGES,
-            element: <MessagesPage />,
+            path: Path.CHATS,
+            element: <ChatsPage />,
+          },
+          {
+            path: Path.CHAT,
+            element: <ChatPage />,
+          },
+          {
+            path: Path.NOTIFICATIONS,
+            element: <NotificationsPage />,
           },
           {
             element: <GoBackLayout />,

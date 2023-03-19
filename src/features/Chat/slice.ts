@@ -85,7 +85,7 @@ export const chatSlice = createSlice({
       state.message.reason = action.payload;
     },
 
-    getMessageFromSocket: (
+    appendMessage: (
       state,
       action: PayloadAction<ChatState["message"]["data"]>
     ) => {
@@ -97,7 +97,6 @@ export const chatSlice = createSlice({
 export const sendMessageToSocket = createAction<ChatState["message"]["data"]>(
   "chat/sendMessageToSocket"
 );
-export const addUserToSocket = createAction<User["id"]>("chat/addUserToSocket");
 
 export const {
   getChatsError,
@@ -112,6 +111,6 @@ export const {
   createMessageRequest,
   createMessageSuccess,
 
-  getMessageFromSocket,
+  appendMessage,
 } = chatSlice.actions;
 export default chatSlice.reducer;

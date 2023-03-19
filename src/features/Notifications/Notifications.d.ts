@@ -18,3 +18,7 @@ export interface Notification {
   createdAt: string;
   actor: Pick<User, "id" | "username">;
 }
+
+export type GetNotificationCountRequestPayload = {
+  isViewed: boolean;
+};

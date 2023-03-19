@@ -1,5 +1,5 @@
 import { Notification as INotification } from "../Notifications.d";
-import { NotificationText, NotificationType } from "../constants";
+import { NotificationText } from "../constants";
 import { strToDate } from "src/utils";
 
 import { ListItem, ListItemAvatar, Avatar, ListItemText } from "@mui/material";
@@ -15,7 +15,7 @@ function Notification({
   createdAt,
 }: NotificationProps) {
   return (
-    <ListItem>
+    <ListItem divider>
       <ListItemAvatar>
         <Avatar>{actor.username[0]}</Avatar>
       </ListItemAvatar>
