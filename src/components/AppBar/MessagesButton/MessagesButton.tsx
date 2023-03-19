@@ -5,20 +5,20 @@ import { Path } from "src/router/path";
 import { Badge, IconButton } from "@mui/material";
 import { Message as MessageIcon } from "@mui/icons-material";
 import Link from "src/components/Link";
-import { selectReceivedMessagesCount } from "src/features/AppConfig/selectors";
+import { selectUnreadChatCount } from "src/features/Chat/selectors";
 
 function MessagesButton() {
-  const receivedMessagesCount = useSelector(selectReceivedMessagesCount);
+  const unreadChatCount = useSelector(selectUnreadChatCount);
 
   return (
     <IconButton
       component={Link}
       to={Path.CHATS}
       size="large"
-      aria-label={`show ${receivedMessagesCount} new messages`}
+      aria-label={`show ${unreadChatCount} new messages`}
       color="inherit"
     >
-      <Badge badgeContent={receivedMessagesCount} color="error">
+      <Badge badgeContent={unreadChatCount} color="error">
         <MessageIcon />
       </Badge>
     </IconButton>

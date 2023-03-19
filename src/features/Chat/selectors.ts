@@ -18,3 +18,8 @@ export const selectMessageStatus = createSelector(
   selectChat,
   (chat) => chat.message.status
 );
+
+export const selectUnreadChatCount = createSelector(
+  selectChat,
+  (chat) => chat.unreadChatCount
+);

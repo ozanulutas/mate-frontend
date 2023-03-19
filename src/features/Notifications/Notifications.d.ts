@@ -9,6 +9,7 @@ export interface NotificationsState {
     data: Notification[];
     reason: Error;
   };
+  unviewedNotificationCount: number;
 }
 
 export interface Notification {

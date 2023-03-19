@@ -1,37 +1,25 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Error } from "src/api/api.d";
-import { AppConfigState } from "./AppConfig.d";
-import { Status } from "src/constants";
+import { AppConfigState, AppConfigSuccessPayload } from "./AppConfig.d";
 
 const initialState: AppConfigState = {
-  status: Status.INIT,
-  data: {} as AppConfigState["data"],
-  reason: {},
+  user: {} as AppConfigState["user"],
 };
 
 export const appConfigSlice = createSlice({
   name: "appConfig",
   initialState,
   reducers: {
-    appConfigRequest: (state) => {
-      state.status = Status.LOADING;
-      state.reason = initialState.reason;
-    },
-    appConfigSuccess: (
-      state,
-      action: PayloadAction<AppConfigState["data"]>
-    ) => {
-      state.status = Status.LOADED;
-      state.data = action.payload;
-    },
-    appConfigError: (state, action: PayloadAction<Error>) => {
-      state.status = Status.ERROR;
-      state.reason = action.payload;
+    setUser: (state, action: PayloadAction<AppConfigState["user"]>) => {
+      state.user = action.payload;
     },
   },
 });
 
-export const { appConfigRequest, appConfigSuccess, appConfigError } =
-  appConfigSlice.actions;
+export const appConfigRequest = createAction("appConfig/appConfigRequest");
+export const appConfigSuccess = createAction<AppConfigSuccessPayload>(
+  "appConfig/appConfigSuccess"
+);
+
+export const { setUser } = appConfigSlice.actions;
 export default appConfigSlice.reducer;

@@ -6,7 +6,7 @@ export const selectAppConfig = (state: RootState) => state.appConfig;
 
 export const selectUser = createSelector(
   selectAppConfig,
-  (appConfig) => appConfig.data.user
+  (appConfig) => appConfig.user
 );
 
 export const selectUserId = createSelector(selectUser, (user) => user?.id);

@@ -13,6 +13,7 @@ const initialState: NotificationsState = {
     data: [],
     reason: {},
   },
+  unviewedNotificationCount: 0,
 };
 
 export const notificationsSlice = createSlice({
@@ -34,6 +35,22 @@ export const notificationsSlice = createSlice({
       state.notifications.status = Status.ERROR;
       state.notifications.reason = action.payload;
     },
+
+    increaseUnviewedNotificationCount: (
+      state,
+      action: PayloadAction<number>
+    ) => {
+      state.unviewedNotificationCount += action.payload;
+    },
+    decreaseUnviewedNotificationCount: (
+      state,
+      action: PayloadAction<number>
+    ) => {
+      state.unviewedNotificationCount -= action.payload;
+    },
+    setUnviewedNotificationCount: (state, action: PayloadAction<number>) => {
+      state.unviewedNotificationCount = action.payload;
+    },
   },
 });
 
@@ -46,5 +63,9 @@ export const {
   getNotificationsRequest,
   getNotificationsError,
   getNotificationsSuccess,
+
+  increaseUnviewedNotificationCount,
+  decreaseUnviewedNotificationCount,
+  setUnviewedNotificationCount,
 } = notificationsSlice.actions;
 export default notificationsSlice.reducer;

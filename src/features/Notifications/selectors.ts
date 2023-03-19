@@ -9,3 +9,8 @@ export const selectNotifications = createSelector(
   selectNotificationsState,
   (notifications) => notifications.notifications.data
 );
+
+export const selectUnviewedNotificationsCount = createSelector(
+  selectNotificationsState,
+  (notifications) => notifications.unviewedNotificationCount
+);

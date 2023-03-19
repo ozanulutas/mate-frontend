@@ -1,16 +1,15 @@
 import { useSelector } from "react-redux";
 
-import { selectReceivedNotificationsCount } from "src/features/AppConfig/selectors";
+import { selectUnviewedNotificationsCount } from "src/features/Notifications/selectors";
 import { Path } from "src/router/path";
 
 import { Notifications as NotificationsIcon } from "@mui/icons-material";
 import { Badge, IconButton } from "@mui/material";
-
 import Link from "src/components/Link";
 
 function NotificationsButton() {
-  const receivedNotificationsCount = useSelector(
-    selectReceivedNotificationsCount
+  const unviewedNotificationsCount = useSelector(
+    selectUnviewedNotificationsCount
   );
 
   return (
@@ -18,10 +17,10 @@ function NotificationsButton() {
       component={Link}
       to={Path.NOTIFICATIONS}
       size="large"
-      aria-label={`show ${receivedNotificationsCount} new notifications`}
+      aria-label={`show ${unviewedNotificationsCount} new notifications`}
       color="inherit"
     >
-      <Badge badgeContent={receivedNotificationsCount} color="error">
+      <Badge badgeContent={unviewedNotificationsCount} color="error">
         <NotificationsIcon />
       </Badge>
     </IconButton>

@@ -7,7 +7,6 @@ import {
   GetMessagesRequestPayload,
 } from "./Chat.d";
 import { Status } from "src/constants";
-import { User } from "src/types";
 
 const initialState: ChatState = {
   chats: {
@@ -25,6 +24,7 @@ const initialState: ChatState = {
     data: {} as ChatState["message"]["data"],
     reason: {},
   },
+  unreadChatCount: 0,
 };
 
 export const chatSlice = createSlice({
@@ -91,6 +91,10 @@ export const chatSlice = createSlice({
     ) => {
       state.messages.data.push(action.payload);
     },
+
+    setUnreadChatCount: (state, action: PayloadAction<number>) => {
+      state.unreadChatCount = action.payload;
+    },
   },
 });
 
@@ -112,5 +116,7 @@ export const {
   createMessageSuccess,
 
   appendMessage,
+
+  setUnreadChatCount,
 } = chatSlice.actions;
 export default chatSlice.reducer;

@@ -6,9 +6,9 @@ import {
   getNotificationsSuccess,
   getNotificationsError,
   getNotificationsRequest,
+  decreaseUnviewedNotificationCount,
 } from "./slice";
-import { selectReceivedNotificationsCount } from "../AppConfig/selectors";
-import { decreaseNotificationCount } from "../AppConfig/slice";
+import { selectUnviewedNotificationsCount } from "./selectors";
 
 function* getNotificationsRequestSaga() {
   yield call(
@@ -19,16 +19,16 @@ function* getNotificationsRequestSaga() {
 }
 
 function* getNotificationsSuccessSaga(): Generator {
-  const unreadNotificationCount = yield select(
-    selectReceivedNotificationsCount
+  const unviewedNotificationCount = yield select(
+    selectUnviewedNotificationsCount
   );
 
-  if ((unreadNotificationCount as number) > 0) {
+  if ((unviewedNotificationCount as number) > 0) {
     yield call(
       handleRequest,
       {
         success: ({ count }: { count: number }) =>
-          decreaseNotificationCount(count),
+          decreaseUnviewedNotificationCount(count),
       },
       updateNotificationsApi
     );
