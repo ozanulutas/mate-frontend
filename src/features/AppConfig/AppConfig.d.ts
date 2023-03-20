@@ -6,8 +6,6 @@ export interface AppConfigState {
 
 export type AppConfigSuccessPayload = {
   user: Pick<User, "id" | "username">;
-  _count: {
-    receivedNotifications: number;
-    receivedMessages: number;
-  };
+  unviewedNotificationCount: number;
+  unreadChatCount: number;
 };

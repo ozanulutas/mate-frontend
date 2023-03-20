@@ -11,11 +11,10 @@ function* appConfigRequestSaga() {
 }
 
 function* appConfigSuccessSaga(action: ReturnType<typeof appConfigSuccess>) {
-  const { _count, user } = action.payload;
-  const { receivedMessages, receivedNotifications } = _count;
+  const { unreadChatCount, unviewedNotificationCount, user } = action.payload;
 
-  yield put(setUnviewedNotificationCount(receivedNotifications));
-  yield put(setUnreadChatCount(receivedMessages));
+  yield put(setUnviewedNotificationCount(unviewedNotificationCount));
+  yield put(setUnreadChatCount(unreadChatCount));
   yield put(setUser(user));
 }
 
