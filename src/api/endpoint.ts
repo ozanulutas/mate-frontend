@@ -21,6 +21,8 @@ export const Endpoint = {
     REMOVE_FRIENDSHIP: "/users/me/friends",
     UPDATE_FRIENDSHIP: "/users/me/friends",
     GET_NOTIFICATIONS: "/users/me/notifications",
+    UPDATE_NOTIFICATIONS: "/users/me/notifications",
+    GET_NOTIFICATION_COUNT: "/users/me/notifications/count",
   },
   Post: {
     GET_COMMENTS: "/posts/:postId/comments",
