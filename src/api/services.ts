@@ -12,6 +12,7 @@ import {
   GetCategoriesRequestPayload,
 } from "src/features/Explore/Explore.d";
 import { GetCommentsRequestPayload } from "src/features/Feed/Feed.d";
+import { GetNotificationCountRequestPayload } from "src/features/Notifications/Notifications.d";
 import {
   FollowRequestPayload,
   GetPostsRequestPayload,
@@ -50,15 +51,16 @@ export const getUserApi = (userId: GetUserRequestPayload) =>
 export const getUsersApi = (data: GetUsersRequestPayload) =>
   request.get(Endpoint.User.SEARCH, { params: data });
 
+export const getFeedApi = () => request.get(Endpoint.User.GET_FEED);
+
+// Locations
+
 export const addLocationApi = (data: AddLocationRequestPayload) =>
   request.post(Endpoint.User.ADD_LOCATION, data);
 
 export const getLocationsApi = () => request.get(Endpoint.User.GET_LOCATIONS);
 
-export const getFeedApi = () => request.get(Endpoint.User.GET_FEED);
-
-export const getPostsApi = (userId: GetPostsRequestPayload) =>
-  request.get(replacePathParams(Endpoint.User.GET_POSTS, { userId }));
+// Chat
 
 export const getChatsApi = () => request.get(Endpoint.User.GET_CHATS);
 
@@ -70,11 +72,15 @@ export const getMessagesApi = (peerId: GetMessagesRequestPayload) =>
 export const createMessageApi = (data: CreateMessageRequestPayload) =>
   request.post(Endpoint.User.CREATE_MESSAGE, data);
 
+// Follow
+
 export const followApi = (followingId: FollowRequestPayload) =>
   request.post(Endpoint.User.FOLLOW, { followingId });
 
 export const unfollowApi = (followingId: UnfollowRequestPayload) =>
   request.delete(Endpoint.User.UNFOLLOW, { data: { followingId } });
+
+// Friendship
 
 export const requestFriendshipApi = (
   receiverId: RequestFriendshipRequestPayload
@@ -87,13 +93,26 @@ export const removeFriendshipApi = (
   receiverId: RemoveFriendshipRequestPayload
 ) => request.delete(Endpoint.User.REMOVE_FRIENDSHIP, { data: { receiverId } });
 
+// Notifications
+
 export const getNotificationsApi = () =>
   request.get(Endpoint.User.GET_NOTIFICATIONS);
+
+export const getNotificationCountApi = (
+  payload: GetNotificationCountRequestPayload
+) =>
+  request.get(replacePathParams(Endpoint.User.GET_NOTIFICATION_COUNT, payload));
+
+export const updateNotificationsApi = () =>
+  request.patch(Endpoint.User.UPDATE_NOTIFICATIONS);
 
 // Post
 
 export const getCommentsApi = (postId: GetCommentsRequestPayload) =>
   request.get(replacePathParams(Endpoint.Post.GET_COMMENTS, { postId }));
+
+export const getPostsApi = (userId: GetPostsRequestPayload) =>
+  request.get(replacePathParams(Endpoint.User.GET_POSTS, { userId }));
 
 // Init
 
