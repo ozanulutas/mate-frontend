@@ -28,6 +28,11 @@ export interface ProfileState {
     data: any; // @TODO: type
     reason: Error;
   };
+  updateFriendship: {
+    status: Status;
+    data: any; // @TODO: type
+    reason: Error;
+  };
   removeFriendship: {
     status: Status;
     data: any; // @TODO: type
@@ -50,3 +55,7 @@ export type FollowRequestPayload = User["id"];
 export type UnfollowRequestPayload = User["id"];
 export type RequestFriendshipRequestPayload = User["id"];
 export type RemoveFriendshipRequestPayload = User["id"];
+export type UpdateFriendshipRequestPayload = {
+  receiverId: User["id"];
+  friendshipStatusId: FriendshipStatus;
+};

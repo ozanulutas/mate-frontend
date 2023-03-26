@@ -8,6 +8,7 @@ import {
   removeFriendshipApi,
   requestFriendshipApi,
   unfollowApi,
+  updateFriendshipApi,
 } from "src/api/services";
 import {
   getUserSuccess,
@@ -28,6 +29,9 @@ import {
   removeFriendshipError,
   removeFriendshipRequest,
   removeFriendshipSuccess,
+  updateFriendshipSuccess,
+  updateFriendshipError,
+  updateFriendshipRequest,
 } from "./slice";
 import { selectUserProfileId } from "./selectors";
 
@@ -82,6 +86,17 @@ function* requestFriendshipRequestSaga(): Generator {
   );
 }
 
+function* updateFriendshipRequestSaga(
+  action: ReturnType<typeof updateFriendshipRequest>
+) {
+  yield call(
+    handleRequest,
+    { success: updateFriendshipSuccess, error: updateFriendshipError },
+    updateFriendshipApi,
+    action.payload
+  );
+}
+
 function* removeFriendshipRequestSaga(
   action: ReturnType<typeof removeFriendshipRequest>
 ) {
@@ -99,6 +114,7 @@ function* profileSaga() {
   yield takeLatest(followRequest.type, followRequestSaga);
   yield takeLatest(unfollowRequest.type, unfollowRequestSaga);
   yield takeLatest(requestFriendshipRequest.type, requestFriendshipRequestSaga);
+  yield takeLatest(updateFriendshipRequest.type, updateFriendshipRequestSaga);
   yield takeLatest(removeFriendshipRequest.type, removeFriendshipRequestSaga);
 }
 

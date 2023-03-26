@@ -6,6 +6,7 @@ import {
   GetUserRequestPayload,
   ProfileState,
   RemoveFriendshipRequestPayload,
+  UpdateFriendshipRequestPayload,
 } from "./Profile.d";
 import { FriendshipStatus, Status } from "src/constants";
 
@@ -33,6 +34,11 @@ const initialState: ProfileState = {
   requestFriendship: {
     status: Status.INIT,
     data: {} as ProfileState["requestFriendship"]["data"],
+    reason: {},
+  },
+  updateFriendship: {
+    status: Status.INIT,
+    data: {} as ProfileState["updateFriendship"]["data"],
     reason: {},
   },
   removeFriendship: {
@@ -129,6 +135,25 @@ export const profileSlice = createSlice({
       state.requestFriendship.reason = action.payload;
     },
 
+    updateFriendshipRequest: (
+      state,
+      action: PayloadAction<UpdateFriendshipRequestPayload>
+    ) => {
+      state.updateFriendship.status = Status.LOADING;
+      state.updateFriendship.reason = initialState.updateFriendship.reason;
+    },
+    updateFriendshipSuccess: (
+      state,
+      action: PayloadAction<ProfileState["updateFriendship"]["data"]>
+    ) => {
+      state.updateFriendship.status = Status.LOADED;
+      state.updateFriendship.data = action.payload;
+    },
+    updateFriendshipError: (state, action: PayloadAction<Error>) => {
+      state.updateFriendship.status = Status.ERROR;
+      state.updateFriendship.reason = action.payload;
+    },
+
     removeFriendshipRequest: (
       state,
       action: PayloadAction<RemoveFriendshipRequestPayload>
@@ -171,6 +196,10 @@ export const {
   requestFriendshipError,
   requestFriendshipRequest,
   requestFriendshipSuccess,
+
+  updateFriendshipError,
+  updateFriendshipRequest,
+  updateFriendshipSuccess,
 
   removeFriendshipError,
   removeFriendshipRequest,
