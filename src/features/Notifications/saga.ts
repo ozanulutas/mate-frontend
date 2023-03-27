@@ -18,10 +18,10 @@ function* getNotificationsRequestSaga() {
   );
 }
 
-function* getNotificationsSuccessSaga(): Generator {
-  const unviewedNotificationCount = yield select(
-    selectUnviewedNotificationsCount
-  );
+function* getNotificationsSuccessSaga() {
+  const unviewedNotificationCount: ReturnType<
+    typeof selectUnviewedNotificationsCount
+  > = yield select(selectUnviewedNotificationsCount);
 
   if ((unviewedNotificationCount as number) > 0) {
     yield call(

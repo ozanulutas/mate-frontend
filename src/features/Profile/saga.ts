@@ -53,8 +53,10 @@ function* getPostsRequestSaga(action: ReturnType<typeof getPostsRequest>) {
   );
 }
 
-function* followRequestSaga(): Generator {
-  const userProfileId = yield select(selectUserProfileId);
+function* followRequestSaga() {
+  const userProfileId: ReturnType<typeof selectUserProfileId> = yield select(
+    selectUserProfileId
+  );
 
   yield call(
     handleRequest,
@@ -64,8 +66,10 @@ function* followRequestSaga(): Generator {
   );
 }
 
-function* unfollowRequestSaga(): Generator {
-  const userProfileId = yield select(selectUserProfileId);
+function* unfollowRequestSaga() {
+  const userProfileId: ReturnType<typeof selectUserProfileId> = yield select(
+    selectUserProfileId
+  );
 
   yield call(
     handleRequest,
@@ -75,8 +79,10 @@ function* unfollowRequestSaga(): Generator {
   );
 }
 
-function* requestFriendshipRequestSaga(): Generator {
-  const userProfileId = yield select(selectUserProfileId);
+function* requestFriendshipRequestSaga() {
+  const userProfileId: ReturnType<typeof selectUserProfileId> = yield select(
+    selectUserProfileId
+  );
 
   yield call(
     handleRequest,
