@@ -1,3 +1,6 @@
 import { createAction } from "@reduxjs/toolkit";
 
-export const connectSocket = createAction("socket/connect");
+import { User } from "src/types";
+
+export const connectSocket = createAction<User["id"]>("socket/connect");
+export const newUser = createAction<User["id"]>("socket/newUser");

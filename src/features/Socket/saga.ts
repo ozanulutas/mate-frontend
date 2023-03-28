@@ -6,17 +6,15 @@ import { Env } from "src/constants";
 
 import { connectSocket } from "./slice";
 import { logout } from "src/features/Auth/slice";
-import {
-  addUserToSocket,
-  getMessageFromSocket,
-  sendMessageToSocket,
-} from "src/features/Chat/slice";
+import { appendMessage, sendMessageToSocket } from "src/features/Chat/slice";
+import { increaseUnviewedNotificationCount } from "src/features/Notifications/slice";
 
 // https://github.com/kuy/redux-saga-chat-example
 
 const Event = {
   NEW_USER: "new-user",
   NEW_MESSAGE: "new-message",
+  NEW_NOTIFICATION: "new-notification",
 };
 
 function connect() {
@@ -31,13 +29,12 @@ function connect() {
 
 function subscribe(socket: Socket) {
   return eventChannel((emit) => {
-    // socket.on("GET_USERS", (data) => {
-    //   // console.log("GET_USERS", data);
-    //   emit({ type: "GET_USERS" });
-    // });
-
     socket.on(Event.NEW_MESSAGE, (data) => {
-      emit(getMessageFromSocket(data));
+      emit(appendMessage(data));
+    });
+
+    socket.on(Event.NEW_NOTIFICATION, () => {
+      emit(increaseUnviewedNotificationCount(1));
     });
 
     socket.on("disconnect", (e) => {
@@ -59,14 +56,9 @@ function* read(socket: Socket): Generator<any, any, any> {
 
 function* write(socket: Socket) {
   while (true) {
-    const { addUser, sendMessage } = yield race({
-      addUser: take(addUserToSocket.type),
+    const { sendMessage } = yield race({
       sendMessage: take(sendMessageToSocket.type),
     });
-
-    if (addUser) {
-      socket.emit(Event.NEW_USER, addUser.payload);
-    }
 
     if (sendMessage) {
       socket.emit(Event.NEW_MESSAGE, sendMessage.payload);
@@ -83,12 +75,11 @@ function* connectSocketSaga(): Generator<any, any, any> {
   while (true) {
     const { payload } = yield take(connectSocket.type);
     const socket = yield call(connect);
-    // socket.emit("login evt", { username: payload.username });
+    socket.emit(Event.NEW_USER, payload);
 
     const task = yield fork(handleIO, socket);
 
     const action = yield take(logout.type);
-
     yield cancel(task);
 
     socket.emit("logout");
