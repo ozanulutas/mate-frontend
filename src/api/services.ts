@@ -5,7 +5,9 @@ import {
 } from "src/features/Auth/Auth.d";
 import {
   CreateMessageRequestPayload,
+  GetChatsRequestApiParams,
   GetMessagesRequestPayload,
+  UpdateMessagesRequestPayload,
 } from "src/features/Chat/Chat.d";
 import {
   GetUsersRequestPayload,
@@ -48,8 +50,8 @@ export const categorySearchApi = ({ name }: GetCategoriesRequestPayload) =>
 export const getUserApi = (userId: GetUserRequestPayload) =>
   request.get(replacePathParams(Endpoint.User.GET, { userId }));
 
-export const getUsersApi = (data: GetUsersRequestPayload) =>
-  request.get(Endpoint.User.SEARCH, { params: data });
+export const getUsersApi = (params: GetUsersRequestPayload) =>
+  request.get(Endpoint.User.SEARCH, { params });
 
 export const getFeedApi = () => request.get(Endpoint.User.GET_FEED);
 
@@ -62,15 +64,19 @@ export const getLocationsApi = () => request.get(Endpoint.User.GET_LOCATIONS);
 
 // Chat
 
-export const getChatsApi = () => request.get(Endpoint.User.GET_CHATS);
+export const getChatsApi = (params?: GetChatsRequestApiParams) =>
+  request.get(Endpoint.User.GET_CHATS, { params });
 
 export const getMessagesApi = (peerId: GetMessagesRequestPayload) =>
-  request.get(Endpoint.User.GET_CHATS, {
+  request.get(Endpoint.User.GET_MESSAGES, {
     params: { peerId },
   });
 
 export const createMessageApi = (data: CreateMessageRequestPayload) =>
   request.post(Endpoint.User.CREATE_MESSAGE, data);
+
+export const updateMessagesApi = (peerId: UpdateMessagesRequestPayload) =>
+  request.patch(Endpoint.User.UPDATE_MESSAGES, { peerId });
 
 // Follow
 
