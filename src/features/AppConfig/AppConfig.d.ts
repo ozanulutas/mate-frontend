@@ -1,4 +1,5 @@
 import { User } from "src/types";
+import { UnreadChatInfo } from "../Chat/Chat";
 
 export interface AppConfigState {
   user: Pick<User, "id" | "username">;
@@ -7,5 +8,6 @@ export interface AppConfigState {
 export type AppConfigSuccessPayload = {
   user: Pick<User, "id" | "username">;
   unviewedNotificationCount: number;
-  unreadChatCount: number;
+  friendshipRequestCount: number;
+  unreadChatInfo: UnreadChatInfo[];
 };

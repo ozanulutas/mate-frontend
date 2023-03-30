@@ -5,6 +5,8 @@ import {
   ChatState,
   CreateMessageRequestPayload,
   GetMessagesRequestPayload,
+  GetMessagesSuccessPayload,
+  UpdateMessagesRequestPayload,
 } from "./Chat.d";
 import { Status } from "src/constants";
 
@@ -24,7 +26,7 @@ const initialState: ChatState = {
     data: {} as ChatState["message"]["data"],
     reason: {},
   },
-  unreadChatCount: 0,
+  unreadChatInfo: [],
 };
 
 export const chatSlice = createSlice({
@@ -56,10 +58,10 @@ export const chatSlice = createSlice({
     },
     getMessagesSuccess: (
       state,
-      action: PayloadAction<ChatState["messages"]["data"]>
+      action: PayloadAction<GetMessagesSuccessPayload>
     ) => {
       state.messages.status = Status.LOADED;
-      state.messages.data = action.payload;
+      state.messages.data = action.payload.response;
     },
     getMessagesError: (state, action: PayloadAction<Error>) => {
       state.messages.status = Status.ERROR;
@@ -92,14 +94,43 @@ export const chatSlice = createSlice({
       state.messages.data.push(action.payload);
     },
 
-    setUnreadChatCount: (state, action: PayloadAction<number>) => {
-      state.unreadChatCount = action.payload;
+    setUnreadChatInfo: (
+      state,
+      action: PayloadAction<ChatState["unreadChatInfo"]>
+    ) => {
+      state.unreadChatInfo = action.payload;
+    },
+    updateUnreadChatInfo: (
+      state,
+      action: PayloadAction<{
+        peerId: number;
+        incrementBy: number;
+        text: string;
+      }>
+    ) => {
+      const { peerId, incrementBy, text } = action.payload;
+      const unreadChatInfo = state.unreadChatInfo.find(
+        ({ senderId }) => senderId === peerId
+      );
+
+      if (unreadChatInfo) {
+        unreadChatInfo._count += incrementBy;
+        unreadChatInfo.text = text;
+      } else {
+        state.unreadChatInfo.push({ _count: 1, senderId: peerId, text });
+      }
     },
   },
 });
 
 export const sendMessageToSocket = createAction<ChatState["message"]["data"]>(
   "chat/sendMessageToSocket"
+);
+export const updateMessagesRequest = createAction<UpdateMessagesRequestPayload>(
+  "chat/updateMessagesRequest"
+);
+export const getUnreadChatInfoRequest = createAction(
+  "chat/getUnreadChatInfoRequest"
 );
 
 export const {
@@ -117,6 +148,7 @@ export const {
 
   appendMessage,
 
-  setUnreadChatCount,
+  setUnreadChatInfo,
+  updateUnreadChatInfo,
 } = chatSlice.actions;
 export default chatSlice.reducer;

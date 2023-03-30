@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { getMessagesRequest } from "./slice";
 
-import { Paper, Stack, Box } from "@mui/material";
+import { Stack } from "@mui/material";
 import Messages from "./Messages";
 import MessageForm from "./MessageForm";
 import { AppBarHeight } from "src/components/AppBar/constants";

@@ -1,13 +1,19 @@
 import { eventChannel } from "redux-saga";
 import { call, cancel, fork, put, race, take } from "redux-saga/effects";
+import { matchPath } from "react-router";
 import { Socket, io } from "socket.io-client";
 
 import { Env } from "src/constants";
 
 import { connectSocket } from "./slice";
 import { logout } from "src/features/Auth/slice";
-import { appendMessage, sendMessageToSocket } from "src/features/Chat/slice";
+import {
+  appendMessage,
+  updateUnreadChatInfo,
+  sendMessageToSocket,
+} from "src/features/Chat/slice";
 import { increaseUnviewedNotificationCount } from "src/features/Notifications/slice";
+import { Path } from "src/router/path";
 
 // https://github.com/kuy/redux-saga-chat-example
 
@@ -30,7 +36,25 @@ function connect() {
 function subscribe(socket: Socket) {
   return eventChannel((emit) => {
     socket.on(Event.NEW_MESSAGE, (data) => {
-      emit(appendMessage(data));
+      const path = window.location.pathname;
+      const chatPathInfo = matchPath({ path: Path.CHAT }, path);
+
+      if (chatPathInfo && data.sender.id === +chatPathInfo.params.peerId!) {
+        emit(appendMessage(data));
+      }
+
+      if (
+        !chatPathInfo ||
+        (chatPathInfo && data.sender.id !== +chatPathInfo.params.peerId!)
+      ) {
+        emit(
+          updateUnreadChatInfo({
+            peerId: data.sender.id,
+            incrementBy: 1,
+            text: data.text,
+          })
+        );
+      }
     });
 
     socket.on(Event.NEW_NOTIFICATION, () => {

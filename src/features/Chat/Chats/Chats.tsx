@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Path } from "src/router/path";
-import { selectChats } from "../selectors";
+import { selectReactiveChats } from "../selectors";
 import { getChatsRequest } from "../slice";
 
 import {
@@ -19,7 +19,7 @@ import { replacePathParams } from "src/utils";
 
 function Chats() {
   const dispatch = useDispatch();
-  const chats = useSelector(selectChats);
+  const chats = useSelector(selectReactiveChats);
 
   useEffect(() => {
     dispatch(getChatsRequest());
@@ -27,14 +27,14 @@ function Chats() {
 
   return (
     <List dense>
-      {chats.map(({ isRead, text, userId, username }) => (
+      {chats.map(({ unreadMessageCount, text, userId, username }) => (
         <ListItem divider disablePadding key={userId}>
           <ListItemButton
             component={Link}
             to={replacePathParams(Path.CHAT, { peerId: userId })}
           >
             <ListItemAvatar>
-              <Badge variant="dot" color="primary" invisible={isRead}>
+              <Badge badgeContent={unreadMessageCount} color="primary">
                 <Avatar>{username[0]}</Avatar>
               </Badge>
             </ListItemAvatar>
