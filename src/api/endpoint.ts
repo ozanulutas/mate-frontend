@@ -22,6 +22,7 @@ export const Endpoint = {
     REQUEST_FRIENDSHIP: "/users/me/friends",
     REMOVE_FRIENDSHIP: "/users/me/friends",
     UPDATE_FRIENDSHIP: "/users/me/friends",
+    GET_FRIENDS: "/users/me/friends",
     GET_NOTIFICATIONS: "/users/me/notifications",
     UPDATE_NOTIFICATIONS: "/users/me/notifications",
     GET_NOTIFICATION_COUNT: "/users/me/notifications/count",

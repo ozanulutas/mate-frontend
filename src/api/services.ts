@@ -1,3 +1,4 @@
+import { FriendshipStatus } from "src/constants";
 import { AddLocationRequestPayload } from "src/features/Account/Account.d";
 import {
   LoginRequestPayload,
@@ -19,11 +20,13 @@ import {
   FollowRequestPayload,
   GetPostsRequestPayload,
   GetUserRequestPayload,
+  UnfollowRequestPayload,
+} from "src/features/Profile/Profile.d";
+import {
   RemoveFriendshipRequestPayload,
   RequestFriendshipRequestPayload,
-  UnfollowRequestPayload,
   UpdateFriendshipRequestPayload,
-} from "src/features/Profile/Profile.d";
+} from "src/features/Friendship/Friendship";
 import { replacePathParams } from "src/utils/replace-path-params";
 import { Endpoint } from "./endpoint";
 import { request } from "./request";
@@ -87,6 +90,9 @@ export const unfollowApi = (followingId: UnfollowRequestPayload) =>
   request.delete(Endpoint.User.UNFOLLOW, { data: { followingId } });
 
 // Friendship
+
+export const getFriendsApi = (status: FriendshipStatus) =>
+  request.get(Endpoint.User.GET_FRIENDS, { params: { status } });
 
 export const requestFriendshipApi = (
   receiverId: RequestFriendshipRequestPayload
