@@ -6,6 +6,7 @@ export const Path = {
   CHAT: "/chat/:peerId",
   CHATS: "/chats",
   NOTIFICATIONS: "/notifications",
+  FRIENDSHIP_REQUESTS: "/friendship-requests",
 
   ACCOUNT: "/account",
   GENERAL_SETTINGS: "/account/general-settings",

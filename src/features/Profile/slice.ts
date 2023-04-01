@@ -5,10 +5,8 @@ import {
   GetPostsRequestPayload,
   GetUserRequestPayload,
   ProfileState,
-  RemoveFriendshipRequestPayload,
-  UpdateFriendshipRequestPayload,
 } from "./Profile.d";
-import { FriendshipStatus, Status } from "src/constants";
+import { Status } from "src/constants";
 
 const initialState: ProfileState = {
   user: {
@@ -29,21 +27,6 @@ const initialState: ProfileState = {
   unfollow: {
     status: Status.INIT,
     data: {} as ProfileState["unfollow"]["data"],
-    reason: {},
-  },
-  requestFriendship: {
-    status: Status.INIT,
-    data: {} as ProfileState["requestFriendship"]["data"],
-    reason: {},
-  },
-  updateFriendship: {
-    status: Status.INIT,
-    data: {} as ProfileState["updateFriendship"]["data"],
-    reason: {},
-  },
-  removeFriendship: {
-    status: Status.INIT,
-    data: {} as ProfileState["removeFriendship"]["data"],
     reason: {},
   },
 };
@@ -118,60 +101,13 @@ export const profileSlice = createSlice({
       state.unfollow.reason = action.payload;
     },
 
-    requestFriendshipRequest: (state) => {
-      state.requestFriendship.status = Status.LOADING;
-      state.requestFriendship.reason = initialState.requestFriendship.reason;
-    },
-    requestFriendshipSuccess: (
+    setFriendshipStatusWithMe: (
       state,
-      action: PayloadAction<ProfileState["requestFriendship"]["data"]>
+      action: PayloadAction<
+        ProfileState["user"]["data"]["friendshipStatusWithMe"]
+      >
     ) => {
-      state.requestFriendship.status = Status.LOADED;
-      state.requestFriendship.data = action.payload;
-      state.user.data.friendshipStatusWithMe = FriendshipStatus.REQUESTED;
-    },
-    requestFriendshipError: (state, action: PayloadAction<Error>) => {
-      state.requestFriendship.status = Status.ERROR;
-      state.requestFriendship.reason = action.payload;
-    },
-
-    updateFriendshipRequest: (
-      state,
-      action: PayloadAction<UpdateFriendshipRequestPayload>
-    ) => {
-      state.updateFriendship.status = Status.LOADING;
-      state.updateFriendship.reason = initialState.updateFriendship.reason;
-    },
-    updateFriendshipSuccess: (
-      state,
-      action: PayloadAction<ProfileState["updateFriendship"]["data"]>
-    ) => {
-      state.updateFriendship.status = Status.LOADED;
-      state.updateFriendship.data = action.payload;
-    },
-    updateFriendshipError: (state, action: PayloadAction<Error>) => {
-      state.updateFriendship.status = Status.ERROR;
-      state.updateFriendship.reason = action.payload;
-    },
-
-    removeFriendshipRequest: (
-      state,
-      action: PayloadAction<RemoveFriendshipRequestPayload>
-    ) => {
-      state.removeFriendship.status = Status.LOADING;
-      state.removeFriendship.reason = initialState.removeFriendship.reason;
-    },
-    removeFriendshipSuccess: (
-      state,
-      action: PayloadAction<ProfileState["removeFriendship"]["data"]>
-    ) => {
-      state.removeFriendship.status = Status.LOADED;
-      state.removeFriendship.data = action.payload;
-      state.user.data.friendshipStatusWithMe = null;
-    },
-    removeFriendshipError: (state, action: PayloadAction<Error>) => {
-      state.removeFriendship.status = Status.ERROR;
-      state.removeFriendship.reason = action.payload;
+      state.user.data.friendshipStatusWithMe = action.payload;
     },
   },
 });
@@ -192,17 +128,5 @@ export const {
   unfollowError,
   unfollowRequest,
   unfollowSuccess,
-
-  requestFriendshipError,
-  requestFriendshipRequest,
-  requestFriendshipSuccess,
-
-  updateFriendshipError,
-  updateFriendshipRequest,
-  updateFriendshipSuccess,
-
-  removeFriendshipError,
-  removeFriendshipRequest,
-  removeFriendshipSuccess,
 } = profileSlice.actions;
 export default profileSlice.reducer;

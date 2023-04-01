@@ -20,6 +20,7 @@ import {
   NotificationsPage,
   ChatsPage,
   FeedPage,
+  FriendshipRequestsPage,
 } from "src/pages";
 import GoBackLayout from "src/layouts/GoBackLayout";
 
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
           {
             path: Path.NOTIFICATIONS,
             element: <NotificationsPage />,
+          },
+          {
+            path: Path.FRIENDSHIP_REQUESTS,
+            element: <FriendshipRequestsPage />,
           },
           {
             element: <GoBackLayout />,

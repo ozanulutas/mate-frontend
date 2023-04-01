@@ -42,12 +42,6 @@ export const notificationsSlice = createSlice({
     ) => {
       state.unviewedNotificationCount += action.payload;
     },
-    decreaseUnviewedNotificationCount: (
-      state,
-      action: PayloadAction<number>
-    ) => {
-      state.unviewedNotificationCount -= action.payload;
-    },
     setUnviewedNotificationCount: (state, action: PayloadAction<number>) => {
       state.unviewedNotificationCount = action.payload;
     },
@@ -65,7 +59,6 @@ export const {
   getNotificationsSuccess,
 
   increaseUnviewedNotificationCount,
-  decreaseUnviewedNotificationCount,
   setUnviewedNotificationCount,
 } = notificationsSlice.actions;
 export default notificationsSlice.reducer;

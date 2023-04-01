@@ -6,7 +6,10 @@ import {
   selectFriendshipStatusWithMe,
   selectUserProfileId,
 } from "../../selectors";
-import { removeFriendshipRequest, requestFriendshipRequest } from "../../slice";
+import {
+  removeFriendshipRequest,
+  requestFriendshipRequest,
+} from "src/features/Friendship/slice";
 
 import {
   PersonAddAlt1 as PersonAddIcon,

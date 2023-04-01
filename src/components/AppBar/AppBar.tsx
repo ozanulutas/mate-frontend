@@ -20,6 +20,7 @@ import {
 import Link from "src/components/Link";
 import NotificationsButton from "./NotificationsButton";
 import MessagesButton from "./MessagesButton";
+import FriendshipRequestsButton from "./FriendshipRequestsButton/FriendshipRequestsButton";
 
 export default function AppBar() {
   const dispatch = useDispatch();
@@ -61,6 +62,7 @@ export default function AppBar() {
               <ExploreIcon />
             </IconButton>
             <MessagesButton />
+            <FriendshipRequestsButton />
             <NotificationsButton />
             <IconButton
               size="large"

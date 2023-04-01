@@ -23,21 +23,6 @@ export interface ProfileState {
     data: { id: User["id"] };
     reason: Error;
   };
-  requestFriendship: {
-    status: Status;
-    data: any; // @TODO: type
-    reason: Error;
-  };
-  updateFriendship: {
-    status: Status;
-    data: any; // @TODO: type
-    reason: Error;
-  };
-  removeFriendship: {
-    status: Status;
-    data: any; // @TODO: type
-    reason: Error;
-  };
 }
 
 interface ProfileUser extends Omit<User, "geojson"> {
@@ -53,9 +38,3 @@ export type GetUserRequestPayload = User["id"] | string;
 export type GetPostsRequestPayload = User["id"] | string;
 export type FollowRequestPayload = User["id"];
 export type UnfollowRequestPayload = User["id"];
-export type RequestFriendshipRequestPayload = User["id"];
-export type RemoveFriendshipRequestPayload = User["id"];
-export type UpdateFriendshipRequestPayload = {
-  receiverId: User["id"];
-  friendshipStatusId: FriendshipStatus;
-};
