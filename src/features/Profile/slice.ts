@@ -128,5 +128,7 @@ export const {
   unfollowError,
   unfollowRequest,
   unfollowSuccess,
+
+  setFriendshipStatusWithMe,
 } = profileSlice.actions;
 export default profileSlice.reducer;

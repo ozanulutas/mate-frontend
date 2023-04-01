@@ -1,4 +1,4 @@
-import { call, select, takeLatest } from "redux-saga/effects";
+import { call, put, select, takeLatest } from "redux-saga/effects";
 
 import { handleRequest } from "src/redux/saga/handleRequest";
 import {
@@ -23,6 +23,7 @@ import {
 } from "./slice";
 import { FriendshipStatus } from "src/constants";
 import { selectUserProfileId } from "../Profile/selectors";
+import { setFriendshipStatusWithMe } from "../Profile/slice";
 
 function* getFriendshipRequestsRequestSaga() {
   yield call(
@@ -49,6 +50,10 @@ function* requestFriendshipRequestSaga() {
   );
 }
 
+function* requestFriendshipSuccessSaga() {
+  yield put(setFriendshipStatusWithMe(FriendshipStatus.REQUESTED));
+}
+
 function* updateFriendshipRequestSaga(
   action: ReturnType<typeof updateFriendshipRequest>
 ) {
@@ -71,14 +76,20 @@ function* removeFriendshipRequestSaga(
   );
 }
 
+function* removeFriendshipSuccessSaga() {
+  yield put(setFriendshipStatusWithMe(null));
+}
+
 function* friendshipSaga() {
   yield takeLatest(
     getFriendshipRequestsRequest.type,
     getFriendshipRequestsRequestSaga
   );
   yield takeLatest(requestFriendshipRequest.type, requestFriendshipRequestSaga);
+  yield takeLatest(requestFriendshipSuccess.type, requestFriendshipSuccessSaga);
   yield takeLatest(updateFriendshipRequest.type, updateFriendshipRequestSaga);
   yield takeLatest(removeFriendshipRequest.type, removeFriendshipRequestSaga);
+  yield takeLatest(removeFriendshipSuccess.type, removeFriendshipSuccessSaga);
 }
 
 export default friendshipSaga;

@@ -17,10 +17,11 @@ import { Path } from "src/router/path";
 
 // https://github.com/kuy/redux-saga-chat-example
 
-const Event = {
+const SocketEvent = {
   NEW_USER: "new-user",
   NEW_MESSAGE: "new-message",
   NEW_NOTIFICATION: "new-notification",
+  NEW_FRIENDSHIP_REQUEST: "new-friendship-request",
 };
 
 function connect() {
@@ -35,7 +36,7 @@ function connect() {
 
 function subscribe(socket: Socket) {
   return eventChannel((emit) => {
-    socket.on(Event.NEW_MESSAGE, (data) => {
+    socket.on(SocketEvent.NEW_MESSAGE, (data) => {
       const path = window.location.pathname;
       const chatPathInfo = matchPath({ path: Path.CHAT }, path);
 
@@ -57,7 +58,7 @@ function subscribe(socket: Socket) {
       }
     });
 
-    socket.on(Event.NEW_NOTIFICATION, () => {
+    socket.on(SocketEvent.NEW_NOTIFICATION, () => {
       emit(increaseUnviewedNotificationCount(1));
     });
 
@@ -85,7 +86,7 @@ function* write(socket: Socket) {
     });
 
     if (sendMessage) {
-      socket.emit(Event.NEW_MESSAGE, sendMessage.payload);
+      socket.emit(SocketEvent.NEW_MESSAGE, sendMessage.payload);
     }
   }
 }
@@ -99,7 +100,7 @@ function* connectSocketSaga(): Generator<any, any, any> {
   while (true) {
     const { payload } = yield take(connectSocket.type);
     const socket = yield call(connect);
-    socket.emit(Event.NEW_USER, payload);
+    socket.emit(SocketEvent.NEW_USER, payload);
 
     const task = yield fork(handleIO, socket);
 

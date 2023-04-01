@@ -6,7 +6,7 @@ import {
   RemoveFriendshipRequestPayload,
   UpdateFriendshipRequestPayload,
 } from "./Friendship.d";
-import { FriendshipStatus, Status } from "src/constants";
+import { Status } from "src/constants";
 
 const initialState: FriendshipState = {
   friendshipRequests: {
@@ -106,8 +106,6 @@ export const friendshipSlice = createSlice({
     ) => {
       state.removeFriendship.status = Status.LOADED;
       state.removeFriendship.data = action.payload;
-      // @TODO: move to saga
-      // state.user.data.friendshipStatusWithMe = null;
     },
     removeFriendshipError: (state, action: PayloadAction<Error>) => {
       state.removeFriendship.status = Status.ERROR;
