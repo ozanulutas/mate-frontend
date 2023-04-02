@@ -1,6 +1,6 @@
 import { FriendshipStatus, Status } from "src/constants";
 import { Error } from "src/api/api.d";
-import { Post, User } from "src/types";
+import { FriendshipInfo, Post, User } from "src/types";
 
 export interface ProfileState {
   user: {
@@ -31,7 +31,7 @@ interface ProfileUser extends Omit<User, "geojson"> {
     followings: number;
   };
   isFollowedByMe: boolean;
-  friendshipStatusWithMe: FriendshipStatus | null;
+  friendshipInfo: FriendshipInfo | null;
 }
 
 export type GetUserRequestPayload = User["id"] | string;

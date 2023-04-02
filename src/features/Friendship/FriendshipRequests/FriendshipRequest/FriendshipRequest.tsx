@@ -1,7 +1,6 @@
 import { useDispatch } from "react-redux";
 
-import { updateFriendshipRequest, removeFriendshipRequest } from "../../slice";
-import { FriendshipStatus } from "src/constants";
+import { acceptFriendshipRequest, removeFriendshipRequest } from "../../slice";
 import { strToDate } from "src/utils";
 import { Friendship } from "../../Friendship";
 
@@ -13,6 +12,7 @@ import {
   ListItemAvatar,
   ListItemText,
 } from "@mui/material";
+import { FriendshipRemoveAction } from "src/constants";
 
 type FriendshipRequestProps = Friendship;
 
@@ -21,15 +21,19 @@ function FriendshipRequest({ createdAt, id, sender }: FriendshipRequestProps) {
 
   const handleAcceptFriendship = () => {
     dispatch(
-      updateFriendshipRequest({
-        friendshipStatusId: FriendshipStatus.ACCEPTED,
-        receiverId: sender.id,
+      acceptFriendshipRequest({
+        senderId: sender.id,
       })
     );
   };
 
   const handleRejectFriendship = () => {
-    dispatch(removeFriendshipRequest(sender.id));
+    dispatch(
+      removeFriendshipRequest({
+        receiverId: sender.id,
+        removeAction: FriendshipRemoveAction.REJET,
+      })
+    );
   };
 
   return (

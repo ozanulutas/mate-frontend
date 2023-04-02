@@ -19,9 +19,9 @@ export const selectIsFollowedByMe = createSelector(
   (user) => user.isFollowedByMe
 );
 
-export const selectFriendshipStatusWithMe = createSelector(
+export const selectFriendshipInfo = createSelector(
   selectUser,
-  (user) => user.friendshipStatusWithMe
+  (user) => user.friendshipInfo
 );
 
 export const selectPosts = createSelector(

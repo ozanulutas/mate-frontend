@@ -5,7 +5,7 @@ import { handleRequest } from "src/redux/saga/handleRequest";
 import { setUnreadChatInfo } from "src/features/Chat/slice";
 import { setUnviewedNotificationCount } from "src/features/Notifications/slice";
 import { appConfigRequest, appConfigSuccess, setUser } from "./slice";
-import { setFriendshipRequestCount } from "../Friendship/slice";
+import { setFriendshipRequestsCount } from "../Friendship/slice";
 
 function* appConfigRequestSaga() {
   yield call(handleRequest, { success: appConfigSuccess }, initApi);
@@ -20,7 +20,7 @@ function* appConfigSuccessSaga(action: ReturnType<typeof appConfigSuccess>) {
   } = action.payload;
 
   yield put(setUnviewedNotificationCount(unviewedNotificationCount));
-  yield put(setFriendshipRequestCount(friendshipRequestCount));
+  yield put(setFriendshipRequestsCount(friendshipRequestCount));
   yield put(setUnreadChatInfo(unreadChatInfo));
   yield put(setUser(user));
 }

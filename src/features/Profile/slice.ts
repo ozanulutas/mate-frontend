@@ -6,7 +6,8 @@ import {
   GetUserRequestPayload,
   ProfileState,
 } from "./Profile.d";
-import { Status } from "src/constants";
+import { FriendshipStatus, Status } from "src/constants";
+import { FriendshipInfo } from "src/types";
 
 const initialState: ProfileState = {
   user: {
@@ -101,13 +102,11 @@ export const profileSlice = createSlice({
       state.unfollow.reason = action.payload;
     },
 
-    setFriendshipStatusWithMe: (
+    setFriendshipInfo: (
       state,
-      action: PayloadAction<
-        ProfileState["user"]["data"]["friendshipStatusWithMe"]
-      >
+      action: PayloadAction<ProfileState["user"]["data"]["friendshipInfo"]>
     ) => {
-      state.user.data.friendshipStatusWithMe = action.payload;
+      state.user.data.friendshipInfo = action.payload;
     },
   },
 });
@@ -129,6 +128,6 @@ export const {
   unfollowRequest,
   unfollowSuccess,
 
-  setFriendshipStatusWithMe,
+  setFriendshipInfo,
 } = profileSlice.actions;
 export default profileSlice.reducer;

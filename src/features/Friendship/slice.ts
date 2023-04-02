@@ -4,7 +4,7 @@ import { Error } from "src/api/api";
 import {
   FriendshipState,
   RemoveFriendshipRequestPayload,
-  UpdateFriendshipRequestPayload,
+  AcceptFriendshipRequestPayload,
 } from "./Friendship.d";
 import { Status } from "src/constants";
 
@@ -19,9 +19,9 @@ const initialState: FriendshipState = {
     data: {} as FriendshipState["requestFriendship"]["data"],
     reason: {},
   },
-  updateFriendship: {
+  acceptFriendship: {
     status: Status.INIT,
-    data: {} as FriendshipState["updateFriendship"]["data"],
+    data: {} as FriendshipState["acceptFriendship"]["data"],
     reason: {},
   },
   removeFriendship: {
@@ -52,8 +52,14 @@ export const friendshipSlice = createSlice({
       state.friendshipRequests.reason = action.payload;
     },
 
-    setFriendshipRequestCount: (state, action: PayloadAction<number>) => {
+    setFriendshipRequestsCount: (state, action: PayloadAction<number>) => {
       state.friendshipRequestCount = action.payload;
+    },
+    increaseFriendshipRequestsCount: (state, action: PayloadAction<number>) => {
+      state.friendshipRequestCount += action.payload;
+    },
+    decreaseFriendshipRequestsCount: (state, action: PayloadAction<number>) => {
+      state.friendshipRequestCount -= action.payload;
     },
 
     requestFriendshipRequest: (state) => {
@@ -66,31 +72,29 @@ export const friendshipSlice = createSlice({
     ) => {
       state.requestFriendship.status = Status.LOADED;
       state.requestFriendship.data = action.payload;
-      // @TODO: move to saga
-      // state.user.data.friendshipStatusWithMe = FriendshipStatus.REQUESTED;
     },
     requestFriendshipError: (state, action: PayloadAction<Error>) => {
       state.requestFriendship.status = Status.ERROR;
       state.requestFriendship.reason = action.payload;
     },
 
-    updateFriendshipRequest: (
+    acceptFriendshipRequest: (
       state,
-      action: PayloadAction<UpdateFriendshipRequestPayload>
+      action: PayloadAction<AcceptFriendshipRequestPayload>
     ) => {
-      state.updateFriendship.status = Status.LOADING;
-      state.updateFriendship.reason = initialState.updateFriendship.reason;
+      state.acceptFriendship.status = Status.LOADING;
+      state.acceptFriendship.reason = initialState.acceptFriendship.reason;
     },
-    updateFriendshipSuccess: (
+    acceptFriendshipSuccess: (
       state,
-      action: PayloadAction<FriendshipState["updateFriendship"]["data"]>
+      action: PayloadAction<FriendshipState["acceptFriendship"]["data"]>
     ) => {
-      state.updateFriendship.status = Status.LOADED;
-      state.updateFriendship.data = action.payload;
+      state.acceptFriendship.status = Status.LOADED;
+      state.acceptFriendship.data = action.payload;
     },
-    updateFriendshipError: (state, action: PayloadAction<Error>) => {
-      state.updateFriendship.status = Status.ERROR;
-      state.updateFriendship.reason = action.payload;
+    acceptFriendshipError: (state, action: PayloadAction<Error>) => {
+      state.acceptFriendship.status = Status.ERROR;
+      state.acceptFriendship.reason = action.payload;
     },
 
     removeFriendshipRequest: (
@@ -119,15 +123,17 @@ export const {
   getFriendshipRequestsSuccess,
   getFriendshipRequestsError,
 
-  setFriendshipRequestCount,
+  setFriendshipRequestsCount,
+  increaseFriendshipRequestsCount,
+  decreaseFriendshipRequestsCount,
 
   requestFriendshipError,
   requestFriendshipRequest,
   requestFriendshipSuccess,
 
-  updateFriendshipError,
-  updateFriendshipRequest,
-  updateFriendshipSuccess,
+  acceptFriendshipError,
+  acceptFriendshipRequest,
+  acceptFriendshipSuccess,
 
   removeFriendshipError,
   removeFriendshipRequest,

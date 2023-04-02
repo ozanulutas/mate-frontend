@@ -18,7 +18,12 @@ function FriendshipRequests() {
   return (
     <List>
       {friendshipRequests.map(({ createdAt, id, sender }) => (
-        <FriendshipRequest createdAt={createdAt} id={id} sender={sender} />
+        <FriendshipRequest
+          key={id}
+          id={id}
+          createdAt={createdAt}
+          sender={sender}
+        />
       ))}
     </List>
   );

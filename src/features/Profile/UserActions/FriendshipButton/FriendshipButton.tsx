@@ -1,61 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
+import useButtonProps from "./useButtonProps";
 
-import { ProfileState } from "../../Profile.d";
-import { FriendshipStatus } from "src/constants";
-import {
-  selectFriendshipStatusWithMe,
-  selectUserProfileId,
-} from "../../selectors";
-import {
-  removeFriendshipRequest,
-  requestFriendshipRequest,
-} from "src/features/Friendship/slice";
-
-import {
-  PersonAddAlt1 as PersonAddIcon,
-  PersonRemove as PersonRemoveIcon,
-  PersonOff as PersonOffIcon,
-} from "@mui/icons-material";
-import { IconButton } from "@mui/material";
-
-type FriendshipIconProps = {
-  friendshipStatusWithMe: ProfileState["user"]["data"]["friendshipStatusWithMe"];
-};
+import { Button } from "@mui/material";
 
 function FriendshipButton() {
-  const dispatch = useDispatch();
-  const friendshipStatusWithMe = useSelector(selectFriendshipStatusWithMe);
-  const userProfileId = useSelector(selectUserProfileId);
-
-  const handleFriendship = () => {
-    if (
-      friendshipStatusWithMe === FriendshipStatus.ACCEPTED ||
-      friendshipStatusWithMe === FriendshipStatus.REQUESTED
-    ) {
-      dispatch(removeFriendshipRequest(userProfileId));
-      return;
-    }
-
-    dispatch(requestFriendshipRequest());
-  };
+  const { icon, text, onClick } = useButtonProps();
 
   return (
-    <IconButton size="small" onClick={handleFriendship}>
-      <FriendshipIcon friendshipStatusWithMe={friendshipStatusWithMe} />
-    </IconButton>
+    <Button size="small" variant="contained" onClick={onClick} startIcon={icon}>
+      {text}
+    </Button>
   );
-}
-
-function FriendshipIcon({ friendshipStatusWithMe }: FriendshipIconProps) {
-  if (friendshipStatusWithMe === FriendshipStatus.ACCEPTED) {
-    return <PersonRemoveIcon />;
-  }
-
-  if (friendshipStatusWithMe === FriendshipStatus.REQUESTED) {
-    return <PersonOffIcon />;
-  }
-
-  return <PersonAddIcon />;
 }
 
 export default FriendshipButton;

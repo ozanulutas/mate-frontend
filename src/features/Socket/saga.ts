@@ -3,7 +3,7 @@ import { call, cancel, fork, put, race, take } from "redux-saga/effects";
 import { matchPath } from "react-router";
 import { Socket, io } from "socket.io-client";
 
-import { Env } from "src/constants";
+import { Env, FriendshipRemoveAction } from "src/constants";
 
 import { connectSocket } from "./slice";
 import { logout } from "src/features/Auth/slice";
@@ -14,6 +14,12 @@ import {
 } from "src/features/Chat/slice";
 import { increaseUnviewedNotificationCount } from "src/features/Notifications/slice";
 import { Path } from "src/router/path";
+import {
+  decreaseFriendshipRequestsCount,
+  getFriendshipRequestsRequest,
+  increaseFriendshipRequestsCount,
+} from "../Friendship/slice";
+import { setFriendshipInfo } from "../Profile/slice";
 
 // https://github.com/kuy/redux-saga-chat-example
 
@@ -22,6 +28,8 @@ const SocketEvent = {
   NEW_MESSAGE: "new-message",
   NEW_NOTIFICATION: "new-notification",
   NEW_FRIENDSHIP_REQUEST: "new-friendship-request",
+  FRIENDSHIP_REMOVED: "friendship-removed",
+  FRIENDSHIP_STATUS_CHANGED: "friendship-status-changed",
 };
 
 function connect() {
@@ -35,18 +43,19 @@ function connect() {
 }
 
 function subscribe(socket: Socket) {
+  // @TODO: move handlers to saga funcs
   return eventChannel((emit) => {
     socket.on(SocketEvent.NEW_MESSAGE, (data) => {
       const path = window.location.pathname;
-      const chatPathInfo = matchPath({ path: Path.CHAT }, path);
+      const chatPath = matchPath({ path: Path.CHAT }, path);
 
-      if (chatPathInfo && data.sender.id === +chatPathInfo.params.peerId!) {
+      if (chatPath && data.sender.id === +chatPath.params.peerId!) {
         emit(appendMessage(data));
       }
 
       if (
-        !chatPathInfo ||
-        (chatPathInfo && data.sender.id !== +chatPathInfo.params.peerId!)
+        !chatPath ||
+        (chatPath && data.sender.id !== +chatPath.params.peerId!)
       ) {
         emit(
           updateUnreadChatInfo({
@@ -55,6 +64,57 @@ function subscribe(socket: Socket) {
             text: data.text,
           })
         );
+      }
+    });
+
+    socket.on(SocketEvent.NEW_FRIENDSHIP_REQUEST, (friendshipData) => {
+      const path = window.location.pathname;
+      const profilePath = matchPath({ path: Path.PROFILE }, path);
+      const friendshipRequestsPath = matchPath(
+        { path: Path.FRIENDSHIP_REQUESTS },
+        path
+      );
+
+      if (friendshipRequestsPath) {
+        emit(getFriendshipRequestsRequest());
+        return;
+      }
+
+      if (profilePath?.params.userId === friendshipData.senderId.toString()) {
+        emit(setFriendshipInfo(friendshipData));
+      }
+
+      emit(increaseFriendshipRequestsCount(1));
+    });
+
+    socket.on(SocketEvent.FRIENDSHIP_REMOVED, (friendshipData) => {
+      const path = window.location.pathname;
+      const profilePath = matchPath({ path: Path.PROFILE }, path);
+      const friendshipRequestsPath = matchPath(
+        { path: Path.FRIENDSHIP_REQUESTS },
+        path
+      );
+      const { senderId, removeAction } = friendshipData;
+
+      if (profilePath?.params.userId === senderId.toString()) {
+        emit(setFriendshipInfo(null));
+      }
+
+      if (removeAction === FriendshipRemoveAction.CANCEL) {
+        friendshipRequestsPath
+          ? emit(getFriendshipRequestsRequest())
+          : emit(decreaseFriendshipRequestsCount(1));
+      }
+
+      console.log(friendshipData);
+    });
+
+    socket.on(SocketEvent.FRIENDSHIP_STATUS_CHANGED, (friendshipData) => {
+      const path = window.location.pathname;
+      const profilePath = matchPath({ path: Path.PROFILE }, path);
+
+      if (profilePath?.params.userId === friendshipData.receiverId.toString()) {
+        emit(setFriendshipInfo(friendshipData));
       }
     });
 

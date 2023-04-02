@@ -1,11 +1,12 @@
 import { call, put, select, takeLatest } from "redux-saga/effects";
+import { matchPath } from "react-router-dom";
 
 import { handleRequest } from "src/redux/saga/handleRequest";
 import {
   getFriendsApi,
   removeFriendshipApi,
   requestFriendshipApi,
-  updateFriendshipApi,
+  acceptFriendshipApi,
 } from "src/api/services";
 import {
   getFriendshipRequestsError,
@@ -17,13 +18,15 @@ import {
   requestFriendshipError,
   requestFriendshipRequest,
   requestFriendshipSuccess,
-  updateFriendshipError,
-  updateFriendshipRequest,
-  updateFriendshipSuccess,
+  acceptFriendshipError,
+  acceptFriendshipRequest,
+  acceptFriendshipSuccess,
+  setFriendshipRequestsCount,
 } from "./slice";
 import { FriendshipStatus } from "src/constants";
 import { selectUserProfileId } from "../Profile/selectors";
-import { setFriendshipStatusWithMe } from "../Profile/slice";
+import { setFriendshipInfo } from "../Profile/slice";
+import { Path } from "src/router/path";
 
 function* getFriendshipRequestsRequestSaga() {
   yield call(
@@ -35,6 +38,12 @@ function* getFriendshipRequestsRequestSaga() {
     getFriendsApi,
     FriendshipStatus.REQUESTED
   );
+}
+
+function* getFriendshipRequestsSuccessSaga(
+  action: ReturnType<typeof getFriendshipRequestsSuccess>
+) {
+  yield put(setFriendshipRequestsCount(action.payload.length));
 }
 
 function* requestFriendshipRequestSaga() {
@@ -50,19 +59,33 @@ function* requestFriendshipRequestSaga() {
   );
 }
 
-function* requestFriendshipSuccessSaga() {
-  yield put(setFriendshipStatusWithMe(FriendshipStatus.REQUESTED));
+function* requestFriendshipSuccessSaga(
+  action: ReturnType<typeof requestFriendshipSuccess>
+) {
+  yield put(setFriendshipInfo(action.payload));
 }
 
-function* updateFriendshipRequestSaga(
-  action: ReturnType<typeof updateFriendshipRequest>
+function* acceptFriendshipRequestSaga(
+  action: ReturnType<typeof acceptFriendshipRequest>
 ) {
   yield call(
     handleRequest,
-    { success: updateFriendshipSuccess, error: updateFriendshipError },
-    updateFriendshipApi,
+    { success: acceptFriendshipSuccess, error: acceptFriendshipError },
+    acceptFriendshipApi,
     action.payload
   );
+}
+
+function* acceptFriendshipSuccessSaga() {
+  const path = window.location.pathname;
+  const friendshipRequestsPath = matchPath(
+    { path: Path.FRIENDSHIP_REQUESTS },
+    path
+  );
+
+  if (friendshipRequestsPath) {
+    yield put(getFriendshipRequestsRequest());
+  }
 }
 
 function* removeFriendshipRequestSaga(
@@ -77,7 +100,19 @@ function* removeFriendshipRequestSaga(
 }
 
 function* removeFriendshipSuccessSaga() {
-  yield put(setFriendshipStatusWithMe(null));
+  const path = window.location.pathname;
+  const friendshipRequestsPath = matchPath(
+    { path: Path.FRIENDSHIP_REQUESTS },
+    path
+  );
+
+  if (friendshipRequestsPath) {
+    yield put(getFriendshipRequestsRequest());
+    return;
+  }
+
+  // @TODO: check if it is prfoile page
+  yield put(setFriendshipInfo(null));
 }
 
 function* friendshipSaga() {
@@ -85,9 +120,14 @@ function* friendshipSaga() {
     getFriendshipRequestsRequest.type,
     getFriendshipRequestsRequestSaga
   );
+  yield takeLatest(
+    getFriendshipRequestsSuccess.type,
+    getFriendshipRequestsSuccessSaga
+  );
   yield takeLatest(requestFriendshipRequest.type, requestFriendshipRequestSaga);
   yield takeLatest(requestFriendshipSuccess.type, requestFriendshipSuccessSaga);
-  yield takeLatest(updateFriendshipRequest.type, updateFriendshipRequestSaga);
+  yield takeLatest(acceptFriendshipRequest.type, acceptFriendshipRequestSaga);
+  yield takeLatest(acceptFriendshipSuccess.type, acceptFriendshipSuccessSaga);
   yield takeLatest(removeFriendshipRequest.type, removeFriendshipRequestSaga);
   yield takeLatest(removeFriendshipSuccess.type, removeFriendshipSuccessSaga);
 }

@@ -1,6 +1,6 @@
-import { Status } from "src/constants";
+import { FriendshipRemoveAction, Status } from "src/constants";
 import { Error } from "src/api/api.d";
-import { User } from "src/types";
+import { FriendshipInfo, User } from "src/types";
 
 export interface FriendshipState {
   friendshipRequests: {
@@ -10,10 +10,10 @@ export interface FriendshipState {
   };
   requestFriendship: {
     status: Status;
-    data: any; // @TODO: type
+    data: FriendshipInfo;
     reason: Error;
   };
-  updateFriendship: {
+  acceptFriendship: {
     status: Status;
     data: any; // @TODO: type
     reason: Error;
@@ -33,8 +33,10 @@ export interface Friendship {
 }
 
 export type RequestFriendshipRequestPayload = User["id"];
-export type RemoveFriendshipRequestPayload = User["id"];
-export type UpdateFriendshipRequestPayload = {
+export type RemoveFriendshipRequestPayload = {
   receiverId: User["id"];
-  friendshipStatusId: FriendshipStatus;
+  removeAction: FriendshipRemoveAction;
+};
+export type AcceptFriendshipRequestPayload = {
+  senderId: User["id"];
 };

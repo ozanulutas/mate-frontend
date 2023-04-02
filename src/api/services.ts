@@ -25,7 +25,7 @@ import {
 import {
   RemoveFriendshipRequestPayload,
   RequestFriendshipRequestPayload,
-  UpdateFriendshipRequestPayload,
+  AcceptFriendshipRequestPayload,
 } from "src/features/Friendship/Friendship";
 import { replacePathParams } from "src/utils/replace-path-params";
 import { Endpoint } from "./endpoint";
@@ -98,12 +98,11 @@ export const requestFriendshipApi = (
   receiverId: RequestFriendshipRequestPayload
 ) => request.post(Endpoint.User.REQUEST_FRIENDSHIP, { receiverId });
 
-export const updateFriendshipApi = (data: UpdateFriendshipRequestPayload) =>
+export const acceptFriendshipApi = (data: AcceptFriendshipRequestPayload) =>
   request.patch(Endpoint.User.UPDATE_FRIENDSHIP, data);
 
-export const removeFriendshipApi = (
-  receiverId: RemoveFriendshipRequestPayload
-) => request.delete(Endpoint.User.REMOVE_FRIENDSHIP, { data: { receiverId } });
+export const removeFriendshipApi = (data: RemoveFriendshipRequestPayload) =>
+  request.delete(Endpoint.User.REMOVE_FRIENDSHIP, { data });
 
 // Notifications
 
