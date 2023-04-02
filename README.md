@@ -16,7 +16,8 @@
 
 ## Posts
 
-- Post comment'leri ayrı modalda göster
+- Comment yazma
+- Post yazma
 - Post, feed, comment, message scroll pagination
 - Post beğenme, emoji bırakma
 
@@ -30,10 +31,6 @@
 
 - Follow olduğunda Notification gönderilmesi
 - Notification sayfasındayken yeni socketten yeni notif geldiyse getNotifs isteği at
-
-## Friendship
-
-- Friendship cancel veya remove olduğunda countları ve profile buttonu değiştir
 
 ## Account/Settings
 

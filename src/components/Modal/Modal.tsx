@@ -11,9 +11,11 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  IconButton,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { Close as CloseIcon } from "@mui/icons-material/";
 
 type ModalProps = {
   modalKey: keyof typeof ModalKey;
@@ -25,6 +27,7 @@ type ModalProps = {
   onPositiveClick?: Function;
   onNegativeClick?: Function;
   formId?: string;
+  displayClose?: boolean;
 };
 
 function Modal({
@@ -37,6 +40,7 @@ function Modal({
   onPositiveClick,
   onNegativeClick,
   formId,
+  displayClose = true,
 }: ModalProps) {
   const dispatch = useDispatch();
   const activeModalKey = useSelector(selectModalKeys);
@@ -70,7 +74,23 @@ function Modal({
       aria-labelledby="dialog-title"
       aria-describedby="dialog-description"
     >
-      <DialogTitle id="dialog-title">{title}</DialogTitle>
+      <DialogTitle id="dialog-title" sx={{ position: "relative" }}>
+        {title}
+        {displayClose && (
+          <IconButton
+            aria-label="close"
+            onClick={handleClose}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: "50%",
+              transform: "translateY(-50%)",
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        )}
+      </DialogTitle>
       <DialogContent>
         <DialogContentText id="dialog-description">{text}</DialogContentText>
         {children}

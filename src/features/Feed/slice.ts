@@ -49,7 +49,7 @@ export const feedSlice = createSlice({
       action: PayloadAction<FeedState["comments"]["data"]>
     ) => {
       state.comments.status = Status.LOADED;
-      state.comments.data = [...state.comments.data, ...action.payload];
+      state.comments.data = action.payload;
     },
     getCommentsError: (state, action: PayloadAction<Error>) => {
       state.comments.status = Status.ERROR;

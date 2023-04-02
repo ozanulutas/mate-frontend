@@ -9,7 +9,7 @@ export const selectPosts = createSelector(
   (feed) => feed.posts.data
 );
 
-export const selectComments = (postId: number) =>
-  createSelector(selectFeed, (feed) =>
-    feed.comments.data.filter((comment) => comment.postId === postId)
-  );
+export const selectComments = createSelector(
+  selectFeed,
+  (feed) => feed.comments.data
+);
