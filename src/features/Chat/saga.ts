@@ -18,7 +18,6 @@ import {
   createMessageRequest,
   createMessageError,
   createMessageSuccess,
-  sendMessageToSocket,
   updateMessagesRequest,
   getUnreadChatInfoRequest,
   setUnreadChatInfo,
@@ -80,12 +79,6 @@ function* createMessageRequestSaga(
   );
 }
 
-function* createMessageSuccessSaga(
-  action: ReturnType<typeof createMessageSuccess>
-) {
-  yield put(sendMessageToSocket(action.payload));
-}
-
 function* updateMessageRequestSaga(
   action: ReturnType<typeof createMessageSuccess>
 ) {
@@ -103,7 +96,6 @@ function* chatSaga() {
   yield takeLatest(getMessagesRequest.type, getMessagesRequestSaga);
   yield takeLatest(getMessagesSuccess.type, getMessagesSuccessSaga);
   yield takeLatest(createMessageRequest.type, createMessageRequestSaga);
-  yield takeLatest(createMessageSuccess.type, createMessageSuccessSaga);
   yield takeLatest(updateMessagesRequest.type, updateMessageRequestSaga);
 }
 

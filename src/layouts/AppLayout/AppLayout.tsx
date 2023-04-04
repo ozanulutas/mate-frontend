@@ -21,7 +21,7 @@ function AppLayout() {
 
   useEffect(() => {
     if (userId) {
-      // dispatch(connectSocket(userId));
+      dispatch(connectSocket(userId));
     }
   }, [dispatch, userId]);
 

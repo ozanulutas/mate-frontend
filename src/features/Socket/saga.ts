@@ -1,5 +1,5 @@
 import { eventChannel } from "redux-saga";
-import { call, cancel, fork, put, race, take } from "redux-saga/effects";
+import { call, cancel, fork, put, take } from "redux-saga/effects";
 import { matchPath } from "react-router";
 import { Socket, io } from "socket.io-client";
 
@@ -7,12 +7,11 @@ import { Env, FriendshipRemoveAction } from "src/constants";
 
 import { connectSocket } from "./slice";
 import { logout } from "src/features/Auth/slice";
+import { appendMessage, updateUnreadChatInfo } from "src/features/Chat/slice";
 import {
-  appendMessage,
-  updateUnreadChatInfo,
-  sendMessageToSocket,
-} from "src/features/Chat/slice";
-import { increaseUnviewedNotificationCount } from "src/features/Notifications/slice";
+  getNotificationsRequest,
+  increaseUnviewedNotificationCount,
+} from "src/features/Notifications/slice";
 import { Path } from "src/router/path";
 import {
   decreaseFriendshipRequestsCount,
@@ -119,6 +118,14 @@ function subscribe(socket: Socket) {
     });
 
     socket.on(SocketEvent.NEW_NOTIFICATION, () => {
+      const path = window.location.pathname;
+      const notificationsPath = matchPath({ path: Path.NOTIFICATIONS }, path);
+
+      if (notificationsPath) {
+        emit(getNotificationsRequest());
+        return;
+      }
+
       emit(increaseUnviewedNotificationCount(1));
     });
 
@@ -139,21 +146,21 @@ function* read(socket: Socket): Generator<any, any, any> {
   }
 }
 
-function* write(socket: Socket) {
-  while (true) {
-    const { sendMessage } = yield race({
-      sendMessage: take(sendMessageToSocket.type),
-    });
+// function* write(socket: Socket) {
+//   while (true) {
+//     const { sendMessage } = yield race({
+//       sendMessage: take(sendMessageToSocket.type),
+//     });
 
-    if (sendMessage) {
-      socket.emit(SocketEvent.NEW_MESSAGE, sendMessage.payload);
-    }
-  }
-}
+//     if (sendMessage) {
+//       socket.emit(SocketEvent.NEW_MESSAGE, sendMessage.payload);
+//     }
+//   }
+// }
 
 function* handleIO(socket: Socket) {
   yield fork(read, socket);
-  yield fork(write, socket);
+  // yield fork(write, socket);
 }
 
 function* connectSocketSaga(): Generator<any, any, any> {

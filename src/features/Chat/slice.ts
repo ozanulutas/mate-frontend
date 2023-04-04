@@ -123,9 +123,6 @@ export const chatSlice = createSlice({
   },
 });
 
-export const sendMessageToSocket = createAction<ChatState["message"]["data"]>(
-  "chat/sendMessageToSocket"
-);
 export const updateMessagesRequest = createAction<UpdateMessagesRequestPayload>(
   "chat/updateMessagesRequest"
 );

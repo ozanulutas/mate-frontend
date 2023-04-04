@@ -13,9 +13,11 @@
 - Düzgün app error sayfası
 - Düzgün loading
 - BE'de EP'leri user'dan ayır
+- Event oluşturma
 
 ## Posts
 
+- Arkadaş olanların postlarını da feed'e dahil et
 - Comment yazma
 - Post yazma
 - Post, feed, comment, message scroll pagination
@@ -24,13 +26,6 @@
 ## Message
 
 - Client taraflı yeni mesaj oluşturma. Hem chats hem de profil sayfasından
-- Scrollun sayfa sonuna setlenmesi
-- Client taraflı send message socket emit'i BE'ye taşı
-
-## Notif
-
-- Follow olduğunda Notification gönderilmesi
-- Notification sayfasındayken yeni socketten yeni notif geldiyse getNotifs isteği at
 
 ## Account/Settings
 
