@@ -8,11 +8,28 @@ export interface FeedState {
     data: Post[];
     reason: Error;
   };
+  createPost: {
+    status: Status;
+    data: any; // @TODO: type;
+    reason: Error;
+  };
   comments: {
     status: Status;
     data: Comment[];
     reason: Error;
   };
+  createComment: {
+    status: Status;
+    data: any; // @TODO: type;
+    reason: Error;
+  };
+  selectedPostId: Post["id"];
 }
 
 export type GetCommentsRequestPayload = Post["id"];
+export type CreateCommentRequestPayload = { postId: Post["id"]; text: string };
+export type CreatePostRequestPayload = { text: string };
+export type IncreaseCommentCountPayload = {
+  postId: Post["id"];
+  incrementBy: number;
+};

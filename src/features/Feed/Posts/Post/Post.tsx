@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { Post as PostInterface } from "src/types";
+import { Post as IPost } from "src/types";
 import { replacePathParams, strToDate } from "src/utils";
 import { Path } from "src/router/path";
-import { getCommentsRequest } from "src/features/Feed/slice";
+import { getCommentsRequest, setSelectedPostId } from "src/features/Feed/slice";
 import { selectUserId } from "src/features/AppConfig/selectors";
 import { toggleModal } from "src/components/Modal/slice";
 import { ModalKey } from "src/components/Modal/constants";
@@ -21,7 +21,7 @@ import {
 } from "@mui/material";
 import { Link } from "src/components";
 
-type PostProps = PostInterface;
+type PostProps = IPost;
 
 function Post({ id, text, createdAt, _count, user: writer }: PostProps) {
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ function Post({ id, text, createdAt, _count, user: writer }: PostProps) {
 
   const handleCommetsClick = () => {
     dispatch(getCommentsRequest(id));
+    dispatch(setSelectedPostId(id));
     dispatch(toggleModal(ModalKey.COMMENTS));
   };
 
