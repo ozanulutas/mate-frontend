@@ -12,6 +12,7 @@ import {
   DialogContentText,
   DialogTitle,
   IconButton,
+  SxProps,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -28,6 +29,7 @@ type ModalProps = {
   onNegativeClick?: Function;
   formId?: string;
   displayClose?: boolean;
+  dialogContentSx?: SxProps;
 };
 
 function Modal({
@@ -41,6 +43,7 @@ function Modal({
   onNegativeClick,
   formId,
   displayClose = true,
+  dialogContentSx,
 }: ModalProps) {
   const dispatch = useDispatch();
   const activeModalKey = useSelector(selectModalKeys);
@@ -91,7 +94,7 @@ function Modal({
           </IconButton>
         )}
       </DialogTitle>
-      <DialogContent>
+      <DialogContent sx={dialogContentSx}>
         <DialogContentText id="dialog-description">{text}</DialogContentText>
         {children}
       </DialogContent>
