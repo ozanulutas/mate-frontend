@@ -2,42 +2,44 @@ import { useSelector } from "react-redux";
 
 import { ModalKey } from "src/components/Modal/constants";
 import { selectComments } from "../../selectors";
-import { strToDate } from "src/utils";
+import { selectUserId } from "src/features/AppConfig/selectors";
 
 import { Fragment } from "react";
 import Modal from "src/components/Modal";
-import {
-  List,
-  ListItem,
-  ListItemAvatar,
-  Avatar,
-  ListItemText,
-  Divider,
-} from "@mui/material";
+import { List, DialogActions, Divider } from "@mui/material";
+import CreateComment from "./CreateComment/CreateComment";
+import Comment from "./Comment";
 
 function CommentsModal() {
   const comments = useSelector(selectComments);
+  const userId = useSelector(selectUserId);
 
   return (
-    <Modal modalKey={ModalKey.COMMENTS} title="Comments">
+    <Modal
+      modalKey={ModalKey.COMMENTS}
+      title="Comments"
+      dialogContentSx={{ pb: 0 }}
+    >
       <List>
         {comments.map(({ id, text, createdAt, user }, i) => (
           <Fragment key={id}>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar>{user.username[0]}</Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={`${user.username} - ${strToDate(createdAt)}`}
-                secondary={text}
-              />
-            </ListItem>
+            <Comment
+              text={text}
+              createdAt={createdAt}
+              writer={user}
+              userId={userId}
+            />
             {i !== comments.length - 1 && (
               <Divider variant="inset" component="li" />
             )}
           </Fragment>
         ))}
       </List>
+      <DialogActions
+        sx={{ position: "sticky", bottom: 0, backgroundColor: "white" }}
+      >
+        <CreateComment />
+      </DialogActions>
     </Modal>
   );
 }
