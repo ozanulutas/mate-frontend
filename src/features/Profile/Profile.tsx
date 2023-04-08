@@ -4,10 +4,12 @@ import { useParams } from "react-router-dom";
 
 import { getPostsRequest, getUserRequest } from "./slice";
 import { selectPosts, selectUser } from "./selectors";
+import { selectUserId } from "../AppConfig/selectors";
 
 import {
   Avatar,
   Card,
+  CardActions,
   CardContent,
   CardHeader,
   CardMedia,
@@ -15,18 +17,23 @@ import {
 } from "@mui/material";
 import CategoryChips from "src/components/CategoryChips";
 import Posts from "src/features/Feed/Posts";
-import UserActions from "src/features/Profile/UserActions";
+import CommentsModal from "../Feed/Posts/CommentsModal";
+import NewMessageButton from "./UserActions/NewMessageButton";
+import FriendshipButton from "./UserActions/FriendshipButton";
+import FollowButton from "./UserActions/FollowButton";
 
 function Profile() {
   const dispatch = useDispatch();
-  const { userId = "" } = useParams();
-  const { username, categories, info, age, _count } = useSelector(selectUser);
+  const { userId: profileId = "" } = useParams();
+  const { username, categories, info } = useSelector(selectUser);
   const posts = useSelector(selectPosts);
+  const userId = useSelector(selectUserId);
+  const isMe = profileId === "me" || profileId === userId.toString();
 
   useEffect(() => {
-    dispatch(getUserRequest(userId));
-    dispatch(getPostsRequest(userId));
-  }, [dispatch, userId]);
+    dispatch(getUserRequest(profileId));
+    dispatch(getPostsRequest(profileId));
+  }, [dispatch, profileId]);
 
   return (
     <>
@@ -45,8 +52,14 @@ function Profile() {
           title={username}
           subheader={<CategoryChips categories={categories} />}
           subheaderTypographyProps={{ component: "div" }}
-          action={userId !== "me" && <UserActions />}
+          action={!isMe && <FollowButton />}
         />
+        {!isMe && (
+          <CardActions sx={{ gap: 1 }}>
+            <NewMessageButton peerId={profileId} />
+            <FriendshipButton />
+          </CardActions>
+        )}
         <CardContent>
           <Typography variant="body2" color="text.secondary">
             {info}
@@ -54,6 +67,7 @@ function Profile() {
         </CardContent>
       </Card>
       <Posts posts={posts} />
+      <CommentsModal />
     </>
   );
 }

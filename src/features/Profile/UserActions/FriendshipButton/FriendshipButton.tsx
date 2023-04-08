@@ -6,7 +6,7 @@ function FriendshipButton() {
   const { icon, text, onClick } = useButtonProps();
 
   return (
-    <Button size="small" variant="contained" onClick={onClick} startIcon={icon}>
+    <Button size="small" variant="outlined" onClick={onClick} startIcon={icon}>
       {text}
     </Button>
   );

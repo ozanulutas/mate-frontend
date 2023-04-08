@@ -1,8 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import { useEnterKeySubmit } from "src/hooks";
 import { messageSchema, MessageSchemaType } from "./validation";
 import { selectMessageStatus } from "../selectors";
 import { createMessageRequest } from "../slice";
@@ -17,7 +18,6 @@ type MessageFormProps = {
 
 function MessageForm({ peerId }: MessageFormProps) {
   const dispatch = useDispatch();
-  const isShiftKeyDown = useRef(false);
   const messageStatus = useSelector(selectMessageStatus);
   const {
     control,
@@ -50,25 +50,9 @@ function MessageForm({ peerId }: MessageFormProps) {
     );
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
-      isShiftKeyDown.current = true;
-    }
-
-    if (!isShiftKeyDown.current && e.code === "Enter") {
-      e.preventDefault();
-    }
-  };
-
-  const handleKeyUp = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.code === "ShiftLeft" || e.code === "ShiftRight") {
-      isShiftKeyDown.current = false;
-    }
-
-    if (!isShiftKeyDown.current && e.code === "Enter") {
-      handleSubmit(onSubmit)();
-    }
-  };
+  const { handleKeyDown, handleKeyUp } = useEnterKeySubmit(
+    handleSubmit(onSubmit)
+  );
 
   return (
     <Box

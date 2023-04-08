@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 
 import { appConfigRequest } from "src/features/AppConfig/slice";
-import { AppBarHeight } from "src/components/AppBar/constants";
 
 import { Container } from "@mui/material";
 import { AppBar } from "src/components";
@@ -21,7 +20,7 @@ function AppLayout() {
 
   useEffect(() => {
     if (userId) {
-      dispatch(connectSocket(userId));
+      // dispatch(connectSocket(userId));
     }
   }, [dispatch, userId]);
 
