@@ -1,4 +1,4 @@
-import { call, put, select, takeLatest } from "redux-saga/effects";
+import { call, delay, put, select, takeLatest } from "redux-saga/effects";
 import { matchPath } from "react-router-dom";
 
 import { handleRequest } from "src/redux/saga/handleRequest";
@@ -22,11 +22,30 @@ import {
   acceptFriendshipRequest,
   acceptFriendshipSuccess,
   setFriendshipRequestsCount,
+  searchFriendsRequest,
+  searchFriendsSuccess,
+  searchFriendsError,
 } from "./slice";
 import { FriendshipStatus } from "src/constants";
 import { selectUserProfileId } from "../Profile/selectors";
 import { setFriendshipInfo } from "../Profile/slice";
 import { Path } from "src/router/path";
+
+function* searchFriendsRequestSaga(
+  action: ReturnType<typeof searchFriendsRequest>
+) {
+  yield delay(500);
+
+  yield call(
+    handleRequest,
+    {
+      success: searchFriendsSuccess,
+      error: searchFriendsError,
+    },
+    getFriendsApi,
+    { status: FriendshipStatus.ACCEPTED, name: action.payload }
+  );
+}
 
 function* getFriendshipRequestsRequestSaga() {
   yield call(
@@ -36,7 +55,7 @@ function* getFriendshipRequestsRequestSaga() {
       error: getFriendshipRequestsError,
     },
     getFriendsApi,
-    FriendshipStatus.REQUESTED
+    { status: FriendshipStatus.REQUESTED }
   );
 }
 
@@ -116,6 +135,7 @@ function* removeFriendshipSuccessSaga() {
 }
 
 function* friendshipSaga() {
+  yield takeLatest(searchFriendsRequest.type, searchFriendsRequestSaga);
   yield takeLatest(
     getFriendshipRequestsRequest.type,
     getFriendshipRequestsRequestSaga

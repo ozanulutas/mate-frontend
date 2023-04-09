@@ -9,6 +9,11 @@ import {
 import { Status } from "src/constants";
 
 const initialState: FriendshipState = {
+  friends: {
+    status: Status.INIT,
+    data: [],
+    reason: {},
+  },
   friendshipRequests: {
     status: Status.INIT,
     data: [],
@@ -36,6 +41,22 @@ export const friendshipSlice = createSlice({
   name: "friendship",
   initialState,
   reducers: {
+    searchFriendsRequest: (state, action: PayloadAction<string>) => {
+      state.friends.status = Status.LOADING;
+      state.friends.reason = initialState.friends.reason;
+    },
+    searchFriendsSuccess: (
+      state,
+      action: PayloadAction<FriendshipState["friends"]["data"]>
+    ) => {
+      state.friends.status = Status.LOADED;
+      state.friends.data = action.payload;
+    },
+    searchFriendsError: (state, action: PayloadAction<Error>) => {
+      state.friends.status = Status.ERROR;
+      state.friends.reason = action.payload;
+    },
+
     getFriendshipRequestsRequest: (state) => {
       state.friendshipRequests.status = Status.LOADING;
       state.friendshipRequests.reason = initialState.friendshipRequests.reason;
@@ -119,6 +140,10 @@ export const friendshipSlice = createSlice({
 });
 
 export const {
+  searchFriendsRequest,
+  searchFriendsSuccess,
+  searchFriendsError,
+
   getFriendshipRequestsRequest,
   getFriendshipRequestsSuccess,
   getFriendshipRequestsError,

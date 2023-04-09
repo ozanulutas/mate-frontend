@@ -13,3 +13,8 @@ export const selectFriendshipRequests = createSelector(
   selectFriendshipState,
   (friendship) => friendship.friendshipRequests.data
 );
+
+export const selectFriends = createSelector(
+  selectFriendshipState,
+  (friendship) => friendship.friends.data
+);

@@ -18,6 +18,7 @@ export interface ChatState {
     data: Message;
     reason: Error;
   };
+
   unreadChatInfo: UnreadChatInfo[];
 }
 

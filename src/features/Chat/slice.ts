@@ -26,6 +26,7 @@ const initialState: ChatState = {
     data: {} as ChatState["message"]["data"],
     reason: {},
   },
+
   unreadChatInfo: [],
 };
 

@@ -3,6 +3,11 @@ import { Error } from "src/api/api.d";
 import { FriendshipInfo, User } from "src/types";
 
 export interface FriendshipState {
+  friends: {
+    status: Status;
+    data: Pick<User, "id" | "username">[];
+    reason: Error;
+  };
   friendshipRequests: {
     status: Status;
     data: Friendship[];
@@ -39,4 +44,9 @@ export type RemoveFriendshipRequestPayload = {
 };
 export type AcceptFriendshipRequestPayload = {
   senderId: User["id"];
+};
+
+export type GetFriendsRequestPayload = {
+  status: FriendshipState;
+  name?: string;
 };
