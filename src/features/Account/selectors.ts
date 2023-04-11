@@ -9,3 +9,13 @@ export const selectLocations = createSelector(
   selectLocationSettings,
   (locationSettings) => locationSettings.locations.data
 );
+
+export const selectSelectedLocationId = createSelector(
+  selectLocationSettings,
+  (locationSettings) => locationSettings.selectedLocationId
+);
+
+export const selectEditedLocation = createSelector(
+  selectLocationSettings,
+  (locationSettings) => locationSettings.editedLocation
+);

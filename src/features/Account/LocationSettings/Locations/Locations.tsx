@@ -1,39 +1,46 @@
 import { Fragment } from "react";
-import { useSelector } from "react-redux";
-import { selectLocations } from "../../selectors";
+import { useDispatch, useSelector } from "react-redux";
 
-import { LocationOn as LocationOnIcon } from "@mui/icons-material";
+import { selectLocations, selectSelectedLocationId } from "../../selectors";
+
+import { Divider, List, RadioGroup } from "@mui/material";
+import Location from "./Location";
 import {
-  Avatar,
-  Divider,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@mui/material";
+  setSelectedLocationId,
+  updateSelectedLocationRequest,
+} from "../../slice";
 
 function Locations() {
+  const dispatch = useDispatch();
   const locations = useSelector(selectLocations);
+  const selectedLocationId = useSelector(selectSelectedLocationId);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+    dispatch(updateSelectedLocationRequest(+e.target.value));
+    // dispatch(setSelectedLocationId(+e.target.value));
+  };
 
   return (
-    <List>
-      {locations.map((location) => (
-        <Fragment key={location.id}>
-          <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-              <Avatar>
-                <LocationOnIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={location.name}
-              secondary={location.geojson.coordinates}
+    <RadioGroup
+      name="location"
+      onChange={handleChange}
+      value={selectedLocationId}
+    >
+      <List>
+        {locations.map(({ geojson, id, name, isSelected }) => (
+          <Fragment key={id}>
+            <Location
+              geojson={geojson}
+              name={name}
+              id={id}
+              isSelected={isSelected}
             />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-        </Fragment>
-      ))}
-    </List>
+            <Divider variant="inset" component="li" />
+          </Fragment>
+        ))}
+      </List>
+    </RadioGroup>
   );
 }
 

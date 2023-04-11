@@ -1,6 +1,7 @@
 import { fromLonLat } from "ol/proj";
 
 import { Marker } from "src/features/Account/LocationSettings/LocationSettings.d";
+import { Location } from "src/types";
 
 import Map from "src/components/Map";
 import ModifyInteraction from "src/components/Map/Interactions/ModifyInteraction/ModifyInteraction";
@@ -15,10 +16,11 @@ import ZoomControl from "src/components/Map/Controls/ZoomControl";
 
 type AddLocationMapProps = {
   markerRef: React.MutableRefObject<Marker>;
+  coordinates: Location["geojson"]["coordinates"];
 };
 
-const AddLocationMap = ({ markerRef }: AddLocationMapProps) => {
-  const iconCoordinates = fromLonLat([27.51029, 40.964498]);
+const AddLocationMap = ({ markerRef, coordinates }: AddLocationMapProps) => {
+  const iconCoordinates = fromLonLat(coordinates ?? [27.51029, 40.964498]);
   const iconFeature = createMarker({
     coordinates: iconCoordinates,
   });

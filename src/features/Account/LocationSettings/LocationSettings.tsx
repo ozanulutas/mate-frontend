@@ -9,6 +9,7 @@ import { Add as AddIcon } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import AddLocationModal from "./AddLocationModal";
 import Locations from "./Locations";
+import RemoveLocationConfirmationModal from "./RemoveLocationConfirmationModal";
 
 function LocationSettings() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function LocationSettings() {
       </IconButton>
       <Locations />
       <AddLocationModal />
+      <RemoveLocationConfirmationModal />
     </>
   );
 }

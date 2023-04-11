@@ -1,5 +1,9 @@
 import { FriendshipStatus } from "src/constants";
-import { AddLocationRequestPayload } from "src/features/Account/Account.d";
+import {
+  AddLocationRequestPayload,
+  RemoveLocationRequestPayload,
+  UpdateLocationRequestPayload,
+} from "src/features/Account/Account.d";
 import {
   LoginRequestPayload,
   RegisterRequestPayload,
@@ -14,7 +18,11 @@ import {
   GetUsersRequestPayload,
   GetCategoriesRequestPayload,
 } from "src/features/Explore/Explore.d";
-import { GetCommentsRequestPayload } from "src/features/Feed/Feed.d";
+import {
+  CreateCommentRequestPayload,
+  CreatePostRequestPayload,
+  GetCommentsRequestPayload,
+} from "src/features/Feed/Feed.d";
 import { GetNotificationCountRequestPayload } from "src/features/Notifications/Notifications.d";
 import {
   FollowRequestPayload,
@@ -26,6 +34,7 @@ import {
   RemoveFriendshipRequestPayload,
   RequestFriendshipRequestPayload,
   AcceptFriendshipRequestPayload,
+  GetFriendsRequestPayload,
 } from "src/features/Friendship/Friendship";
 import { replacePathParams } from "src/utils/replace-path-params";
 import { Endpoint } from "./endpoint";
@@ -63,6 +72,20 @@ export const getFeedApi = () => request.get(Endpoint.User.GET_FEED);
 export const addLocationApi = (data: AddLocationRequestPayload) =>
   request.post(Endpoint.User.ADD_LOCATION, data);
 
+export const updateLocationApi = ({
+  id,
+  ...data
+}: UpdateLocationRequestPayload) =>
+  request.patch(
+    replacePathParams(Endpoint.User.UPDATE_LOCATION, { locationId: id }),
+    data
+  );
+
+export const removeLocationApi = (locationId: RemoveLocationRequestPayload) =>
+  request.delete(
+    replacePathParams(Endpoint.User.REMOVE_LOCATION, { locationId })
+  );
+
 export const getLocationsApi = () => request.get(Endpoint.User.GET_LOCATIONS);
 
 // Chat
@@ -91,8 +114,8 @@ export const unfollowApi = (followingId: UnfollowRequestPayload) =>
 
 // Friendship
 
-export const getFriendsApi = (status: FriendshipStatus) =>
-  request.get(Endpoint.User.GET_FRIENDS, { params: { status } });
+export const getFriendsApi = (params: GetFriendsRequestPayload) =>
+  request.get(Endpoint.User.GET_FRIENDS, { params });
 
 export const requestFriendshipApi = (
   receiverId: RequestFriendshipRequestPayload
@@ -122,8 +145,20 @@ export const updateNotificationsApi = () =>
 export const getCommentsApi = (postId: GetCommentsRequestPayload) =>
   request.get(replacePathParams(Endpoint.Post.GET_COMMENTS, { postId }));
 
+export const createCommentApi = ({
+  postId,
+  ...data
+}: CreateCommentRequestPayload) =>
+  request.post(
+    replacePathParams(Endpoint.Post.CREATE_COMMENT, { postId }),
+    data
+  );
+
 export const getPostsApi = (userId: GetPostsRequestPayload) =>
   request.get(replacePathParams(Endpoint.User.GET_POSTS, { userId }));
+
+export const createPostApi = (data: CreatePostRequestPayload) =>
+  request.post(Endpoint.User.CREATE_POST, data);
 
 // Init
 

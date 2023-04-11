@@ -1,20 +1,36 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { Error } from "src/api/api.d";
 import { Status } from "src/constants";
-import { AccountState, AddLocationRequestPayload } from "./Account.d";
+import {
+  AccountState,
+  AddLocationRequestPayload,
+  RemoveLocationRequestPayload,
+  UpdateLocationRequestPayload,
+  UpdateSelectedLocationRequestPayload,
+} from "./Account.d";
+import { Location } from "src/types";
 
 const initialState: AccountState = {
   locationSettings: {
     addLocation: {
       status: Status.INIT,
-      reason: {},
+    },
+    updateLocation: {
+      status: Status.INIT,
+    },
+    updateSelectedLocation: {
+      status: Status.INIT,
+    },
+    removeLocation: {
+      status: Status.INIT,
     },
     locations: {
       data: [],
-      reason: {},
       status: Status.INIT,
     },
+    editedLocation: {} as AccountState["locationSettings"]["editedLocation"],
+    selectedLocationId:
+      {} as AccountState["locationSettings"]["selectedLocationId"],
   },
 };
 
@@ -27,20 +43,58 @@ export const accountSlice = createSlice({
       action: PayloadAction<AddLocationRequestPayload>
     ) => {
       state.locationSettings.addLocation.status = Status.LOADING;
-      state.locationSettings.addLocation.reason =
-        initialState.locationSettings.addLocation.reason;
     },
     addLocationSuccess: (state) => {
       state.locationSettings.addLocation.status = Status.LOADED;
     },
-    addLocationError: (state, action: PayloadAction<Error>) => {
+    addLocationError: (state) => {
       state.locationSettings.addLocation.status = Status.ERROR;
-      state.locationSettings.addLocation.reason = action.payload;
     },
+
+    updateLocationRequest: (
+      state,
+      action: PayloadAction<UpdateLocationRequestPayload>
+    ) => {
+      state.locationSettings.updateLocation.status = Status.LOADING;
+    },
+    updateLocationSuccess: (state) => {
+      state.locationSettings.updateLocation.status = Status.LOADED;
+    },
+    updateLocationError: (state) => {
+      state.locationSettings.updateLocation.status = Status.ERROR;
+    },
+
+    updateSelectedLocationRequest: (
+      state,
+      action: PayloadAction<UpdateSelectedLocationRequestPayload>
+    ) => {
+      state.locationSettings.updateSelectedLocation.status = Status.LOADING;
+    },
+    updateSelectedLocationSuccess: (
+      state,
+      action: PayloadAction<Pick<Location, "id">>
+    ) => {
+      state.locationSettings.updateSelectedLocation.status = Status.LOADED;
+    },
+    updateSelectedLocationError: (state) => {
+      state.locationSettings.updateSelectedLocation.status = Status.ERROR;
+    },
+
+    removeLocationRequest: (
+      state,
+      action: PayloadAction<RemoveLocationRequestPayload>
+    ) => {
+      state.locationSettings.removeLocation.status = Status.LOADING;
+    },
+    removeLocationSuccess: (state) => {
+      state.locationSettings.removeLocation.status = Status.LOADED;
+    },
+    removeLocationError: (state) => {
+      state.locationSettings.removeLocation.status = Status.ERROR;
+    },
+
     getLocationsRequest: (state) => {
       state.locationSettings.locations.status = Status.LOADING;
-      state.locationSettings.locations.reason =
-        initialState.locationSettings.locations.reason;
     },
     getLocationsSuccess: (
       state,
@@ -51,9 +105,28 @@ export const accountSlice = createSlice({
       state.locationSettings.locations.status = Status.LOADED;
       state.locationSettings.locations.data = action.payload;
     },
-    getLocationsError: (state, action: PayloadAction<Error>) => {
+    getLocationsError: (state) => {
       state.locationSettings.locations.status = Status.ERROR;
-      state.locationSettings.locations.reason = action.payload;
+    },
+
+    setEditedLocation: (
+      state,
+      action: PayloadAction<AccountState["locationSettings"]["editedLocation"]>
+    ) => {
+      state.locationSettings.editedLocation = action.payload;
+    },
+    resetEditedLocation: (state) => {
+      state.locationSettings.editedLocation =
+        initialState.locationSettings.editedLocation;
+    },
+
+    setSelectedLocationId: (
+      state,
+      action: PayloadAction<
+        AccountState["locationSettings"]["selectedLocationId"]
+      >
+    ) => {
+      state.locationSettings.selectedLocationId = action.payload;
     },
   },
 });
@@ -62,8 +135,26 @@ export const {
   addLocationRequest,
   addLocationError,
   addLocationSuccess,
+
+  updateLocationRequest,
+  updateLocationError,
+  updateLocationSuccess,
+
+  updateSelectedLocationRequest,
+  updateSelectedLocationError,
+  updateSelectedLocationSuccess,
+
+  removeLocationRequest,
+  removeLocationError,
+  removeLocationSuccess,
+
   getLocationsError,
   getLocationsRequest,
   getLocationsSuccess,
+
+  setEditedLocation,
+  resetEditedLocation,
+
+  setSelectedLocationId,
 } = accountSlice.actions;
 export default accountSlice.reducer;

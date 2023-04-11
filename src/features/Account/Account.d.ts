@@ -1,4 +1,3 @@
-import { Error } from "src/api/api.d";
 import { Status } from "src/constants";
 import { Location } from "src/types";
 
@@ -6,17 +5,34 @@ export interface AccountState {
   locationSettings: {
     addLocation: {
       status: Status;
-      reason: Error;
+    };
+    updateLocation: {
+      status: Status;
+    };
+    updateSelectedLocation: {
+      status: Status;
+    };
+    removeLocation: {
+      status: Status;
     };
     locations: {
       data: Location[];
       status: Status;
-      reason: Error;
     };
+    editedLocation: Omit<Location, "isSelected">;
+    selectedLocationId: Location["id"];
   };
 }
 
 export type AddLocationRequestPayload = {
-  name: string;
-  coordinates: any;
+  name: Location["name"];
+  coordinates: Location["geojson"]["coordinates"];
 };
+
+export type UpdateLocationRequestPayload = {
+  id: Location["id"];
+} & Partial<AddLocationRequestPayload>;
+
+export type UpdateSelectedLocationRequestPayload = Location["id"];
+
+export type RemoveLocationRequestPayload = Location["id"];
