@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { ModalState } from "./Modal.d";
 import { ModalKey } from "./constants";
@@ -21,6 +21,9 @@ export const modalSlice = createSlice({
     },
   },
 });
+
+export const positiveButtonClick = createAction("modal/positiveButtonClick");
+export const negativeButtonClick = createAction("modal/negativeButtonClick");
 
 export const { toggleModal } = modalSlice.actions;
 export default modalSlice.reducer;

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { selectModalKeys } from "./selectors";
 import { ModalKey } from "./constants";
-import { toggleModal } from "./slice";
+import { negativeButtonClick, positiveButtonClick, toggleModal } from "./slice";
 
 import {
   Button,
@@ -10,6 +10,7 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
+  DialogProps,
   DialogTitle,
   IconButton,
   SxProps,
@@ -17,6 +18,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { Close as CloseIcon } from "@mui/icons-material/";
+import { useEffect } from "react";
 
 type ModalProps = {
   modalKey: keyof typeof ModalKey;
@@ -30,7 +32,9 @@ type ModalProps = {
   formId?: string;
   displayClose?: boolean;
   dialogContentSx?: SxProps;
-};
+  disableBackdropClick?: boolean;
+  onClose?: (...args: any[]) => any;
+} & Omit<DialogProps, "open">;
 
 function Modal({
   children,
@@ -44,6 +48,9 @@ function Modal({
   formId,
   displayClose = true,
   dialogContentSx,
+  disableBackdropClick = false,
+  onClose,
+  ...dialogProps
 }: ModalProps) {
   const dispatch = useDispatch();
   const activeModalKey = useSelector(selectModalKeys);
@@ -53,16 +60,26 @@ function Modal({
 
   const isOpen = activeModalKey.some((key) => key === modalKey);
 
-  const handleClose = () => {
+  const handleClose = (
+    e?: object,
+    reason?: "backdropClick" | "escapeKeyDown"
+  ) => {
+    if (disableBackdropClick && reason === "backdropClick") {
+      return;
+    }
+
     dispatch(toggleModal(modalKey));
+    onClose?.();
   };
 
   const handlePositiveClick = () => {
+    dispatch(positiveButtonClick());
     onPositiveClick?.();
     // handleClose();
   };
 
   const handleNegativeClick = () => {
+    dispatch(negativeButtonClick());
     onNegativeClick?.();
     handleClose();
   };
@@ -76,6 +93,7 @@ function Modal({
       fullScreen={isFullScreen}
       aria-labelledby="dialog-title"
       aria-describedby="dialog-description"
+      {...dialogProps}
     >
       <DialogTitle id="dialog-title" sx={{ position: "relative" }}>
         {title}
