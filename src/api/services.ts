@@ -1,6 +1,8 @@
 import { FriendshipStatus } from "src/constants";
 import {
+  AddCategoriesRequestPayload,
   AddLocationRequestPayload,
+  RemoveCategoryRequestPayload,
   RemoveLocationRequestPayload,
   UpdateLocationRequestPayload,
 } from "src/features/Account/Account.d";
@@ -56,6 +58,16 @@ export const categorySearchApi = ({ name }: GetCategoriesRequestPayload) =>
       name,
     },
   });
+
+export const getCategoriesApi = () => request.get(Endpoint.User.GET_CATEGORIES);
+
+export const addCategoriesApi = (data: AddCategoriesRequestPayload) =>
+  request.post(Endpoint.User.ADD_CATEGORIES, data);
+
+export const removeCategoryApi = (categoryId: RemoveCategoryRequestPayload) =>
+  request.delete(
+    replacePathParams(Endpoint.User.REMOVE_CATEGORY, { categoryId })
+  );
 
 // User
 

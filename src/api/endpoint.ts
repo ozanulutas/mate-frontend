@@ -29,6 +29,9 @@ export const Endpoint = {
     GET_NOTIFICATIONS: "/users/me/notifications",
     UPDATE_NOTIFICATIONS: "/users/me/notifications",
     GET_NOTIFICATION_COUNT: "/users/me/notifications/count",
+    GET_CATEGORIES: "/users/me/categories",
+    ADD_CATEGORIES: "/users/me/categories",
+    REMOVE_CATEGORY: "/users/me/categories/:categoryId",
   },
   Post: {
     GET_COMMENTS: "/posts/:postId/comments",
