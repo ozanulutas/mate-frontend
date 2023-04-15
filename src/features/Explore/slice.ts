@@ -52,6 +52,9 @@ export const exploreSlice = createSlice({
     ) => {
       state.selectedCategories = action.payload;
     },
+    resetCategories: (state) => {
+      state.categories.data = initialState.categories.data;
+    },
 
     getUsersRequest: (state, action: PayloadAction<GetUsersRequestPayload>) => {
       state.users.status = Status.LOADING;
@@ -80,6 +83,7 @@ export const {
   getCategoriesSuccess,
   getCategoriesError,
   setSelectedCategories,
+  resetCategories,
 
   getUsersError,
   getUsersRequest,

@@ -4,7 +4,7 @@ export const Endpoint = {
     REGISTER: "/auth/register",
   },
   Category: {
-    SEARCH: "/categories/search",
+    GET: "/categories",
   },
   User: {
     GET: "/users/:userId",
@@ -31,7 +31,7 @@ export const Endpoint = {
     GET_NOTIFICATION_COUNT: "/users/me/notifications/count",
     GET_CATEGORIES: "/users/me/categories",
     ADD_CATEGORIES: "/users/me/categories",
-    REMOVE_CATEGORY: "/users/me/categories/:categoryId",
+    REMOVE_CATEGORY: "/users/me/categories/:userCategoryId",
   },
   Post: {
     GET_COMMENTS: "/posts/:postId/comments",

@@ -11,9 +11,15 @@ type CategorySearchProps = {
   sx?: SxProps;
   field: ControllerRenderProps<any, any>;
   error?: string;
+  filterSelected?: boolean;
 };
 
-function CategorySearch({ sx, field, error }: CategorySearchProps) {
+function CategorySearch({
+  sx,
+  field,
+  error,
+  filterSelected,
+}: CategorySearchProps) {
   const dispatch = useDispatch();
   const [inputValue, setInputValue] = useState("");
   const categories = useSelector(selectCategories);
@@ -40,20 +46,22 @@ function CategorySearch({ sx, field, error }: CategorySearchProps) {
       return;
     }
 
-    dispatch(getCategoriesRequest({ name: inputValue }));
-  }, [dispatch, inputValue]);
+    dispatch(getCategoriesRequest({ name: inputValue, filterSelected }));
+  }, [dispatch, inputValue, filterSelected]);
 
   return (
     <Autocomplete
       {...field}
       sx={sx}
       multiple
-      limitTags={3}
+      disableCloseOnSelect
       loading
+      limitTags={3}
       inputValue={inputValue}
       getOptionLabel={(option) => option?.name}
       options={categories}
       onChange={onChange}
+      isOptionEqualToValue={(option, value) => option.name === value.name}
       onInputChange={(e, val) => setInputValue(val)}
       ListboxProps={{
         onScroll: handleScroll,

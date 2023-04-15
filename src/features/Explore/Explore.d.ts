@@ -20,6 +20,7 @@ export interface ExploreState {
 
 export type GetCategoriesRequestPayload = {
   name: string;
+  filterSelected?: boolean;
 };
 
 export type GetUsersRequestPayload = {

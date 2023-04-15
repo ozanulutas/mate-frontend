@@ -48,4 +48,4 @@ export type RemoveLocationRequestPayload = Location["id"];
 export type UpdateSelectedLocationRequestPayload = Location["id"];
 
 export type AddCategoriesRequestPayload = { categoryIds: Category["id"][] };
-export type RemoveCategoryRequestPayload = Category["id"];
+export type RemoveCategoryRequestPayload = number;

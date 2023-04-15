@@ -3,7 +3,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Status } from "src/constants";
 import {
   AccountState,
+  AddCategoriesRequestPayload,
   AddLocationRequestPayload,
+  RemoveCategoryRequestPayload,
   RemoveLocationRequestPayload,
   UpdateLocationRequestPayload,
   UpdateSelectedLocationRequestPayload,
@@ -31,6 +33,18 @@ const initialState: AccountState = {
     editedLocation: {} as AccountState["locationSettings"]["editedLocation"],
     selectedLocationId:
       {} as AccountState["locationSettings"]["selectedLocationId"],
+  },
+  categorySettings: {
+    categories: {
+      data: [],
+      status: Status.INIT,
+    },
+    addCategories: {
+      status: Status.INIT,
+    },
+    removeCategory: {
+      status: Status.INIT,
+    },
   },
 };
 
@@ -128,6 +142,48 @@ export const accountSlice = createSlice({
     ) => {
       state.locationSettings.selectedLocationId = action.payload;
     },
+
+    getCategoriesRequest: (state) => {
+      state.categorySettings.categories.status = Status.LOADING;
+    },
+    getCategoriesSuccess: (
+      state,
+      action: PayloadAction<
+        AccountState["categorySettings"]["categories"]["data"]
+      >
+    ) => {
+      state.categorySettings.categories.status = Status.LOADED;
+      state.categorySettings.categories.data = action.payload;
+    },
+    getCategoriesError: (state) => {
+      state.categorySettings.categories.status = Status.ERROR;
+    },
+
+    addCategoriesRequest: (
+      state,
+      action: PayloadAction<AddCategoriesRequestPayload>
+    ) => {
+      state.categorySettings.addCategories.status = Status.LOADING;
+    },
+    addCategoriesSuccess: (state) => {
+      state.categorySettings.addCategories.status = Status.LOADED;
+    },
+    addCategoriesError: (state) => {
+      state.categorySettings.addCategories.status = Status.ERROR;
+    },
+
+    removeCategoryRequest: (
+      state,
+      action: PayloadAction<RemoveCategoryRequestPayload>
+    ) => {
+      state.categorySettings.removeCategory.status = Status.LOADING;
+    },
+    removeCategorySuccess: (state) => {
+      state.categorySettings.removeCategory.status = Status.LOADED;
+    },
+    removeCategoryError: (state) => {
+      state.categorySettings.removeCategory.status = Status.ERROR;
+    },
   },
 });
 
@@ -156,5 +212,17 @@ export const {
   resetEditedLocation,
 
   setSelectedLocationId,
+
+  getCategoriesError,
+  getCategoriesRequest,
+  getCategoriesSuccess,
+
+  addCategoriesRequest,
+  addCategoriesError,
+  addCategoriesSuccess,
+
+  removeCategoryRequest,
+  removeCategoryError,
+  removeCategorySuccess,
 } = accountSlice.actions;
 export default accountSlice.reducer;

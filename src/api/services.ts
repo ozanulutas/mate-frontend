@@ -52,11 +52,9 @@ export const registerApi = (data: RegisterRequestPayload) =>
 
 // Category
 
-export const categorySearchApi = ({ name }: GetCategoriesRequestPayload) =>
-  request.get(Endpoint.Category.SEARCH, {
-    params: {
-      name,
-    },
+export const categorySearchApi = (params: GetCategoriesRequestPayload) =>
+  request.get(Endpoint.Category.GET, {
+    params,
   });
 
 export const getCategoriesApi = () => request.get(Endpoint.User.GET_CATEGORIES);
@@ -64,9 +62,11 @@ export const getCategoriesApi = () => request.get(Endpoint.User.GET_CATEGORIES);
 export const addCategoriesApi = (data: AddCategoriesRequestPayload) =>
   request.post(Endpoint.User.ADD_CATEGORIES, data);
 
-export const removeCategoryApi = (categoryId: RemoveCategoryRequestPayload) =>
+export const removeCategoryApi = (
+  userCategoryId: RemoveCategoryRequestPayload
+) =>
   request.delete(
-    replacePathParams(Endpoint.User.REMOVE_CATEGORY, { categoryId })
+    replacePathParams(Endpoint.User.REMOVE_CATEGORY, { userCategoryId })
   );
 
 // User

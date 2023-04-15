@@ -1,8 +1,11 @@
 import { call, put, race, take, takeLatest } from "redux-saga/effects";
 
 import {
+  addCategoriesApi,
   addLocationApi,
+  getCategoriesApi,
   getLocationsApi,
+  removeCategoryApi,
   removeLocationApi,
   updateLocationApi,
 } from "src/api/services";
@@ -24,6 +27,15 @@ import {
   updateSelectedLocationError,
   updateSelectedLocationRequest,
   setSelectedLocationId,
+  addCategoriesError,
+  addCategoriesRequest,
+  addCategoriesSuccess,
+  getCategoriesError,
+  getCategoriesSuccess,
+  removeCategoryError,
+  removeCategorySuccess,
+  removeCategoryRequest,
+  getCategoriesRequest,
 } from "./slice";
 import {
   negativeButtonClick,
@@ -31,6 +43,7 @@ import {
   toggleModal,
 } from "src/components/Modal/slice";
 import { ModalKey } from "src/components/Modal/constants";
+import { resetCategories } from "../Explore/slice";
 
 function* getLocationsRequestSaga() {
   yield call(
@@ -115,6 +128,43 @@ function* removeLocationSuccessSaga() {
   yield put(toggleModal(ModalKey.REMOVE_LOCATION_CONFIRMATION));
 }
 
+function* getCategoriesRequestSaga() {
+  yield call(
+    handleRequest,
+    { success: getCategoriesSuccess, error: getCategoriesError },
+    getCategoriesApi
+  );
+}
+
+function* addCategoriesRequestSaga(
+  action: ReturnType<typeof addCategoriesRequest>
+) {
+  yield call(
+    handleRequest,
+    { success: addCategoriesSuccess, error: addCategoriesError },
+    addCategoriesApi,
+    action.payload
+  );
+}
+function* addCategoriesSuccessSaga() {
+  yield put(resetCategories());
+  yield put(getCategoriesRequest());
+}
+
+function* removeCategoryRequestSaga(
+  action: ReturnType<typeof removeCategoryRequest>
+) {
+  yield call(
+    handleRequest,
+    { success: removeCategorySuccess, error: removeCategoryError },
+    removeCategoryApi,
+    action.payload
+  );
+}
+function* removeCategorySuccessSaga() {
+  yield put(getCategoriesRequest());
+}
+
 function* authSaga() {
   yield takeLatest(addLocationRequest.type, addLocationRequestSaga);
   yield takeLatest(addLocationSuccess.type, addLocationSuccessSaga);
@@ -131,6 +181,12 @@ function* authSaga() {
   yield takeLatest(removeLocationRequest.type, removeLocationRequestSaga);
   yield takeLatest(removeLocationSuccess.type, removeLocationSuccessSaga);
   yield takeLatest(getLocationsRequest.type, getLocationsRequestSaga);
+
+  yield takeLatest(getCategoriesRequest.type, getCategoriesRequestSaga);
+  yield takeLatest(addCategoriesRequest.type, addCategoriesRequestSaga);
+  yield takeLatest(addCategoriesSuccess.type, addCategoriesSuccessSaga);
+  yield takeLatest(removeCategoryRequest.type, removeCategoryRequestSaga);
+  yield takeLatest(removeCategorySuccess.type, removeCategorySuccessSaga);
 }
 
 export default authSaga;
