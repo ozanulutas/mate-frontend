@@ -5,6 +5,7 @@ import {
   AccountState,
   AddCategoriesRequestPayload,
   AddLocationRequestPayload,
+  ChangePasswordRequestPayload,
   RemoveCategoryRequestPayload,
   RemoveLocationRequestPayload,
   UpdateLocationRequestPayload,
@@ -43,6 +44,11 @@ const initialState: AccountState = {
       status: Status.INIT,
     },
     removeCategory: {
+      status: Status.INIT,
+    },
+  },
+  securitySettings: {
+    changePassword: {
       status: Status.INIT,
     },
   },
@@ -184,6 +190,19 @@ export const accountSlice = createSlice({
     removeCategoryError: (state) => {
       state.categorySettings.removeCategory.status = Status.ERROR;
     },
+
+    changePasswordRequest: (
+      state,
+      action: PayloadAction<ChangePasswordRequestPayload>
+    ) => {
+      state.securitySettings.changePassword.status = Status.LOADING;
+    },
+    changePasswordSuccess: (state) => {
+      state.securitySettings.changePassword.status = Status.LOADED;
+    },
+    changePasswordError: (state) => {
+      state.securitySettings.changePassword.status = Status.ERROR;
+    },
   },
 });
 
@@ -224,5 +243,9 @@ export const {
   removeCategoryRequest,
   removeCategoryError,
   removeCategorySuccess,
+
+  changePasswordRequest,
+  changePasswordError,
+  changePasswordSuccess,
 } = accountSlice.actions;
 export default accountSlice.reducer;

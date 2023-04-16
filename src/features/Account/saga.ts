@@ -3,6 +3,7 @@ import { call, put, race, take, takeLatest } from "redux-saga/effects";
 import {
   addCategoriesApi,
   addLocationApi,
+  changePasswordApi,
   getCategoriesApi,
   getLocationsApi,
   removeCategoryApi,
@@ -36,6 +37,9 @@ import {
   removeCategorySuccess,
   removeCategoryRequest,
   getCategoriesRequest,
+  changePasswordError,
+  changePasswordRequest,
+  changePasswordSuccess,
 } from "./slice";
 import {
   negativeButtonClick,
@@ -165,6 +169,17 @@ function* removeCategorySuccessSaga() {
   yield put(getCategoriesRequest());
 }
 
+function* changePasswordRequestSaga(
+  action: ReturnType<typeof changePasswordRequest>
+) {
+  yield call(
+    handleRequest,
+    { success: changePasswordSuccess, error: changePasswordError },
+    changePasswordApi,
+    action.payload
+  );
+}
+
 function* authSaga() {
   yield takeLatest(addLocationRequest.type, addLocationRequestSaga);
   yield takeLatest(addLocationSuccess.type, addLocationSuccessSaga);
@@ -187,6 +202,8 @@ function* authSaga() {
   yield takeLatest(addCategoriesSuccess.type, addCategoriesSuccessSaga);
   yield takeLatest(removeCategoryRequest.type, removeCategoryRequestSaga);
   yield takeLatest(removeCategorySuccess.type, removeCategorySuccessSaga);
+
+  yield takeLatest(changePasswordRequest.type, changePasswordRequestSaga);
 }
 
 export default authSaga;

@@ -7,8 +7,9 @@ export const Endpoint = {
     GET: "/categories",
   },
   User: {
-    GET: "/users/:userId",
-    SEARCH: "/users/search",
+    GET: "/users",
+    UPDATE: "/users/me",
+    FIND: "/users/:userId",
     ADD_LOCATION: "/users/me/locations",
     UPDATE_LOCATION: "/users/me/locations/:locationId",
     REMOVE_LOCATION: "/users/me/locations/:locationId",

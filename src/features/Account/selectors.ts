@@ -6,6 +6,8 @@ export const selectLocationSettings = (state: RootState) =>
   state.account.locationSettings;
 export const selectCategorySettings = (state: RootState) =>
   state.account.categorySettings;
+export const selectSecuritySettings = (state: RootState) =>
+  state.account.securitySettings;
 
 export const selectLocations = createSelector(
   selectLocationSettings,
@@ -24,10 +26,15 @@ export const selectEditedLocation = createSelector(
 
 export const selectUserCategories = createSelector(
   selectCategorySettings,
-  (cateforySettings) => cateforySettings.categories.data
+  (categorySettings) => categorySettings.categories.data
 );
 
 export const selectAddCategoriesStatus = createSelector(
   selectCategorySettings,
-  (cateforySettings) => cateforySettings.addCategories.status
+  (categorySettings) => categorySettings.addCategories.status
+);
+
+export const selectChangePasswordStatus = createSelector(
+  selectSecuritySettings,
+  (securitySettings) => securitySettings.changePassword.status
 );

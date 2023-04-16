@@ -34,6 +34,11 @@ export interface AccountState {
       status: Status;
     };
   };
+  securitySettings: {
+    changePassword: {
+      status: Status;
+    };
+  };
 }
 
 export type AddLocationRequestPayload = {
@@ -49,3 +54,8 @@ export type UpdateSelectedLocationRequestPayload = Location["id"];
 
 export type AddCategoriesRequestPayload = { categoryIds: Category["id"][] };
 export type RemoveCategoryRequestPayload = number;
+
+export type ChangePasswordRequestPayload = {
+  password: string;
+  oldPassword: string;
+};

@@ -2,6 +2,7 @@ import { FriendshipStatus } from "src/constants";
 import {
   AddCategoriesRequestPayload,
   AddLocationRequestPayload,
+  ChangePasswordRequestPayload,
   RemoveCategoryRequestPayload,
   RemoveLocationRequestPayload,
   UpdateLocationRequestPayload,
@@ -72,12 +73,13 @@ export const removeCategoryApi = (
 // User
 
 export const getUserApi = (userId: GetUserRequestPayload) =>
-  request.get(replacePathParams(Endpoint.User.GET, { userId }));
+  request.get(replacePathParams(Endpoint.User.FIND, { userId }));
 
 export const getUsersApi = (params: GetUsersRequestPayload) =>
-  request.get(Endpoint.User.SEARCH, { params });
+  request.get(Endpoint.User.GET, { params });
 
-export const getFeedApi = () => request.get(Endpoint.User.GET_FEED);
+export const changePasswordApi = (data: ChangePasswordRequestPayload) =>
+  request.patch(Endpoint.User.UPDATE, data);
 
 // Locations
 
@@ -171,6 +173,8 @@ export const getPostsApi = (userId: GetPostsRequestPayload) =>
 
 export const createPostApi = (data: CreatePostRequestPayload) =>
   request.post(Endpoint.User.CREATE_POST, data);
+
+export const getFeedApi = () => request.get(Endpoint.User.GET_FEED);
 
 // Init
 

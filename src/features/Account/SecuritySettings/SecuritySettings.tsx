@@ -1,5 +1,11 @@
+import ChangePasswordForm from "./ChangePasswordForm/ChangePasswordForm";
+
 function SecuritySettings() {
-  return <div>SecuritySettings</div>;
+  return (
+    <>
+      <ChangePasswordForm />
+    </>
+  );
 }
 
 export default SecuritySettings;
