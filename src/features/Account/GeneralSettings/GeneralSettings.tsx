@@ -27,7 +27,6 @@ function GeneralSettings() {
       component="form"
       noValidate
       // onSubmit={handleSubmit(onSubmit)}
-      sx={{ mt: 3 }}
     >
       <Controller
         name="email"
