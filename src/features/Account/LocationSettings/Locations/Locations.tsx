@@ -2,13 +2,10 @@ import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectLocations, selectSelectedLocationId } from "../../selectors";
+import { updateSelectedLocationRequest } from "../../slice";
 
 import { Divider, List, RadioGroup } from "@mui/material";
 import Location from "./Location";
-import {
-  setSelectedLocationId,
-  updateSelectedLocationRequest,
-} from "../../slice";
 
 function Locations() {
   const dispatch = useDispatch();
@@ -16,9 +13,7 @@ function Locations() {
   const selectedLocationId = useSelector(selectSelectedLocationId);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
     dispatch(updateSelectedLocationRequest(+e.target.value));
-    // dispatch(setSelectedLocationId(+e.target.value));
   };
 
   return (

@@ -29,8 +29,8 @@ const LocationSelect = ({
 
   return (
     <FormControl error={!!error} sx={sx}>
-      <InputLabel id="location-select-label">Location</InputLabel>
-      <Select {...field} labelId="location-select-label" label="Location">
+      <InputLabel>Location</InputLabel>
+      <Select {...field} label="Location">
         {distanceSlider}
         <MenuItem value={0}>Current Location</MenuItem>
         {locations.map((location) => (

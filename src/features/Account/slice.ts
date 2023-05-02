@@ -33,7 +33,7 @@ const initialState: AccountState = {
     },
     editedLocation: {} as AccountState["locationSettings"]["editedLocation"],
     selectedLocationId:
-      {} as AccountState["locationSettings"]["selectedLocationId"],
+      null as unknown as AccountState["locationSettings"]["selectedLocationId"],
   },
   categorySettings: {
     categories: {

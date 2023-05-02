@@ -21,6 +21,7 @@ import Link from "src/components/Link";
 import NotificationsButton from "./NotificationsButton";
 import MessagesButton from "./MessagesButton";
 import FriendshipRequestsButton from "./FriendshipRequestsButton/FriendshipRequestsButton";
+import SelectLocation from "src/features/Explore/Search/SelectLocation";
 
 export default function AppBar() {
   const dispatch = useDispatch();
@@ -29,13 +30,22 @@ export default function AppBar() {
     <MuiAppBar position="sticky">
       <Container>
         <Toolbar disableGutters sx={{ px: 0, justifyContent: "space-between" }}>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 5,
+            }}
           >
-            MATE
-          </Typography>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ display: { xs: "none", sm: "block" } }}
+            >
+              MATE
+            </Typography>
+            <SelectLocation />
+          </Box>
           <Box
             sx={{
               display: "flex",

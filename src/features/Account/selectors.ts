@@ -24,6 +24,13 @@ export const selectEditedLocation = createSelector(
   (locationSettings) => locationSettings.editedLocation
 );
 
+export const selectSelectedLocation = createSelector(
+  selectLocations,
+  selectSelectedLocationId,
+  (locations, selectedLocationId) =>
+    locations.find((location) => location.id === selectedLocationId)
+);
+
 export const selectUserCategories = createSelector(
   selectCategorySettings,
   (categorySettings) => categorySettings.categories.data

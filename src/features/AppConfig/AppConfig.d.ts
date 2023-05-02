@@ -1,4 +1,4 @@
-import { User } from "src/types";
+import { Location, User } from "src/types";
 import { UnreadChatInfo } from "../Chat/Chat";
 
 export interface AppConfigState {
@@ -10,4 +10,5 @@ export type AppConfigSuccessPayload = {
   unviewedNotificationCount: number;
   friendshipRequestCount: number;
   unreadChatInfo: UnreadChatInfo[];
+  selectedLocationId: Location["id"];
 };
