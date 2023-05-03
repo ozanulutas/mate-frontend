@@ -1,18 +1,26 @@
-import { ControllerRenderProps } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { SliderUnstyledOwnProps } from "@mui/base";
+
+import { setSearchDistance } from "../../slice";
+import { selectSearchDistance } from "../../selectors";
 
 import { Slider } from "@mui/material";
 
-type DistanceSliderProps = {
-  field: ControllerRenderProps<any, any>;
-};
+function DistanceSlider() {
+  const dispatch = useDispatch();
+  const searchDistance = useSelector(selectSearchDistance);
 
-function DistanceSlider({ field }: DistanceSliderProps) {
+  const handleChange: SliderUnstyledOwnProps["onChangeCommitted"] = (
+    event,
+    value
+  ) => {
+    dispatch(setSearchDistance(value as number));
+  };
+
   return (
     <Slider
-      {...field}
-      aria-label="Temperature"
-      defaultValue={30}
-      // getAriaValueText={valuetext}
+      onChangeCommitted={handleChange}
+      defaultValue={searchDistance}
       valueLabelDisplay="auto"
       step={10}
       marks

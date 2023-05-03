@@ -1,4 +1,4 @@
-import { call, delay, takeLatest } from "redux-saga/effects";
+import { call, delay, select, takeLatest } from "redux-saga/effects";
 
 import { categorySearchApi, getUsersApi } from "src/api/services";
 import { handleRequest } from "src/redux/saga/handleRequest";
@@ -10,6 +10,8 @@ import {
   getUsersError,
   getUsersRequest,
 } from "./slice";
+import { selectSearchDistance } from "./selectors";
+import { selectSelectedLocation } from "../Account/selectors";
 
 function* getCategoriesRequestSaga(
   action: ReturnType<typeof getCategoriesRequest>
@@ -25,11 +27,27 @@ function* getCategoriesRequestSaga(
 }
 
 function* getUsersRequestSaga(action: ReturnType<typeof getUsersRequest>) {
+  const distance: ReturnType<typeof selectSearchDistance> = yield select(
+    selectSearchDistance
+  );
+  const selectedLocation: ReturnType<typeof selectSelectedLocation> =
+    yield select(selectSelectedLocation);
+
+  const categories = action.payload;
+  const [lon, lat] = selectedLocation?.geojson.coordinates ?? [];
+
+  const reqPayload = {
+    lon,
+    lat,
+    categories,
+    distance: distance * 1000,
+  };
+
   yield call(
     handleRequest,
     { success: getUsersSuccess, error: getUsersError },
     getUsersApi,
-    action.payload
+    reqPayload
   );
 }
 

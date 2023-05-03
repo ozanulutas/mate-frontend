@@ -15,6 +15,7 @@ export interface ExploreState {
     reason: Error;
   };
   selectedCategories: Category["id"][];
+  searchDistance: number;
   view: keyof typeof View;
 }
 

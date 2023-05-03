@@ -21,6 +21,7 @@ const initialState: ExploreState = {
     reason: {},
   },
   selectedCategories: [],
+  searchDistance: 10,
   view: View.MAP,
 };
 
@@ -56,7 +57,10 @@ export const exploreSlice = createSlice({
       state.categories.data = initialState.categories.data;
     },
 
-    getUsersRequest: (state, action: PayloadAction<GetUsersRequestPayload>) => {
+    getUsersRequest: (
+      state,
+      action: PayloadAction<GetUsersRequestPayload["categories"]>
+    ) => {
       state.users.status = Status.LOADING;
       state.users.reason = initialState.users.reason;
     },
@@ -75,6 +79,12 @@ export const exploreSlice = createSlice({
     setView: (state, action: PayloadAction<keyof typeof View>) => {
       state.view = action.payload;
     },
+    setSearchDistance: (
+      state,
+      action: PayloadAction<ExploreState["searchDistance"]>
+    ) => {
+      state.searchDistance = action.payload;
+    },
   },
 });
 
@@ -90,5 +100,6 @@ export const {
   getUsersSuccess,
 
   setView,
+  setSearchDistance,
 } = exploreSlice.actions;
 export default exploreSlice.reducer;

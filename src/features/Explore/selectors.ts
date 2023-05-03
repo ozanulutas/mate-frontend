@@ -23,3 +23,8 @@ export const selectView = createSelector(
   selectExplore,
   (explore) => explore.view
 );
+
+export const selectSearchDistance = createSelector(
+  selectExplore,
+  (explore) => explore.searchDistance
+);

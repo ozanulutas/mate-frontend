@@ -12,10 +12,8 @@ import {
 } from "src/features/Explore/slice";
 
 import { Search as SearchIcon } from "@mui/icons-material";
-import { Box, Button, Stack } from "@mui/material";
-import LocationSelect from "./LocationSelect";
+import { Button, Stack } from "@mui/material";
 import CategorySearch from "./CategorySearch";
-import DistanceSlider from "./DistanceSlider";
 
 function Search() {
   const dispatch = useDispatch();
@@ -23,28 +21,14 @@ function Search() {
   const { control, handleSubmit } = useForm({
     defaultValues: {
       categories: [],
-      coordinates: "",
-      distance: 20,
     },
     resolver: yupResolver(searchSchema),
   });
 
-  const onSubmit: SubmitHandler<SearchSchemaType> = ({
-    categories,
-    distance,
-    coordinates,
-  }) => {
-    const [lon, lat] = JSON.parse(coordinates);
+  const onSubmit: SubmitHandler<SearchSchemaType> = ({ categories }) => {
     const selectedCategories = categories.map((category) => category.id);
 
-    dispatch(
-      getUsersRequest({
-        lon,
-        lat,
-        categories: selectedCategories,
-        distance: distance * 1000,
-      })
-    );
+    dispatch(getUsersRequest(selectedCategories));
     dispatch(setSelectedCategories(selectedCategories));
   };
 
@@ -61,28 +45,6 @@ function Search() {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <CategorySearch
-            field={field}
-            error={error?.message}
-            sx={{ flex: 1 }}
-          />
-        )}
-      />
-      <Controller
-        name="coordinates"
-        control={control}
-        render={({ field, fieldState: { error } }) => (
-          <LocationSelect
-            distanceSlider={
-              <Controller
-                name="distance"
-                control={control}
-                render={({ field }) => (
-                  <Box sx={{ mx: 4, my: 5 }}>
-                    <DistanceSlider field={field} />
-                  </Box>
-                )}
-              />
-            }
             field={field}
             error={error?.message}
             sx={{ flex: 1 }}
