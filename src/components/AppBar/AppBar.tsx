@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { matchPath, useLocation } from "react-router-dom";
 
 import { Path } from "src/router/path";
 import { toggleDrawer } from "src/components/Drawer/slice";
@@ -25,6 +26,9 @@ import SelectLocation from "src/features/Explore/Search/SelectLocation";
 
 export default function AppBar() {
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const feedPath = matchPath({ path: Path.EXPLORE }, location.pathname);
 
   return (
     <MuiAppBar position="sticky">
@@ -44,7 +48,7 @@ export default function AppBar() {
             >
               MATE
             </Typography>
-            <SelectLocation />
+            {feedPath && <SelectLocation />}
           </Box>
           <Box
             sx={{
