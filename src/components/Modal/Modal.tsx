@@ -113,7 +113,9 @@ function Modal({
         )}
       </DialogTitle>
       <DialogContent sx={dialogContentSx}>
-        <DialogContentText id="dialog-description">{text}</DialogContentText>
+        {text && (
+          <DialogContentText id="dialog-description">{text}</DialogContentText>
+        )}
         {children}
       </DialogContent>
       {(positiveText || negativeText) && (
