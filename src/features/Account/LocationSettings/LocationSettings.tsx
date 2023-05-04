@@ -6,7 +6,7 @@ import { toggleModal } from "src/components/Modal/slice";
 import { ModalKey } from "src/components/Modal/constants";
 
 import { Add as AddIcon } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import AddLocationModal from "./AddLocationModal";
 import Locations from "./Locations";
 import RemoveLocationConfirmationModal from "./RemoveLocationConfirmationModal";
@@ -20,13 +20,15 @@ function LocationSettings() {
 
   return (
     <>
-      {/* TODO: style add button */}
-      <IconButton
-        aria-label="add"
-        onClick={() => dispatch(toggleModal(ModalKey.ADD_LOCATION))}
-      >
-        <AddIcon fontSize="inherit" />
-      </IconButton>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button
+          aria-label="add"
+          onClick={() => dispatch(toggleModal(ModalKey.ADD_LOCATION))}
+          startIcon={<AddIcon fontSize="inherit" />}
+        >
+          Add Location
+        </Button>
+      </Box>
       <Locations />
       <AddLocationModal />
       <RemoveLocationConfirmationModal />
