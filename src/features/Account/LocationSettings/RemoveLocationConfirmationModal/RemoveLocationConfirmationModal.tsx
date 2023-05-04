@@ -12,6 +12,7 @@ function RemoveLocationConfirmationModal() {
       displayClose={false}
       disableEscapeKeyDown
       disableBackdropClick
+      maxWidth="sm"
     >
       Are you sure you want to remove this location?
     </Modal>
