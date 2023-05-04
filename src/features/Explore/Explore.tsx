@@ -12,6 +12,7 @@ function Explore() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // @TODO: locationları çekmek yerine init requestinde location name yolla
     dispatch(getLocationsRequest());
   }, [dispatch]);
 
