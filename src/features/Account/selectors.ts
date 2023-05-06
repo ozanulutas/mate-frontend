@@ -14,9 +14,9 @@ export const selectLocations = createSelector(
   (locationSettings) => locationSettings.locations.data
 );
 
-export const selectSelectedLocationId = createSelector(
+export const selectSelectedLocation = createSelector(
   selectLocationSettings,
-  (locationSettings) => locationSettings.selectedLocationId
+  (locationSettings) => locationSettings.selectedLocation
 );
 
 export const selectEditedLocation = createSelector(
@@ -24,11 +24,11 @@ export const selectEditedLocation = createSelector(
   (locationSettings) => locationSettings.editedLocation
 );
 
-export const selectSelectedLocation = createSelector(
+export const selectSelectedLocationObj = createSelector(
   selectLocations,
-  selectSelectedLocationId,
-  (locations, selectedLocationId) =>
-    locations.find((location) => location.id === selectedLocationId)
+  selectSelectedLocation,
+  (locations, selectedLocation) =>
+    locations.find((location) => location.id === selectedLocation.id)
 );
 
 export const selectUserCategories = createSelector(

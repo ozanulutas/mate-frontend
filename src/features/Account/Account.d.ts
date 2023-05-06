@@ -20,7 +20,7 @@ export interface AccountState {
       status: Status;
     };
     editedLocation: Omit<Location, "isSelected">;
-    selectedLocationId: Location["id"];
+    selectedLocation: Pick<Location, "id" | "name">;
   };
   categorySettings: {
     categories: {

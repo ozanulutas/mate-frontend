@@ -10,5 +10,5 @@ export type AppConfigSuccessPayload = {
   unviewedNotificationCount: number;
   friendshipRequestCount: number;
   unreadChatInfo: UnreadChatInfo[];
-  selectedLocationId: Location["id"];
+  selectedLocation: Pick<Location, "id" | "name">;
 };

@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectLocations, selectSelectedLocationId } from "../../selectors";
+import { selectLocations, selectSelectedLocation } from "../../selectors";
 import { updateSelectedLocationRequest } from "../../slice";
 
 import { Divider, List, RadioGroup } from "@mui/material";
@@ -10,7 +10,7 @@ import Location from "./Location";
 function Locations() {
   const dispatch = useDispatch();
   const locations = useSelector(selectLocations);
-  const selectedLocationId = useSelector(selectSelectedLocationId);
+  const selectedLocation = useSelector(selectSelectedLocation);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(updateSelectedLocationRequest(+e.target.value));
@@ -20,7 +20,7 @@ function Locations() {
     <RadioGroup
       name="location"
       onChange={handleChange}
-      value={selectedLocationId}
+      value={selectedLocation?.id}
     >
       <List>
         {locations.map(({ geojson, id, name, isSelected }) => (

@@ -11,7 +11,7 @@ import {
   getUsersRequest,
 } from "./slice";
 import { selectSearchDistance } from "./selectors";
-import { selectSelectedLocation } from "../Account/selectors";
+import { selectSelectedLocationObj } from "../Account/selectors";
 
 function* getCategoriesRequestSaga(
   action: ReturnType<typeof getCategoriesRequest>
@@ -30,8 +30,8 @@ function* getUsersRequestSaga(action: ReturnType<typeof getUsersRequest>) {
   const distance: ReturnType<typeof selectSearchDistance> = yield select(
     selectSearchDistance
   );
-  const selectedLocation: ReturnType<typeof selectSelectedLocation> =
-    yield select(selectSelectedLocation);
+  const selectedLocation: ReturnType<typeof selectSelectedLocationObj> =
+    yield select(selectSelectedLocationObj);
 
   const categories = action.payload;
   const [lon, lat] = selectedLocation?.geojson.coordinates ?? [];

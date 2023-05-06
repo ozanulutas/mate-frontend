@@ -4,7 +4,7 @@ import { ModalKey } from "src/components/Modal/constants";
 import { toggleModal } from "src/components/Modal/slice";
 
 import { Add as AddIcon } from "@mui/icons-material";
-import { Box, IconButton, Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Modal from "src/components/Modal";
 import Locations from "src/features/Account/LocationSettings/Locations";
 import DistanceSlider from "../../DistanceSlider";

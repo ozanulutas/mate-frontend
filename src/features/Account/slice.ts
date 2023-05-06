@@ -32,8 +32,8 @@ const initialState: AccountState = {
       status: Status.INIT,
     },
     editedLocation: {} as AccountState["locationSettings"]["editedLocation"],
-    selectedLocationId:
-      null as unknown as AccountState["locationSettings"]["selectedLocationId"],
+    selectedLocation:
+      null as unknown as AccountState["locationSettings"]["selectedLocation"],
   },
   categorySettings: {
     categories: {
@@ -92,7 +92,7 @@ export const accountSlice = createSlice({
     },
     updateSelectedLocationSuccess: (
       state,
-      action: PayloadAction<Pick<Location, "id">>
+      action: PayloadAction<Pick<Location, "id" | "name">>
     ) => {
       state.locationSettings.updateSelectedLocation.status = Status.LOADED;
     },
@@ -140,13 +140,13 @@ export const accountSlice = createSlice({
         initialState.locationSettings.editedLocation;
     },
 
-    setSelectedLocationId: (
+    setSelectedLocation: (
       state,
       action: PayloadAction<
-        AccountState["locationSettings"]["selectedLocationId"]
+        AccountState["locationSettings"]["selectedLocation"]
       >
     ) => {
-      state.locationSettings.selectedLocationId = action.payload;
+      state.locationSettings.selectedLocation = action.payload;
     },
 
     getCategoriesRequest: (state) => {
@@ -230,7 +230,7 @@ export const {
   setEditedLocation,
   resetEditedLocation,
 
-  setSelectedLocationId,
+  setSelectedLocation,
 
   getCategoriesError,
   getCategoriesRequest,

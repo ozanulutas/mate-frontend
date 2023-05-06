@@ -27,7 +27,7 @@ import {
   updateSelectedLocationSuccess,
   updateSelectedLocationError,
   updateSelectedLocationRequest,
-  setSelectedLocationId,
+  setSelectedLocation,
   addCategoriesError,
   addCategoriesRequest,
   addCategoriesSuccess,
@@ -106,7 +106,7 @@ function* updateSelectedLocationRequestSaga(
 function* updateSelectedLocationSuccessSaga(
   action: ReturnType<typeof updateSelectedLocationSuccess>
 ) {
-  yield put(setSelectedLocationId(action.payload.id));
+  yield put(setSelectedLocation(action.payload));
 }
 
 function* removeLocationRequestSaga(

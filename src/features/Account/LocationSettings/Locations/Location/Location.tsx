@@ -5,7 +5,7 @@ import { Location as ILocation } from "src/types";
 import {
   removeLocationRequest,
   setEditedLocation,
-  setSelectedLocationId,
+  setSelectedLocation,
 } from "src/features/Account/slice";
 import { toggleModal } from "src/components/Modal/slice";
 import { ModalKey } from "src/components/Modal/constants";
@@ -27,9 +27,9 @@ function Location({ geojson, name, id, isSelected }: LocationProps) {
 
   useEffect(() => {
     if (isSelected) {
-      dispatch(setSelectedLocationId(id));
+      dispatch(setSelectedLocation({ id, name }));
     }
-  }, [dispatch, id, isSelected]);
+  }, [dispatch, id, isSelected, name]);
 
   const handleEditClick = () => {
     dispatch(setEditedLocation({ geojson, name, id }));

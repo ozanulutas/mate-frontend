@@ -6,7 +6,7 @@ import { setUnreadChatInfo } from "src/features/Chat/slice";
 import { setUnviewedNotificationCount } from "src/features/Notifications/slice";
 import { appConfigRequest, appConfigSuccess, setUser } from "./slice";
 import { setFriendshipRequestsCount } from "../Friendship/slice";
-import { setSelectedLocationId } from "../Account/slice";
+import { setSelectedLocation } from "../Account/slice";
 
 function* appConfigRequestSaga() {
   yield call(handleRequest, { success: appConfigSuccess }, initApi);
@@ -18,14 +18,14 @@ function* appConfigSuccessSaga(action: ReturnType<typeof appConfigSuccess>) {
     unviewedNotificationCount,
     friendshipRequestCount,
     user,
-    selectedLocationId,
+    selectedLocation,
   } = action.payload;
 
   yield put(setUnviewedNotificationCount(unviewedNotificationCount));
   yield put(setFriendshipRequestsCount(friendshipRequestCount));
   yield put(setUnreadChatInfo(unreadChatInfo));
   yield put(setUser(user));
-  yield put(setSelectedLocationId(selectedLocationId));
+  yield put(setSelectedLocation(selectedLocation));
 }
 
 function* appConfigSaga() {
