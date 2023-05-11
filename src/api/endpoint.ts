@@ -38,5 +38,8 @@ export const Endpoint = {
     GET_COMMENTS: "/posts/:postId/comments",
     CREATE_COMMENT: "/posts/:postId/comments",
   },
+  Gender: {
+    GET: "/genders",
+  },
   INIT: "/init",
 };

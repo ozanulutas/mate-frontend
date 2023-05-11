@@ -6,6 +6,7 @@ import {
   RemoveCategoryRequestPayload,
   RemoveLocationRequestPayload,
   UpdateLocationRequestPayload,
+  UpdateProfileRequestPayload,
 } from "src/features/Account/Account.d";
 import {
   LoginRequestPayload,
@@ -79,6 +80,9 @@ export const getUsersApi = (params: GetUsersRequestPayload) =>
   request.get(Endpoint.User.GET, { params });
 
 export const changePasswordApi = (data: ChangePasswordRequestPayload) =>
+  request.patch(Endpoint.User.UPDATE, data);
+
+export const updateProfileApi = (data: UpdateProfileRequestPayload) =>
   request.patch(Endpoint.User.UPDATE, data);
 
 // Locations
@@ -175,6 +179,10 @@ export const createPostApi = (data: CreatePostRequestPayload) =>
   request.post(Endpoint.User.CREATE_POST, data);
 
 export const getFeedApi = () => request.get(Endpoint.User.GET_FEED);
+
+// Genders
+
+export const getGendersApi = () => request.get(Endpoint.Gender.GET);
 
 // Init
 
