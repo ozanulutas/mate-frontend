@@ -1,5 +1,5 @@
 import { Status } from "src/constants";
-import { Category, Location } from "src/types";
+import { Category, Gender, Location } from "src/types";
 
 export interface AccountState {
   locationSettings: {
@@ -39,6 +39,15 @@ export interface AccountState {
       status: Status;
     };
   };
+  generalSettings: {
+    updateProfile: {
+      status: Status;
+    };
+    genders: {
+      data: Gender[];
+      status: Status;
+    };
+  };
 }
 
 export type AddLocationRequestPayload = {
@@ -59,3 +68,8 @@ export type ChangePasswordRequestPayload = {
   password: string;
   oldPassword: string;
 };
+
+export type UpdateProfileRequestPayload = Pick<
+  User,
+  "email" | "gsm" | "countryCode" | "birthday" | "genderId"
+>;

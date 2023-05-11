@@ -5,10 +5,12 @@ import {
   addLocationApi,
   changePasswordApi,
   getCategoriesApi,
+  getGendersApi,
   getLocationsApi,
   removeCategoryApi,
   removeLocationApi,
   updateLocationApi,
+  updateProfileApi,
 } from "src/api/services";
 import { handleRequest } from "src/redux/saga/handleRequest";
 import {
@@ -40,6 +42,12 @@ import {
   changePasswordError,
   changePasswordRequest,
   changePasswordSuccess,
+  updateProfileError,
+  updateProfileRequest,
+  updateProfileSuccess,
+  getGendersError,
+  getGendersSuccess,
+  getGendersRequest,
 } from "./slice";
 import {
   negativeButtonClick,
@@ -180,6 +188,25 @@ function* changePasswordRequestSaga(
   );
 }
 
+function* updateProfileRequestSaga(
+  action: ReturnType<typeof updateProfileRequest>
+) {
+  yield call(
+    handleRequest,
+    { success: updateProfileSuccess, error: updateProfileError },
+    updateProfileApi,
+    action.payload
+  );
+}
+
+function* getGendersRequestSaga() {
+  yield call(
+    handleRequest,
+    { success: getGendersSuccess, error: getGendersError },
+    getGendersApi
+  );
+}
+
 function* authSaga() {
   yield takeLatest(addLocationRequest.type, addLocationRequestSaga);
   yield takeLatest(addLocationSuccess.type, addLocationSuccessSaga);
@@ -204,6 +231,9 @@ function* authSaga() {
   yield takeLatest(removeCategorySuccess.type, removeCategorySuccessSaga);
 
   yield takeLatest(changePasswordRequest.type, changePasswordRequestSaga);
+
+  yield takeLatest(updateProfileRequest.type, updateProfileRequestSaga);
+  yield takeLatest(getGendersRequest.type, getGendersRequestSaga);
 }
 
 export default authSaga;

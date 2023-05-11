@@ -9,6 +9,7 @@ import {
   RemoveCategoryRequestPayload,
   RemoveLocationRequestPayload,
   UpdateLocationRequestPayload,
+  UpdateProfileRequestPayload,
   UpdateSelectedLocationRequestPayload,
 } from "./Account.d";
 import { Location } from "src/types";
@@ -49,6 +50,15 @@ const initialState: AccountState = {
   },
   securitySettings: {
     changePassword: {
+      status: Status.INIT,
+    },
+  },
+  generalSettings: {
+    updateProfile: {
+      status: Status.INIT,
+    },
+    genders: {
+      data: [],
       status: Status.INIT,
     },
   },
@@ -203,6 +213,33 @@ export const accountSlice = createSlice({
     changePasswordError: (state) => {
       state.securitySettings.changePassword.status = Status.ERROR;
     },
+
+    updateProfileRequest: (
+      state,
+      action: PayloadAction<UpdateProfileRequestPayload>
+    ) => {
+      state.generalSettings.updateProfile.status = Status.LOADING;
+    },
+    updateProfileSuccess: (state) => {
+      state.generalSettings.updateProfile.status = Status.LOADED;
+    },
+    updateProfileError: (state) => {
+      state.generalSettings.updateProfile.status = Status.ERROR;
+    },
+
+    getGendersRequest: (state) => {
+      state.generalSettings.genders.status = Status.LOADING;
+    },
+    getGendersSuccess: (
+      state,
+      action: PayloadAction<AccountState["generalSettings"]["genders"]["data"]>
+    ) => {
+      state.generalSettings.genders.status = Status.LOADED;
+      state.generalSettings.genders.data = action.payload;
+    },
+    getGendersError: (state) => {
+      state.generalSettings.genders.status = Status.ERROR;
+    },
   },
 });
 
@@ -247,5 +284,13 @@ export const {
   changePasswordRequest,
   changePasswordError,
   changePasswordSuccess,
+
+  updateProfileRequest,
+  updateProfileError,
+  updateProfileSuccess,
+
+  getGendersError,
+  getGendersRequest,
+  getGendersSuccess,
 } = accountSlice.actions;
 export default accountSlice.reducer;
