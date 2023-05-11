@@ -44,7 +44,7 @@ function ChangePasswordForm() {
         component="form"
         onSubmit={handleSubmit(onSubmit)}
         noValidate
-        spacing={2}
+        spacing={1.5}
       >
         <Controller
           name="oldPassword"

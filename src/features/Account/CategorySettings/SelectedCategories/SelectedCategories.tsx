@@ -14,8 +14,6 @@ function SelectedCategories() {
     dispatch(removeCategoryRequest(categoryId));
   };
 
-  console.log(categories);
-
   return (
     <List sx={{ display: "flex", gap: 0.5, flexWrap: "wrap" }}>
       {categories.map(({ id, name }) => (

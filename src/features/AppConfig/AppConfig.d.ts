@@ -2,11 +2,20 @@ import { Location, User } from "src/types";
 import { UnreadChatInfo } from "../Chat/Chat";
 
 export interface AppConfigState {
-  user: Pick<User, "id" | "username">;
+  user: Pick<
+    User,
+    | "id"
+    | "username"
+    | "birthday"
+    | "countryCode"
+    | "email"
+    | "genderId"
+    | "gsm"
+  >;
 }
 
 export type AppConfigSuccessPayload = {
-  user: Pick<User, "id" | "username">;
+  user: AppConfigState["user"];
   unviewedNotificationCount: number;
   friendshipRequestCount: number;
   unreadChatInfo: UnreadChatInfo[];

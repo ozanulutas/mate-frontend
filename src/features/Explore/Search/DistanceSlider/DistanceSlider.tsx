@@ -6,6 +6,17 @@ import { selectSearchDistance } from "../../selectors";
 
 import { Slider } from "@mui/material";
 
+const marks = [
+  {
+    value: 10,
+    label: "10 km",
+  },
+  {
+    value: 800,
+    label: "800 km",
+  },
+];
+
 function DistanceSlider() {
   const dispatch = useDispatch();
   const searchDistance = useSelector(selectSearchDistance);
@@ -21,9 +32,11 @@ function DistanceSlider() {
     <Slider
       onChangeCommitted={handleChange}
       defaultValue={searchDistance}
-      valueLabelDisplay="auto"
+      getAriaValueText={(val) => `${val} km`}
+      valueLabelFormat={(val) => `${val} km`}
+      valueLabelDisplay="on"
       step={10}
-      marks
+      marks={marks}
       min={10}
       max={800}
     />
