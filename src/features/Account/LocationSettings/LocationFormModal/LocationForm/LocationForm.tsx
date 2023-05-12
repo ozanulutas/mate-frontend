@@ -14,19 +14,19 @@ import { Location } from "src/types";
 import { Box, TextField } from "@mui/material";
 import { useEffect } from "react";
 
-type AddLocationFormProps = {
+type LocationFormProps = {
   markerRef: React.MutableRefObject<Marker>;
   formId: string;
   name: Location["name"];
   locationId: Location["id"];
 };
 
-const AddLocationForm = ({
+const LocationForm = ({
   formId,
   markerRef,
   name,
   locationId,
-}: AddLocationFormProps) => {
+}: LocationFormProps) => {
   const dispatch = useDispatch();
 
   const {
@@ -96,4 +96,4 @@ const AddLocationForm = ({
   );
 };
 
-export default AddLocationForm;
+export default LocationForm;

@@ -7,7 +7,7 @@ import { ModalKey } from "src/components/Modal/constants";
 
 import { Add as AddIcon } from "@mui/icons-material";
 import { Box, Button } from "@mui/material";
-import AddLocationModal from "./AddLocationModal";
+import LocationFormModal from "./LocationFormModal";
 import Locations from "./Locations";
 import RemoveLocationConfirmationModal from "./RemoveLocationConfirmationModal";
 
@@ -30,7 +30,7 @@ function LocationSettings() {
         </Button>
       </Box>
       <Locations />
-      <AddLocationModal />
+      <LocationFormModal />
       <RemoveLocationConfirmationModal />
     </>
   );

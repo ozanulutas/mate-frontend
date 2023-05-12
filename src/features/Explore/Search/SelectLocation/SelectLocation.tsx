@@ -1,6 +1,6 @@
 import SelectLocationButton from "./SelectLocationButton";
 import SelectLocationModal from "./SelectLocationModal";
-import AddLocationModal from "src/features/Account/LocationSettings/AddLocationModal";
+import LocationFormModal from "src/features/Account/LocationSettings/LocationFormModal";
 import RemoveLocationConfirmationModal from "src/features/Account/LocationSettings/RemoveLocationConfirmationModal";
 
 const SelectLocation = () => {
@@ -8,7 +8,7 @@ const SelectLocation = () => {
     <>
       <SelectLocationButton />
       <SelectLocationModal />
-      <AddLocationModal />
+      <LocationFormModal />
       <RemoveLocationConfirmationModal />
     </>
   );

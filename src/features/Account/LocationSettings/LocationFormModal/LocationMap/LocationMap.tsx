@@ -14,12 +14,12 @@ import { createMarker, vectorSource } from "src/components/Map/utils";
 import Interactions from "src/components/Map/Interactions";
 import ZoomControl from "src/components/Map/Controls/ZoomControl";
 
-type AddLocationMapProps = {
+type LocationMapProps = {
   markerRef: React.MutableRefObject<Marker>;
   coordinates: Location["geojson"]["coordinates"];
 };
 
-const AddLocationMap = ({ markerRef, coordinates }: AddLocationMapProps) => {
+const LocationMap = ({ markerRef, coordinates }: LocationMapProps) => {
   const iconCoordinates = fromLonLat(coordinates ?? [27.51029, 40.964498]);
   const iconFeature = createMarker({
     coordinates: iconCoordinates,
@@ -55,4 +55,4 @@ const AddLocationMap = ({ markerRef, coordinates }: AddLocationMapProps) => {
   );
 };
 
-export default AddLocationMap;
+export default LocationMap;

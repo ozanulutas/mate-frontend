@@ -6,13 +6,13 @@ import { ModalKey } from "src/components/Modal/constants";
 import { selectEditedLocation } from "../../selectors";
 
 import Modal from "src/components/Modal";
-import AddLocationMap from "./AddLocationMap";
-import AddLocationForm from "./AddLocationForm";
+import LocationMap from "./LocationMap";
+import LocationForm from "./LocationForm";
 import { resetEditedLocation } from "../../slice";
 
 const FORM_ID = "add-location-form";
 
-function AddLocationModal() {
+function LocationFormModal() {
   const dispatch = useDispatch();
   const markerRef = useRef(null as unknown as Marker);
   const { name, geojson, id } = useSelector(selectEditedLocation);
@@ -33,11 +33,8 @@ function AddLocationModal() {
       formId={FORM_ID}
       onClose={handleClose}
     >
-      <AddLocationMap
-        markerRef={markerRef}
-        coordinates={geojson?.coordinates}
-      />
-      <AddLocationForm
+      <LocationMap markerRef={markerRef} coordinates={geojson?.coordinates} />
+      <LocationForm
         formId={FORM_ID}
         markerRef={markerRef}
         locationId={id}
@@ -47,4 +44,4 @@ function AddLocationModal() {
   );
 }
 
-export default AddLocationModal;
+export default LocationFormModal;
