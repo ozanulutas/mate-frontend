@@ -3,27 +3,33 @@
 ## Search
 
 - Buttona tıklamadan onChange ile arama
+- Otomatik location saptama
 
 ## Feat
 
-- appbar'a adres seçim/ekleme konulabilir
 - User groups özelliği
-- Initial requestleri tek bir saga'da handle et
-- Sayfa/component çıkışında state'i sıfırla
-- Daha sağlam socket bağlantısı. Socket.io dökümanındaki örneğe bak
+- Event/Buluşma oluşturma
 - Düzgün app error sayfası
 - Düzgün loading
-- BE'de EP'leri user'dan ayır?
-- Event/Buluşma oluşturma
-- i18n
 - Loading states, skeleton
+- Autocomplete no content ve loading görünümü
+
+- i18n
+- Sayfa/component çıkışında state'i sıfırla
+- Daha sağlam socket bağlantısı. Socket.io dökümanındaki örneğe bak
 - Sayfa değiştiğinde modalı kapat
 - Modal açıksa url'e query yaz?
 - unauth ise login sayfasına at
-- client error mesajları
+- Client form validation error mesajları
+- Login olduktan sonra ana sayfa yönlendirmesi
+
+## Refactor
+
 - BE userId decorator güvenlik düzenlemesi
+- BE'de EP'leri user'dan ayır?
+- Initial requestleri tek bir saga'da handle et
 - Category için ayrı bi feature oluşturulabilir
-- profil resmi
+- db'de selected location user üzerinde tutulabilir?
 
 ## Posts
 
@@ -40,7 +46,6 @@
 
 ## Account/Settings
 
-- General settings crud
-- AddLocation modal adını değiştir
+- Profil resmi
 - Görünürlük açma/kapama
 - Kalıcı mesafe arama ayarı?
