@@ -19,11 +19,14 @@ export const modalSlice = createSlice({
         ? state.keys.filter((key) => key !== modalKey)
         : [...state.keys, modalKey];
     },
+    resetModalKeys: (state) => {
+      state.keys = initialState.keys;
+    },
   },
 });
 
 export const positiveButtonClick = createAction("modal/positiveButtonClick");
 export const negativeButtonClick = createAction("modal/negativeButtonClick");
 
-export const { toggleModal } = modalSlice.actions;
+export const { toggleModal, resetModalKeys } = modalSlice.actions;
 export default modalSlice.reducer;
