@@ -2,50 +2,51 @@
 
 ## Search
 
-- Buttona tıklamadan onChange ile arama
-- Otomatik location saptama
+- [FE] Buttona tıklamadan onChange ile arama
+- [FE] Otomatik location saptama
 
 ## Feat
 
-- User groups özelliği
-- Event/Buluşma oluşturma
-- Düzgün app error sayfası
-- Düzgün loading
-- Loading states, skeleton
-- Autocomplete no content ve loading görünümü
+- [BE] User groups özelliği
+- [BE] Event/Buluşma oluşturma
+- [FE] Düzgün app error sayfası
+- [FE] Düzgün loading
+- [FE] Loading states, skeleton
+- [FE] Autocomplete no content ve loading görünümü
 
-- i18n
-- Sayfa/component çıkışında state'i sıfırla
-- Daha sağlam socket bağlantısı. Socket.io dökümanındaki örneğe bak
-- Sayfa değiştiğinde modalı kapat
-- Modal açıksa url'e query yaz?
-- unauth ise login sayfasına at
-- Client form validation error mesajları
-- Login olduktan sonra ana sayfa yönlendirmesi
+- [FE] i18n
+- [FE] Sayfa/component çıkışında state'i sıfırla
+- [BE] Daha sağlam socket bağlantısı. Socket.io dökümanındaki örneğe bak
+- [FE] Sayfa değiştiğinde modalı kapat
+- [FE] Modal açıksa url'e query yaz?
+- [FE] unauth ise login sayfasına at
+- [FE] Client form validation error mesajları
+- [FE] Login olduktan sonra ana sayfa yönlendirmesi
+- [BE] refresh token
 
 ## Refactor
 
-- BE userId decorator güvenlik düzenlemesi
-- BE'de EP'leri user'dan ayır?
-- Initial requestleri tek bir saga'da handle et
-- Category için ayrı bi feature oluşturulabilir
-- db'de selected location user üzerinde tutulabilir?
+- [BE] userId decorator güvenlik düzenlemesi
+- [BE] EP'leri user'dan ayır?
+- [FE] Initial requestleri tek bir saga'da handle et
+- [FE] Category için ayrı bi feature oluşturulabilir
+- [BE] db'de selected location user üzerinde tutulabilir?
 
 ## Posts
 
-- Feed ve Post klasörlerinin yerini değiştir, userdaki postları buraya taşı?
-- Post, feed, comment, message scroll pagination
-- Post beğenme, emoji bırakma
-- Post'a resim ekleme
+- [FE] Feed ve Post klasörlerinin yerini değiştir, userdaki postları buraya taşı?
+- [BE] Post, feed, comment, message scroll pagination
+- [BE] Post beğenme, emoji bırakma
+- [BE] Post'a resim ekleme
 
 ## Message
 
-- Scroll aşağıda değilken yeni mesaj geldiğinde kıpırdatma
-- Yeni satır ile gösterme
-- Tarihli sticky gösterme - https://mui.com/material-ui/react-app-bar/#bottom-app-bar
+- [FE] Scroll aşağıda değilken yeni mesaj geldiğinde kıpırdatma
+- [FE] Yeni satır ile gösterme
+- [FE] Tarihli sticky gösterme - https://mui.com/material-ui/react-app-bar/#bottom-app-bar
 
 ## Account/Settings
 
-- Profil resmi
-- Görünürlük açma/kapama
-- Kalıcı mesafe arama ayarı?
+- [BE] Profil resmi
+- [BE] Görünürlük açma/kapama
+- [BE] Kalıcı mesafe arama ayarı?
